@@ -33,6 +33,7 @@ export type MockReportData = {
     overlapAnswer: string;
     ladderChallenge: string;
     branchingTree: string;
+    geographyAnswer: string;
   };
   finalAnswer: string;
   reflection: {

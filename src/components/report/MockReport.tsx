@@ -20,6 +20,25 @@ const timelineBars = [
   { slug: "homo-naledi", start: 84, width: 8 },
 ];
 
+const geographyRegions = [
+  {
+    name: "Africa",
+    groups: ["A. afarensis", "H. habilis", "H. erectus", "H. heidelbergensis", "H. sapiens", "H. naledi"],
+  },
+  {
+    name: "Europe and western Asia",
+    groups: ["Neanderthals", "H. heidelbergensis", "H. sapiens"],
+  },
+  {
+    name: "Central and eastern Asia",
+    groups: ["Denisovans", "H. erectus", "H. sapiens"],
+  },
+  {
+    name: "Island Southeast Asia",
+    groups: ["H. floresiensis", "H. erectus"],
+  },
+];
+
 export function MockReport({ report }: MockReportProps) {
   const chosen = getRequiredHominin(report.student.chosenGroupSlug);
   const comparison = getRequiredHominin(report.student.comparisonGroupSlug);
@@ -36,7 +55,7 @@ export function MockReport({ report }: MockReportProps) {
         <ComparisonPage report={report} chosen={chosen} sapiens={sapiens} comparison={comparison} />
         <TimelinePage report={report} chosen={chosen} />
         <FinalArticlePage report={report} />
-        <ReflectionPage report={report} />
+        <ReflectionPage report={report} chosen={chosen} sapiens={sapiens} comparison={comparison} />
       </div>
     </div>
   );
@@ -68,11 +87,6 @@ function CoverPage({ report, chosen }: { report: MockReportData; chosen: Hominin
         className="report-cover-image"
       />
       <div className="report-cover-fade" />
-      <div className="report-cover-content">
-        <p className="report-cover-label">Fossils / Tools / DNA / Debate</p>
-        <h1>Ancient Human Relatives</h1>
-        <p>A Field Report on the Human Family Tree</p>
-      </div>
       <dl className="report-cover-details">
         <div>
           <dt>Student</dt>
@@ -100,7 +114,13 @@ function SpeciesFeaturePage({ report, chosen }: { report: MockReportData; chosen
     <ReportPage pageNumber={2} title="Species Feature" className="report-dark-page">
       <div className="report-feature-grid">
         <div className="report-poster-frame">
-          <Image src={chosen.posterImage} alt={chosen.imageCaption} fill sizes="88mm" className="object-cover" />
+          <Image
+            src={chosen.figureImage ?? chosen.posterImage}
+            alt={chosen.figureCaption ?? chosen.imageCaption}
+            fill
+            sizes="88mm"
+            className="object-cover"
+          />
         </div>
         <div>
           <ReportKicker>Species feature / Group {String(chosen.number).padStart(2, "0")}</ReportKicker>
@@ -131,6 +151,15 @@ function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Homi
     <ReportPage pageNumber={3} title="Evidence Dossier" className="report-paper-page">
       <ReportKicker>Evidence reviewed</ReportKicker>
       <ReportTitle>Evidence dossier: <i>{chosen.displayName}</i></ReportTitle>
+      <div className="report-evidence-banner">
+        <Image
+          src="/assets/report/evidence-dossier-banner.png"
+          alt="Fossil, stone tool, DNA and archaeology evidence graphic"
+          fill
+          sizes="174mm"
+          className="object-cover"
+        />
+      </div>
       <div className="report-evidence-grid">
         <ReportPanel title="Fossils" tone="gold"><p>{report.evidence.fossils}</p></ReportPanel>
         <ReportPanel title="Tools" tone="teal"><p>{report.evidence.tools}</p></ReportPanel>
@@ -146,12 +175,31 @@ function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Homi
 }
 
 function AdaptationsPage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
+  const activityImage = chosen.activityWideImage ?? chosen.activityImage;
+  const activityCaption = chosen.activityWideCaption ?? chosen.activityCaption;
+
   return (
     <ReportPage pageNumber={4} title="Life and Adaptations" className="report-dark-page">
       <ReportKicker>Evidence suggests / possible adaptation</ReportKicker>
       <ReportTitle>Life, body and survival</ReportTitle>
       <div className="report-adaptation-layout">
-        <div className="report-large-number">04</div>
+        {activityImage ? (
+          <div className="report-activity-frame">
+            <Image
+              src={activityImage}
+              alt={activityCaption ?? `${chosen.displayName} activity scene`}
+              fill
+              sizes="210mm"
+              className="object-cover"
+            />
+            <span>{activityCaption ?? `Activity scene: ${chosen.displayName}`}</span>
+          </div>
+        ) : (
+          <div className="report-figure-placeholder">
+            <strong>Reviewed figure needed</strong>
+            <span>A species-specific illustration should be added for {chosen.displayName} before real report export.</span>
+          </div>
+        )}
         <div className="report-adaptation-panels">
           <ReportPanel title="Body plan" tone="gold"><p>{chosen.bodyPlan}</p></ReportPanel>
           <ReportPanel title="Key feature" tone="teal"><p>{report.life.keyFeature}</p></ReportPanel>
@@ -174,11 +222,21 @@ function ComparisonPage({ report, chosen, sapiens, comparison }: { report: MockR
       <div className="report-comparison-grid">
         {[chosen, sapiens, comparison].map((group) => (
           <div className="report-profile-card" key={group.id}>
-            <div className="report-profile-image">
-              <Image src={group.posterImage} alt={group.imageCaption} fill sizes="50mm" className="object-cover" />
-            </div>
+            {group.madeImage ? (
+              <div className="report-profile-image">
+                <Image
+                  src={group.madeImage}
+                  alt={group.madeCaption ?? `${group.displayName} made or evidence image`}
+                  fill
+                  sizes="45mm"
+                  className="object-cover"
+                />
+              </div>
+            ) : null}
+            <span className="report-profile-number">{String(group.number).padStart(2, "0")}</span>
             <h3>{group.displayName}</h3>
             <p><strong>Dates:</strong> {group.dateRange}</p>
+            <p><strong>Place:</strong> {group.location}</p>
             <p><strong>Body:</strong> {group.bodyPlan}</p>
             <p><strong>Uncertainty:</strong> {group.uncertainty}</p>
           </div>
@@ -199,8 +257,16 @@ function ComparisonPage({ report, chosen, sapiens, comparison }: { report: MockR
 function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
   return (
     <ReportPage pageNumber={6} title="Timeline and Overlap" className="report-dark-page">
-      <ReportKicker>Many branches / overlapping timelines / one surviving species</ReportKicker>
+      <ReportKicker>Many branches / different places / overlapping timelines</ReportKicker>
       <ReportTitle>Timeline and overlap</ReportTitle>
+      <div className="report-geography-grid" aria-label="Broad geographic regions represented in the report">
+        {geographyRegions.map((region) => (
+          <div key={region.name}>
+            <h3>{region.name}</h3>
+            <p>{region.groups.join(" / ")}</p>
+          </div>
+        ))}
+      </div>
       <div className="report-timeline">
         {timelineBars.map((bar) => {
           const group = getRequiredHominin(bar.slug);
@@ -217,10 +283,14 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
           );
         })}
       </div>
-      <div className="report-two-column">
+      <div className="report-timeline-analysis">
         <ReportPanel title="Overlap evidence" tone="gold"><p>{report.timeline.overlapAnswer}</p></ReportPanel>
         <ReportPanel title="Why this challenges a ladder" tone="rust"><p>{report.timeline.ladderChallenge}</p><p>{report.timeline.branchingTree}</p></ReportPanel>
+        <ReportPanel title="Geography matters too" tone="teal"><p>{report.timeline.geographyAnswer}</p></ReportPanel>
       </div>
+      <p className="report-caution-note">
+        Broad regions only: this page does not claim precise migration routes.
+      </p>
     </ReportPage>
   );
 }
@@ -228,19 +298,53 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
 function FinalArticlePage({ report }: { report: MockReportData }) {
   return (
     <ReportPage pageNumber={7} title="Final Article" className="report-article-page">
-      <ReportKicker>Final evaluation</ReportKicker>
-      <h2>{report.articleTitle}</h2>
-      <blockquote>{report.oneSentenceJudgement}</blockquote>
-      <p>{report.finalAnswer}</p>
-      <aside>
-        <strong>Final judgement</strong>
-        <span>{report.oneSentenceJudgement}</span>
-      </aside>
+      <div className="report-article-layout">
+        <aside>
+          <strong>Final judgement</strong>
+          <span>{report.oneSentenceJudgement}</span>
+        </aside>
+        <article>
+          <ReportKicker>Final evaluation</ReportKicker>
+          <h2>{report.articleTitle}</h2>
+          <blockquote>{report.oneSentenceJudgement}</blockquote>
+          <p className="report-article-body">{report.finalAnswer}</p>
+        </article>
+      </div>
     </ReportPage>
   );
 }
 
-function ReflectionPage({ report }: { report: MockReportData }) {
+function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockReportData; chosen: Hominin; sapiens: Hominin; comparison: Hominin }) {
+  const usedImageKeys = new Set([
+    chosen.figureImage,
+    chosen.activityImage,
+    chosen.madeImage,
+    sapiens.madeImage,
+    comparison.madeImage,
+  ].filter(Boolean));
+
+  const unusedImages = hominins.flatMap((group) => [
+    group.activityImage
+      ? {
+          caption: group.activityCaption ?? `${group.displayName} activity scene`,
+          group,
+          src: group.activityImage,
+          type: "did",
+        }
+      : null,
+    group.madeImage
+      ? {
+          caption: group.madeCaption ?? `${group.displayName} made or evidence image`,
+          group,
+          src: group.madeImage,
+          type: "made",
+        }
+      : null,
+  ])
+    .filter((item): item is { caption: string; group: Hominin; src: string; type: string } => Boolean(item))
+    .filter((item) => !usedImageKeys.has(item.src))
+    .slice(0, 12);
+
   return (
     <ReportPage pageNumber={8} title="Reflection" className="report-back-page">
       <ReportKicker>Reflection / back cover</ReportKicker>
@@ -251,11 +355,24 @@ function ReflectionPage({ report }: { report: MockReportData }) {
             <span key={item}>{item}</span>
           ))}
         </div>
-        <div className="report-reflection-cards">
-          <ReportPanel title="Most interesting" tone="gold"><p>{report.reflection.mostInteresting}</p></ReportPanel>
-          <ReportPanel title="Still debated" tone="rust"><p>{report.reflection.stillDebated}</p></ReportPanel>
-          <ReportPanel title="Improvement target" tone="teal"><p>{report.reflection.improvementTarget}</p></ReportPanel>
+        <div className="report-evidence-mosaic">
+          {unusedImages.map((image) => (
+            <div key={`${image.group.id}-${image.type}`}>
+              <Image
+                src={image.src}
+                alt={image.caption}
+                fill
+                sizes="28mm"
+                className="object-cover"
+              />
+            </div>
+          ))}
         </div>
+      </div>
+      <div className="report-reflection-cards">
+        <ReportPanel title="Most interesting" tone="gold"><p>{report.reflection.mostInteresting}</p></ReportPanel>
+        <ReportPanel title="Still debated" tone="rust"><p>{report.reflection.stillDebated}</p></ReportPanel>
+        <ReportPanel title="Improvement target" tone="teal"><p>{report.reflection.improvementTarget}</p></ReportPanel>
       </div>
       <p className="report-closing-statement">
         Human evolution is not a straight road. It is a branching story built from fossils, tools, DNA and debate.

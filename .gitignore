@@ -5,3 +5,7 @@ dist
 *.log
 .env*
 !.env.example
+.chrome-profile/
+.edge-profile/
+report-vignettes-contact.png
+report-vignette-layout-check.png

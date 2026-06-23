@@ -20,5 +20,15 @@ export type Hominin = {
   pullQuote: string;
   reportCaption: string;
   posterImage: string;
+  figureImage?: string;
+  figureCaption?: string;
+  vignetteImage?: string;
+  vignetteCaption?: string;
+  madeImage?: string;
+  madeCaption?: string;
+  activityImage?: string;
+  activityCaption?: string;
+  activityWideImage?: string;
+  activityWideCaption?: string;
   imageCaption: string;
 };

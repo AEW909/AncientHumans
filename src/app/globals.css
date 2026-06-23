@@ -221,45 +221,9 @@ a {
 
 .report-cover-fade {
   background:
-    linear-gradient(90deg, rgba(5, 7, 13, 0.92) 0%, rgba(5, 7, 13, 0.66) 48%, rgba(5, 7, 13, 0.16) 100%),
-    linear-gradient(0deg, rgba(5, 7, 13, 0.86) 0%, transparent 44%);
+    linear-gradient(90deg, rgba(5, 7, 13, 0.48) 0%, rgba(5, 7, 13, 0.3) 48%, rgba(5, 7, 13, 0.08) 100%),
+    linear-gradient(0deg, rgba(5, 7, 13, 0.58) 0%, transparent 44%);
   z-index: 1;
-}
-
-.report-cover-content {
-  left: 18mm;
-  position: absolute;
-  right: 18mm;
-  top: 28mm;
-  z-index: 2;
-}
-
-.report-cover-label {
-  color: #d9a441;
-  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 13pt;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  margin: 0 0 8mm;
-  text-transform: uppercase;
-}
-
-.report-cover-content h1 {
-  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 58pt;
-  font-weight: 900;
-  line-height: 0.88;
-  margin: 0;
-  max-width: 125mm;
-  text-transform: uppercase;
-}
-
-.report-cover-content p:last-child {
-  font-size: 18pt;
-  font-weight: 800;
-  line-height: 1.2;
-  margin: 8mm 0 0;
-  max-width: 90mm;
 }
 
 .report-cover-details {
@@ -293,25 +257,26 @@ a {
 
 .report-feature-grid {
   display: grid;
-  gap: 8mm;
-  grid-template-columns: 74mm 1fr;
+  gap: 7mm;
+  grid-template-columns: 58mm minmax(0, 1fr);
 }
 
 .report-poster-frame {
   border: 1px solid rgba(255, 248, 234, 0.2);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.38);
-  min-height: 118mm;
+  min-height: 104mm;
   overflow: hidden;
   position: relative;
 }
 
 .report-feature-title {
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 39pt;
+  font-size: 27pt;
   font-weight: 900;
   line-height: 0.95;
   margin: 0;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .report-feature-subtitle {
@@ -326,10 +291,10 @@ a {
   border-left: 5px solid #d9a441;
   color: #fff8ea;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 22pt;
+  font-size: 18pt;
   font-weight: 900;
   line-height: 1.05;
-  margin: 8mm 0;
+  margin: 6mm 0;
   padding-left: 5mm;
 }
 
@@ -355,7 +320,7 @@ a {
 .report-fact-strip strong {
   color: rgba(255, 248, 234, 0.86);
   display: block;
-  font-size: 10.5pt;
+  font-size: 9.7pt;
   line-height: 1.35;
   margin-top: 1mm;
 }
@@ -369,40 +334,144 @@ a {
 
 .report-evidence-grid {
   display: grid;
-  gap: 5mm;
+  gap: 4mm;
   grid-template-columns: 1fr 1fr;
 }
 
-.report-adaptation-layout {
-  align-items: start;
-  display: grid;
-  gap: 8mm;
-  grid-template-columns: 42mm 1fr;
+.report-evidence-banner {
+  height: 42mm;
+  margin: 0 0 6mm;
+  overflow: hidden;
+  position: relative;
 }
 
-.report-large-number {
-  border-bottom: 3mm solid #d9a441;
-  color: rgba(255, 248, 234, 0.16);
+.report-adaptation-layout {
+  display: block;
+}
+
+.report-figure-frame,
+.report-activity-frame {
+  border: 1px solid rgba(255, 248, 234, 0.2);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.36);
+  overflow: hidden;
+  position: relative;
+}
+
+.report-figure-frame {
+  height: 128mm;
+}
+
+.report-activity-frame {
+  aspect-ratio: 16 / 9;
+  border: 0;
+  box-shadow: none;
+  margin: 0 -18mm;
+  width: calc(100% + 36mm);
+}
+
+.report-activity-frame::after {
+  background:
+    linear-gradient(90deg, #05070d 0%, transparent 8%, transparent 92%, #05070d 100%),
+    linear-gradient(0deg, #05070d 0%, transparent 14%, transparent 86%, #05070d 100%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.report-figure-frame span,
+.report-activity-frame span {
+  background: rgba(5, 7, 13, 0.78);
+  bottom: 0;
+  color: rgba(255, 248, 234, 0.75);
+  display: block;
+  font-size: 7.4pt;
+  font-weight: 800;
+  left: 0;
+  line-height: 1.25;
+  padding: 3mm;
+  position: absolute;
+  right: 0;
+}
+
+.report-activity-frame span {
+  background: rgba(5, 7, 13, 0.7);
+  border-left: 3px solid #d9a441;
+  bottom: auto;
+  display: block;
+  left: 22mm;
+  max-width: 74mm;
+  padding: 2.5mm 3mm;
+  right: auto;
+  top: 4mm;
+  z-index: 2;
+}
+
+.report-figure-placeholder {
+  align-items: start;
+  background: rgba(255, 248, 234, 0.08);
+  border: 1px dashed rgba(217, 164, 65, 0.55);
+  color: #fff8ea;
+  display: flex;
+  flex-direction: column;
+  gap: 3mm;
+  height: 128mm;
+  justify-content: end;
+  padding: 6mm;
+}
+
+.report-figure-placeholder strong {
+  color: #d9a441;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 88pt;
-  font-weight: 900;
-  line-height: 0.8;
+  font-size: 22pt;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.report-figure-placeholder span {
+  color: rgba(255, 248, 234, 0.78);
+  font-size: 10pt;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .report-adaptation-panels {
   display: grid;
-  gap: 5mm;
-  grid-template-columns: 1fr 1fr;
+  gap: 4mm;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: -4mm auto 0;
+  position: relative;
+  width: 158mm;
+  z-index: 3;
+}
+
+.report-adaptation-panels .report-panel {
+  background: rgba(255, 248, 234, 0.82);
+  backdrop-filter: blur(5px);
+  padding: 4mm;
+}
+
+.report-adaptation-panels .report-panel h3 {
+  font-size: 13.5pt;
+}
+
+.report-adaptation-panels .report-panel p {
+  font-size: 9.4pt;
+  line-height: 1.38;
 }
 
 .report-environment-strip {
   background: rgba(5, 7, 13, 0.64);
   border: 1px solid rgba(217, 164, 65, 0.34);
+  bottom: 24mm;
   color: rgba(255, 248, 234, 0.84);
-  font-size: 12pt;
-  line-height: 1.45;
-  margin-top: 9mm;
-  padding: 6mm;
+  font-size: 11pt;
+  left: 18mm;
+  line-height: 1.38;
+  padding: 5mm;
+  position: absolute;
+  right: 18mm;
 }
 
 .report-environment-strip strong {
@@ -417,22 +486,34 @@ a {
 }
 
 .report-profile-card {
-  background: white;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(217, 164, 65, 0.16), transparent 26mm),
+    white;
   border-top: 4px solid #d9a441;
   box-shadow: 0 14px 35px rgba(8, 20, 38, 0.12);
   padding: 4mm;
 }
 
 .report-profile-image {
-  aspect-ratio: 1 / 1;
-  margin-bottom: 3mm;
+  height: 32mm;
+  margin: -4mm -4mm 4mm;
   overflow: hidden;
   position: relative;
 }
 
+.report-profile-number {
+  color: #a3402a;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 24pt;
+  font-weight: 900;
+  line-height: 0.85;
+  margin-bottom: 3mm;
+}
+
 .report-profile-card h3 {
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 16pt;
+  font-size: 14pt;
   font-weight: 900;
   line-height: 1;
   margin: 0 0 3mm;
@@ -440,7 +521,7 @@ a {
 }
 
 .report-profile-card p {
-  font-size: 8.8pt;
+  font-size: 8.5pt;
   line-height: 1.32;
   margin: 0 0 2mm;
 }
@@ -464,8 +545,63 @@ a {
 
 .report-timeline {
   display: grid;
-  gap: 2.5mm;
-  margin: 8mm 0;
+  gap: 1.9mm;
+  margin: 5mm 0;
+}
+
+.report-timeline-analysis {
+  display: grid;
+  gap: 4mm;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 6mm;
+}
+
+.report-timeline-analysis .report-panel {
+  min-height: 48mm;
+  padding: 4.5mm;
+}
+
+.report-timeline-analysis .report-panel h3 {
+  font-size: 13pt;
+}
+
+.report-timeline-analysis .report-panel p {
+  font-size: 9.2pt;
+  line-height: 1.38;
+}
+
+.report-geography-grid {
+  display: grid;
+  gap: 3mm;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 0 5mm;
+}
+
+.report-geography-grid div {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(217, 164, 65, 0.18), transparent 20mm),
+    rgba(255, 248, 234, 0.08);
+  border-top: 3px solid #d9a441;
+  min-height: 34mm;
+  padding: 4mm;
+}
+
+.report-geography-grid h3 {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 13pt;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 3mm;
+  text-transform: uppercase;
+}
+
+.report-geography-grid p {
+  color: rgba(255, 248, 234, 0.76);
+  font-size: 8.4pt;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
 }
 
 .report-timeline-row {
@@ -483,7 +619,7 @@ a {
 
 .report-timeline-track {
   background: rgba(255, 248, 234, 0.1);
-  height: 5mm;
+  height: 4mm;
   overflow: hidden;
   position: relative;
 }
@@ -497,12 +633,33 @@ a {
   background: #d9a441;
 }
 
+.report-caution-note {
+  color: rgba(255, 248, 234, 0.58);
+  font-size: 8pt;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin: 3mm 0 0;
+  text-transform: uppercase;
+}
+
 .report-article-page {
   background:
-    linear-gradient(90deg, rgba(5, 7, 13, 0.95) 0%, rgba(5, 7, 13, 0.95) 34%, transparent 34%),
+    linear-gradient(90deg, rgba(5, 7, 13, 0.96) 0%, rgba(5, 7, 13, 0.96) 24%, transparent 24%),
     #fff8ea;
   color: #081426;
-  padding-left: 26mm;
+  padding: 18mm;
+}
+
+.report-article-layout {
+  display: grid;
+  gap: 8mm;
+  grid-template-columns: 30mm minmax(0, 1fr);
+}
+
+.report-article-page .report-page-footer {
+  border-color: rgba(8, 20, 38, 0.18);
+  color: #081426;
+  left: 56mm;
 }
 
 .report-article-page .report-kicker {
@@ -512,11 +669,11 @@ a {
 .report-article-page h2 {
   color: #081426;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 42pt;
+  font-size: 29pt;
   font-weight: 900;
-  line-height: 0.94;
-  margin: 0 0 6mm 48mm;
-  max-width: 105mm;
+  line-height: 0.98;
+  margin: 0 0 6mm;
+  max-width: 122mm;
   text-transform: uppercase;
 }
 
@@ -524,22 +681,22 @@ a {
   background: #d9a441;
   color: #05070d;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 16pt;
+  font-size: 12.6pt;
   font-weight: 900;
   line-height: 1.15;
-  margin: 0 0 7mm 48mm;
+  margin: 0 0 7mm;
   padding: 5mm;
 }
 
-.report-article-page p {
+.report-article-body {
   columns: 2;
-  column-gap: 8mm;
-  font-size: 11pt;
-  line-height: 1.58;
-  margin: 0 0 0 48mm;
+  column-gap: 7mm;
+  font-size: 9.9pt;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.report-article-page p::first-letter {
+.report-article-body::first-letter {
   color: #a3402a;
   float: left;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
@@ -552,18 +709,17 @@ a {
 .report-article-page aside {
   background: #081426;
   color: #fff8ea;
-  left: 18mm;
-  padding: 6mm;
-  position: absolute;
-  top: 54mm;
-  width: 52mm;
+  align-self: start;
+  border-left: 4px solid #d9a441;
+  margin-top: 42mm;
+  padding: 3.5mm;
 }
 
 .report-article-page aside strong {
   color: #d9a441;
   display: block;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 16pt;
+  font-size: 10.5pt;
   line-height: 1;
   margin-bottom: 4mm;
   text-transform: uppercase;
@@ -571,14 +727,15 @@ a {
 
 .report-article-page aside span {
   display: block;
-  font-size: 10pt;
+  font-size: 7.4pt;
   font-weight: 800;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .report-back-page {
   background:
-    radial-gradient(circle at 80% 20%, rgba(217, 164, 65, 0.18), transparent 45mm),
+    linear-gradient(90deg, rgba(5, 7, 13, 0.86), rgba(5, 7, 13, 0.46)),
+    url("/assets/report/back-cover-branches.png") center / cover,
     linear-gradient(160deg, #081426 0%, #05070d 100%);
   color: #fff8ea;
 }
@@ -586,7 +743,7 @@ a {
 .report-reflection-layout {
   display: grid;
   gap: 7mm;
-  grid-template-columns: 58mm 1fr;
+  grid-template-columns: 48mm 1fr;
 }
 
 .report-checklist {
@@ -607,14 +764,42 @@ a {
 .report-reflection-cards {
   display: grid;
   gap: 4mm;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 7mm;
+}
+
+.report-reflection-cards .report-panel {
+  padding: 4mm;
+}
+
+.report-reflection-cards .report-panel h3 {
+  font-size: 12pt;
+}
+
+.report-reflection-cards .report-panel p {
+  font-size: 8.8pt;
+  line-height: 1.38;
+}
+
+.report-evidence-mosaic {
+  display: grid;
+  gap: 2mm;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.report-evidence-mosaic div {
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 248, 234, 0.18);
+  overflow: hidden;
+  position: relative;
 }
 
 .report-closing-statement {
   border-top: 2px solid rgba(217, 164, 65, 0.55);
-  bottom: 28mm;
+  bottom: 24mm;
   color: #fff8ea;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
-  font-size: 24pt;
+  font-size: 20pt;
   font-weight: 900;
   left: 18mm;
   line-height: 1.05;

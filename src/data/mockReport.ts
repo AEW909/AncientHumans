@@ -53,6 +53,8 @@ export const mockReport: MockReportData = {
       "If several human groups existed at the same time, they cannot be arranged as simple steps leading to us.",
     branchingTree:
       "A branching tree is better because different groups adapted to different places, some interbred, and some are known mainly from DNA or unusual fossil evidence.",
+    geographyAnswer:
+      "Geography also challenges the ladder model. Different human relatives lived across Africa, Europe and Asia, sometimes in separated regions at similar times, so the story is about many populations in different places rather than one line in one place.",
   },
   finalAnswer:
     "Human evolution is best understood as a branching tree, not a straight ladder. A ladder suggests that one species simply changed into the next, ending with Homo sapiens. The evidence does not support that idea. Australopithecus afarensis shows that walking upright evolved before large brains, so early human evolution was not just a march toward modern intelligence. Neanderthals show an even clearer challenge to the ladder model because they overlapped with Homo sapiens and interbred with them. They were skilled hunters and toolmakers, not a failed version of modern humans. Homo floresiensis also challenges simple assumptions because it had a very small body and brain but still used stone tools on an island. These examples show that different human relatives followed different evolutionary pathways. Some branches overlapped, some ended, and one branch survives today. Based on current evidence, Homo sapiens are the only surviving human species, not the goal that evolution was always trying to reach.",
