@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { hominins } from "@/data/hominins";
@@ -578,7 +579,8 @@ function ReflectionStep({ work, updateWork }: StepProps) {
       </FieldStack>
       <div className="quest-next-stage-note">
         <strong>Next step</strong>
-        <p>Your saved answers will feed the magazine report preview in Stage 6.</p>
+        <p>Your saved answers now feed the magazine report preview. Open it, check what is missing, then download or save the report as a PDF.</p>
+        <Link href="/report-preview" onClick={() => saveStudentWork(work)}>Preview and download report</Link>
       </div>
     </QuestSection>
   );

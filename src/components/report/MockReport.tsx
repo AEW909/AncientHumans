@@ -1,11 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { hominins } from "@/data/hominins";
+import type { ReportReadiness } from "@/lib/reportData";
 import type { Hominin } from "@/types/hominin";
 import type { MockReportData } from "@/types/report";
 import { ReportKicker, ReportPage, ReportPanel, ReportTitle } from "./ReportPage";
 
 type MockReportProps = {
   report: MockReportData;
+  readiness?: ReportReadiness;
+  source?: "default" | "saved";
+  toolbarActions?: ReactNode;
 };
 
 const timelineBars = [
@@ -39,14 +45,14 @@ const geographyRegions = [
   },
 ];
 
-export function MockReport({ report }: MockReportProps) {
+export function MockReport({ report, readiness, source = "saved", toolbarActions }: MockReportProps) {
   const chosen = getRequiredHominin(report.student.chosenGroupSlug);
   const comparison = getRequiredHominin(report.student.comparisonGroupSlug);
   const sapiens = getRequiredHominin("homo-sapiens");
 
   return (
     <div className="report-preview-shell">
-      <ReportToolbar />
+      <ReportToolbar readiness={readiness} source={source} toolbarActions={toolbarActions} />
       <div className="report-document">
         <CoverPage report={report} chosen={chosen} />
         <SpeciesFeaturePage report={report} chosen={chosen} />
@@ -61,16 +67,32 @@ export function MockReport({ report }: MockReportProps) {
   );
 }
 
-function ReportToolbar() {
+function ReportToolbar({
+  readiness,
+  source,
+  toolbarActions,
+}: {
+  readiness?: ReportReadiness;
+  source: "default" | "saved";
+  toolbarActions?: ReactNode;
+}) {
   return (
     <div className="report-toolbar print:hidden">
       <div>
-        <p className="font-heading text-sm font-black uppercase tracking-[0.22em] text-gold">Stage 3 mock preview</p>
+        <p className="font-heading text-sm font-black uppercase tracking-[0.22em] text-gold">
+          {source === "saved" ? "Saved report preview" : "Empty report preview"}
+        </p>
         <h1 className="font-heading text-3xl font-black uppercase text-paper">Magazine field report</h1>
       </div>
       <p className="max-w-xl text-sm leading-6 text-paper/70">
-        This route uses mock data only. It establishes the 8-page report design before forms, localStorage or PDF export are added.
+        {readiness?.status === "complete"
+          ? "This preview is built from the saved web quest answers in this browser."
+          : "This preview uses saved answers where available and placeholders where the web quest is not finished yet."}
       </p>
+      <div className="report-toolbar-actions">
+        {toolbarActions}
+        <Link className="report-toolbar-link" href="/quest">Back to web quest</Link>
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 ## Latest Update
 
 Date: 2026-06-24
-Task: Built Stage 5 guided web quest forms and connected them to local autosave.
+Task: Built Stage 6 report-preview wiring and Stage 7 first-pass PDF export.
 
 ## Completed
 
@@ -83,6 +83,17 @@ Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 - Added a section 11 starter-review panel that presents pupils' section 02 misconception answers back to them for reflection.
 - Hid the persistent trusted-source side panel while section 02 is active so the starter stays focused on initial thinking.
 - Loosened quest heading line-height and added small heading padding to prevent tight display type from visually colliding on narrow viewports.
+- Connected `/report-preview` to saved local web quest answers through a client-side report preview wrapper.
+- Added a report data adapter that maps `StudentWork` into the existing 8-page magazine report data shape.
+- Used the saved focus species and comparison species to drive report species content and imagery.
+- Added fallback text for incomplete answers so the report preview continues to render gracefully before the web quest is finished.
+- Added a browser-only report status banner showing whether saved work was found and which key items are still missing.
+- Updated the report toolbar copy so it no longer describes the page as mock-only.
+- Added a Preview Report handoff from section 11 of the web quest and force-saves the current work before navigation.
+- Added a `Download PDF` control to the report preview toolbar.
+- Wired first-pass PDF export through the browser print dialog using the existing A4 print stylesheet.
+- Temporarily sets a report-friendly document title before opening print so the browser's suggested PDF filename is more useful.
+- Updated section 11 copy so the web quest points students toward previewing and downloading/saving their report.
 
 ## Files Created or Changed
 
@@ -153,11 +164,13 @@ Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 - `src/components/species/SpeciesDetail.tsx`
 - `src/components/species/SpeciesGrid.tsx`
 - `src/components/report/MockReport.tsx`
+- `src/components/report/ReportPreviewClient.tsx`
 - `src/components/report/ReportPage.tsx`
 - `src/app/report-preview/page.tsx`
 - `src/data/hominins.ts`
 - `src/data/defaultStudentWork.ts`
 - `src/data/mockReport.ts`
+- `src/lib/reportData.ts`
 - `src/lib/studentWorkStorage.ts`
 - `src/types/hominin.ts`
 - `src/types/studentWork.ts`
@@ -171,6 +184,8 @@ Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 - Stage 3 complete and verified in code.
 - Stage 4 complete and verified in code.
 - Stage 5 complete and verified in code.
+- Stage 6 basic wiring complete and verified in code.
+- Stage 7 first-pass browser PDF export complete and verified in code.
 - Latest web quest build verified with `cmd /c npm.cmd run build`.
 - Browser smoke test verified `/quest`, student detail autosave after reload, species focus/compare persistence, completion badges and selected-group hero image.
 - Latest web quest interaction pass verified the video embed, nine large species cards, field-note modal links, research launchpad links, handout prompt, and three-branch comparison briefings.
@@ -179,14 +194,18 @@ Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 - Latest browser pass verified section 02 has the baseline note but no main source-link panel, and section 11 shows six starter-review cards with no horizontal overflow.
 - Latest browser pass verified section 02 has no source panels while active, no horizontal overflow, and a clear gap between the baseline note and the misconception questions.
 - Latest browser pass verified section 03 now uses a compact research-site reminder in the main flow while keeping trusted source links available in the side panel, with no horizontal overflow.
+- Latest report-preview browser pass verified the connected preview renders 8 pages, shows saved/placeholder status messaging, keeps the web quest return link visible and has no horizontal overflow.
+- Latest report-preview browser pass verified the `Download PDF` toolbar control appears alongside the web quest return link and the report still renders 8 pages with no horizontal overflow.
+- Print CSS verified in code: browser-only toolbar and status banner are hidden under `@media print`.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.
 - Latest student work data/storage foundation verified with `npm run build`.
 
 ## Known Issues
 
-- Real report data connection, PDF export, Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
-- The `/report-preview` route still uses mock data; saved student work is intentionally not connected until Stage 6.
+- Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
+- PDF export currently uses browser print/save-as-PDF rather than a server-side or Playwright-generated PDF file.
+- The `/report-preview` route now uses saved local web quest data where available, but the report layout still needs more real-student-answer stress testing before classroom use.
 - The cover source remains in `assets/cover/Cover v 2.png`; the app uses the copied public asset path required by Next.js.
 - `npm audit --omit=dev` reports two moderate issues through Next.js' bundled PostCSS dependency. `npm audit fix --force` recommends a breaking downgrade to Next 9.3.3, so it was not applied.
 - In this managed Codex sandbox, `next dev` needed escalated process permissions because the first sandboxed run failed with `spawn EPERM`.
@@ -201,4 +220,4 @@ Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 
 ## Next Recommended Task
 
-- Build Stage 6: connect saved student work to the magazine-style report preview, add empty states and add a preview handoff from the web quest.
+- Stress test the full end-to-end flow with realistic completed pupil answers across several species, then fix any report text overflow or awkward page breaks before wider UI polish.
