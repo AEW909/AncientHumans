@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { hominins } from "@/data/hominins";
-import { SpeciesCard } from "@/components/species/SpeciesCard";
 
 export default function HomePage() {
-  const featured = hominins.find((hominin) => hominin.slug === "homo-erectus") ?? hominins[0];
-
   return (
     <div className="deep-time-wash text-paper">
       <section className="relative isolate overflow-hidden bg-midnight text-paper">
@@ -19,7 +15,7 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/72 to-midnight/18" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-midnight to-transparent" />
-        <div className="relative mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl content-center gap-10 px-5 py-16 lg:grid-cols-[1fr_360px] lg:px-8">
+        <div className="relative mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl content-center gap-10 px-5 py-16 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="font-heading text-6xl font-black uppercase leading-none text-paper md:text-8xl">
               Ancient Human Relatives
@@ -37,16 +33,7 @@ export default function HomePage() {
               >
                 Start the web quest
               </Link>
-              <Link
-                className="rounded-full border border-paper/40 px-6 py-3 text-base font-black text-paper transition hover:bg-paper/10 focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-paper"
-                href="/species"
-              >
-                Browse the human relatives
-              </Link>
             </div>
-          </div>
-          <div id="first-poster" className="hidden self-end lg:block">
-            <SpeciesCard hominin={featured} />
           </div>
         </div>
       </section>

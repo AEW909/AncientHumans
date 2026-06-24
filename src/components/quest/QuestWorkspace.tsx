@@ -304,7 +304,7 @@ function ProjectIntroStep() {
       title="How the investigation works"
       intro="You will research one ancient human relative, compare it with Homo sapiens and another branch, then turn your evidence into a magazine-style field report."
     >
-      <div className="quest-video-feature">
+      <div className="quest-video-feature quest-video-feature-stacked">
         <div>
           <p className="quest-kicker">Big picture</p>
           <h3>Watch for branches, overlap and uncertainty</h3>
@@ -726,10 +726,6 @@ function SpeciesFieldNote({
             <FactTile label="Life" value={group.lifestyle} />
             <FactTile label="Evidence" value={group.evidence} />
             <FactTile label="Uncertainty" value={group.uncertainty} />
-          </div>
-          <div className="quest-link-row">
-            <a href={`/species/${group.slug}`} target="_blank" rel="noreferrer">Open full species page</a>
-            <a href={group.posterImage} target="_blank" rel="noreferrer">Open information sheet</a>
           </div>
           <div className="quest-species-actions">
             <button className={isFocus ? "quest-pill-active" : ""} disabled={group.slug === "homo-sapiens"} onClick={onSelectFocus} type="button">
