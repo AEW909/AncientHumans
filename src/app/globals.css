@@ -1764,7 +1764,8 @@ a {
 .quest-research-launch h3,
 .quest-evidence-strip h3 {
   color: #fff8ea;
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  line-height: 1.06;
 }
 
 .quest-research-launch p,

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { hominins } from "@/data/hominins";
 import { selfAssessmentItems } from "@/data/defaultStudentWork";
 import {
@@ -68,6 +68,7 @@ export function QuestWorkspace() {
   const [activeStep, setActiveStep] = useState(0);
   const [saveState, setSaveState] = useState<SaveState>({ label: "Loading saved work", tone: "idle" });
   const [hasHydrated, setHasHydrated] = useState(false);
+  const workbenchRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const loaded = loadStudentWork();
@@ -114,6 +115,23 @@ export function QuestWorkspace() {
     setWork(resetStudentWork());
     setActiveStep(0);
     setSaveState({ label: "Work reset", tone: "idle" });
+  }
+
+  function moveStep(direction: -1 | 1) {
+    setActiveStep((step) => Math.max(0, Math.min(sections.length - 1, step + direction)));
+    scrollToWorkbench();
+  }
+
+  function scrollToWorkbench() {
+    window.requestAnimationFrame(() => {
+      const workbenchTop = workbenchRef.current?.getBoundingClientRect().top ?? 0;
+      const targetTop = window.scrollY + workbenchTop - 84;
+
+      window.scrollTo({
+        behavior: "smooth",
+        top: Math.max(0, targetTop),
+      });
+    });
   }
 
   function isStepComplete(key: (typeof sections)[number]["key"]) {
@@ -175,7 +193,7 @@ export function QuestWorkspace() {
         </div>
       </section>
 
-      <section className="quest-workbench">
+      <section className="quest-workbench" ref={workbenchRef}>
         <aside className="quest-side-panel">
           <div className="quest-save-panel">
             <span className={`quest-save-dot quest-save-${saveState.tone}`} />
@@ -219,10 +237,10 @@ export function QuestWorkspace() {
           {activeStep === 11 && <ReflectionStep updateWork={updateWork} work={work} />}
 
           <div className="quest-navigation">
-            <button disabled={activeStep === 0} onClick={() => setActiveStep((step) => Math.max(0, step - 1))} type="button">
+            <button disabled={activeStep === 0} onClick={() => moveStep(-1)} type="button">
               Back
             </button>
-            <button disabled={activeStep === sections.length - 1} onClick={() => setActiveStep((step) => Math.min(sections.length - 1, step + 1))} type="button">
+            <button disabled={activeStep === sections.length - 1} onClick={() => moveStep(1)} type="button">
               Next
             </button>
           </div>
@@ -444,6 +462,7 @@ function GuidedResearchStep({ work, updateWork }: StepProps) {
   return (
     <QuestSection eyebrow="Guided research" title="Build the species profile" intro="Use cautious scientific wording and focus on evidence rather than certainty.">
       <ResearchLaunchPad group={chosen} />
+      {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack>
         <TextArea label="When did this group live?" limit={textLimits.research} value={work.research.livedWhen} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, livedWhen: value } }))} />
         <TextArea label="Where did this group live or where was it found?" limit={textLimits.research} value={work.research.livedWhere} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, livedWhere: value } }))} />
@@ -462,7 +481,6 @@ function EvidenceStep({ work, updateWork }: StepProps) {
 
   return (
     <QuestSection eyebrow="Evidence dossier" title="How do we know?" intro="Separate fossils, tools, DNA and archaeological clues from interpretation.">
-      {chosen && <QuestResourceRow group={chosen} />}
       {chosen && (
         <div className="quest-evidence-strip">
           <Image src={chosen.madeImage ?? chosen.posterImage} alt={chosen.madeCaption ?? chosen.imageCaption} fill sizes="360px" className="object-cover" />
@@ -470,10 +488,10 @@ function EvidenceStep({ work, updateWork }: StepProps) {
             <p className="quest-kicker">Evidence prompt</p>
             <h3>{chosen.knownFor}</h3>
             <p>{chosen.evidence}</p>
-            <a href={chosen.posterImage} target="_blank" rel="noreferrer">Open the information sheet</a>
           </div>
         </div>
       )}
+      {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack columns>
         <TextArea label="Fossil evidence" limit={textLimits.evidence} value={work.evidence.fossils} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, fossils: value } }))} />
         <TextArea label="Tool evidence" limit={textLimits.evidence} value={work.evidence.tools} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, tools: value } }))} />
@@ -586,7 +604,6 @@ function TimelineStep({ work, updateWork }: StepProps) {
 
   return (
     <QuestSection eyebrow="Timeline and overlap" title="Many humans, shared time" intro="Use overlap and geography to decide which model best fits the evidence.">
-      {chosen && <QuestResourceRow group={chosen} />}
       <div className="quest-timeline-stimulus">
         <div>
           <Image
@@ -607,6 +624,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
           <a href="/assets/report/back-cover-branches.png" target="_blank" rel="noreferrer">Open prompt poster</a>
         </article>
       </div>
+      {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack columns>
         <TextArea label="Which groups existed at similar times?" limit={textLimits.comparison} value={work.timeline.sapiensOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, sapiensOverlap: value } }))} />
         <TextArea label="What overlap or uncertainty can you find?" limit={textLimits.comparison} value={work.timeline.groupOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, groupOverlap: value } }))} />
@@ -771,13 +789,6 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
         <h3>{group.displayName}</h3>
         <p>{group.hook}</p>
         <p className="quest-asset-note">Stimulus image placeholder: replace with a dedicated research prompt image set later.</p>
-        <div className="quest-link-row">
-          <a href={group.posterImage} target="_blank" rel="noreferrer">Open the full information sheet</a>
-          <a href={`/species/${group.slug}`} target="_blank" rel="noreferrer">Use the app species page</a>
-          {researchLinks.map((link) => (
-            <a href={link.href} key={link.href} target="_blank" rel="noreferrer">{link.label}</a>
-          ))}
-        </div>
         <div className="quest-handout-callout">
           Ask your teacher for the printed information sheet if you want to annotate evidence by hand.
         </div>
