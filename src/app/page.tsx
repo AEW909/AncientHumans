@@ -33,16 +33,16 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 className="rounded-full bg-gold px-6 py-3 text-base font-black text-midnight transition hover:bg-paper focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-gold"
+                href="/quest"
+              >
+                Start the web quest
+              </Link>
+              <Link
+                className="rounded-full border border-paper/40 px-6 py-3 text-base font-black text-paper transition hover:bg-paper/10 focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-paper"
                 href="/species"
               >
                 Browse the human relatives
               </Link>
-              <a
-                className="rounded-full border border-paper/40 px-6 py-3 text-base font-black text-paper transition hover:bg-paper/10 focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-paper"
-                href="#first-poster"
-              >
-                View a poster
-              </a>
             </div>
           </div>
           <div id="first-poster" className="hidden self-end lg:block">

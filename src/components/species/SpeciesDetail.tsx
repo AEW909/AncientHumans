@@ -33,9 +33,14 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           ) : null}
         </div>
         <div className="flex flex-col justify-center">
-          <Link className="mb-6 text-sm font-bold uppercase tracking-[0.16em] text-gold hover:text-paper" href="/species">
-            Back to all groups
-          </Link>
+          <div className="mb-6 flex flex-wrap gap-4 text-sm font-bold uppercase tracking-[0.16em]">
+            <Link className="text-gold hover:text-paper" href="/quest">
+              Return to web quest
+            </Link>
+            <Link className="text-paper/70 hover:text-paper" href="/species">
+              Back to all groups
+            </Link>
+          </div>
           <p className="font-heading text-lg font-black uppercase tracking-[0.22em] text-gold">
             Group {String(hominin.number).padStart(2, "0")}
           </p>

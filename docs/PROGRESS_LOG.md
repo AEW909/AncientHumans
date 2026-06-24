@@ -3,7 +3,7 @@
 ## Latest Update
 
 Date: 2026-06-24
-Task: Built Stage 4 student work data model and localStorage foundation.
+Task: Built Stage 5 guided web quest forms and connected them to local autosave.
 
 ## Completed
 
@@ -53,6 +53,36 @@ Task: Built Stage 4 student work data model and localStorage foundation.
 - Added save timestamp handling through `updatedAt`.
 - Added fallback normalization so missing, partial or older saved data is merged back into a safe complete shape.
 - Added basic progress calculation across required fields and completed sections.
+- Created a `/quest` route for the student-facing guided web quest.
+- Built a polished museum-style web quest workspace with a dark image-led hero, cream research panel and sticky section rail.
+- Added all ten Stage 5 sections: student details, misconceptions starter, group choice, guided research, evidence, life/adaptations, comparison, timeline/overlap, final response and self-assessment.
+- Connected the form flow to the Stage 4 localStorage helpers with autosave, reload persistence, reset confirmation and save status display.
+- Added visible character limits to student writing fields to protect the later PDF layout.
+- Added progress display and per-step completion badges in the web quest side rail.
+- Added a context-responsive hero image that changes to the selected hominin group where possible.
+- Added the Stage 5 route to site navigation and changed the landing page primary call-to-action to start the web quest.
+- Marked Homo naledi as an extension case in the group chooser.
+- Changed the student date field to a plain text field with a report-friendly placeholder to avoid browser locale/date-input save issues.
+- Reworked Stage 5 so the web quest feels less like a cramped form and more like a guided learning experience.
+- Embedded the opening Kurzgesagt human origins video in the starter section.
+- Rebuilt the group chooser with larger hominin images and clickable field-note modals.
+- Added modal field notes with date, location, known-for, body, life, evidence, uncertainty, species-page link and full information-sheet link.
+- Added a guided research launchpad with the selected species poster, app page link, full information-sheet link, trusted external research links and a prompt to ask for a printed handout.
+- Added an evidence prompt strip using the selected species evidence/object image before the evidence form fields.
+- Added comparison briefing panels so pupils see information for their focus group, Homo sapiens and their comparison group before writing.
+- Prevented Homo sapiens from being selected as the separate comparison group because it is already included in the comparison task.
+- Removed Homo sapiens from the focus/comparison chooser entirely and made it a fixed reference species.
+- Added a dedicated Homo sapiens bridge step before the comparison task so pupils meet the reference species before writing comparisons.
+- Changed species-page links from the web quest to open in a new tab and added a clear return-to-web-quest link on species detail pages.
+- Added extra wrapping/min-width layout guards to reduce text overflow and overlap once real species are selected.
+- Added a persistent trusted research sites panel to the web quest side rail.
+- Added visible trusted-source panels to the Starter and Choose sections so pupils see external research sites before selecting a species.
+- Set trusted-source links to open in a new tab for Smithsonian Human Origins, Natural History Museum and Australian Museum.
+- Simplified section 02 by removing the main trusted-source panel from the starter task.
+- Reframed section 02 as a baseline thinking check where pupils record initial ideas before research.
+- Added a section 11 starter-review panel that presents pupils' section 02 misconception answers back to them for reflection.
+- Hid the persistent trusted-source side panel while section 02 is active so the starter stays focused on initial thinking.
+- Loosened quest heading line-height and added small heading padding to prevent tight display type from visually colliding on narrow viewports.
 
 ## Files Created or Changed
 
@@ -114,9 +144,11 @@ Task: Built Stage 4 student work data model and localStorage foundation.
 - `src/app/globals.css`
 - `src/app/layout.tsx`
 - `src/app/page.tsx`
+- `src/app/quest/page.tsx`
 - `src/app/species/page.tsx`
 - `src/app/species/[slug]/page.tsx`
 - `src/components/layout/SiteHeader.tsx`
+- `src/components/quest/QuestWorkspace.tsx`
 - `src/components/species/SpeciesCard.tsx`
 - `src/components/species/SpeciesDetail.tsx`
 - `src/components/species/SpeciesGrid.tsx`
@@ -138,14 +170,23 @@ Task: Built Stage 4 student work data model and localStorage foundation.
 - Stage 2 complete and verified.
 - Stage 3 complete and verified in code.
 - Stage 4 complete and verified in code.
+- Stage 5 complete and verified in code.
+- Latest web quest build verified with `cmd /c npm.cmd run build`.
+- Browser smoke test verified `/quest`, student detail autosave after reload, species focus/compare persistence, completion badges and selected-group hero image.
+- Latest web quest interaction pass verified the video embed, nine large species cards, field-note modal links, research launchpad links, handout prompt, and three-branch comparison briefings.
+- Latest browser pass verified the 11-step flow, eight selectable ancient-relative cards, Homo sapiens bridge page, new-tab species links, three-branch comparison briefings and zero horizontal overflow across all web quest sections after selecting Homo erectus and Neanderthals.
+- Latest browser pass verified trusted research links are visible on Details, Starter and Choose, and that each external source link opens in a new tab.
+- Latest browser pass verified section 02 has the baseline note but no main source-link panel, and section 11 shows six starter-review cards with no horizontal overflow.
+- Latest browser pass verified section 02 has no source panels while active, no horizontal overflow, and a clear gap between the baseline note and the misconception questions.
+- Latest browser pass verified section 03 now uses a compact research-site reminder in the main flow while keeping trusted source links available in the side panel, with no horizontal overflow.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.
 - Latest student work data/storage foundation verified with `npm run build`.
 
 ## Known Issues
 
-- Student forms, real report data connection, PDF export, Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
-- localStorage helpers are implemented but not yet connected to a student-facing form flow.
+- Real report data connection, PDF export, Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
+- The `/report-preview` route still uses mock data; saved student work is intentionally not connected until Stage 6.
 - The cover source remains in `assets/cover/Cover v 2.png`; the app uses the copied public asset path required by Next.js.
 - `npm audit --omit=dev` reports two moderate issues through Next.js' bundled PostCSS dependency. `npm audit fix --force` recommends a breaking downgrade to Next 9.3.3, so it was not applied.
 - In this managed Codex sandbox, `next dev` needed escalated process permissions because the first sandboxed run failed with `spawn EPERM`.
@@ -155,9 +196,9 @@ Task: Built Stage 4 student work data model and localStorage foundation.
 - Some `madeImage` slots are deliberately framed as evidence objects rather than made artefacts, because forcing a tool/jewellery claim for every group would weaken scientific accuracy.
 - Generated decorative visuals must not be used as factual migration-route evidence unless reviewed against reliable sources.
 - Page 6 currently uses broad geographic regions only; a reliable map should be added later from reviewed palaeoanthropology sources if needed.
-- Browser screenshot capture was blocked by local Chromium/Edge crashpad permissions and in-app browser screenshot timeouts on the image-heavy report; verification used `npm run build` plus DOM layout/overflow measurements instead.
+- Browser screenshot capture was blocked by local Chromium/Edge crashpad permissions and in-app browser screenshot timeouts on the image-heavy report; report verification used `npm run build` plus DOM layout/overflow measurements instead.
 - Temporary browser profile/contact-sheet artifacts may remain locally but are ignored by git.
 
 ## Next Recommended Task
 
-- Build Stage 5: create the guided student web quest flow and connect it to the Stage 4 localStorage helpers with autosave, progress display and character limits.
+- Build Stage 6: connect saved student work to the magazine-style report preview, add empty states and add a preview handoff from the web quest.

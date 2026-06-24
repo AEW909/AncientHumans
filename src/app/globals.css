@@ -810,6 +810,1136 @@ a {
   text-transform: uppercase;
 }
 
+.quest-shell {
+  background:
+    radial-gradient(circle at 14% 4%, rgba(217, 164, 65, 0.14), transparent 28rem),
+    radial-gradient(circle at 88% 10%, rgba(14, 124, 123, 0.16), transparent 28rem),
+    linear-gradient(180deg, #05070d 0%, #081426 38%, #05070d 100%);
+  color: #fff8ea;
+  min-height: 100vh;
+}
+
+.quest-loading {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 24pt;
+  font-weight: 900;
+  padding: 20vh 8vw;
+  text-transform: uppercase;
+}
+
+.quest-hero {
+  min-height: 430px;
+  overflow: hidden;
+  position: relative;
+}
+
+.quest-hero-wash {
+  background:
+    linear-gradient(90deg, rgba(5, 7, 13, 0.92) 0%, rgba(5, 7, 13, 0.72) 46%, rgba(5, 7, 13, 0.24) 100%),
+    linear-gradient(0deg, #05070d 0%, transparent 46%);
+  inset: 0;
+  position: absolute;
+}
+
+.quest-hero-content {
+  max-width: 760px;
+  padding: 80px 5vw 96px;
+  position: relative;
+  z-index: 1;
+}
+
+.quest-kicker {
+  color: #d9a441;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 12pt;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+.quest-hero h1,
+.quest-section-title {
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.14;
+  margin: 0;
+  padding-bottom: 0.06em;
+  text-transform: uppercase;
+}
+
+.quest-hero h1 {
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+}
+
+.quest-hero p:not(.quest-kicker) {
+  color: rgba(255, 248, 234, 0.78);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.65;
+  margin: 26px 0 0;
+  max-width: 650px;
+}
+
+.quest-progress-card {
+  margin-top: 34px;
+  max-width: 420px;
+}
+
+.quest-progress-card span {
+  color: #fff8ea;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.quest-progress-card div {
+  background: rgba(255, 248, 234, 0.12);
+  height: 8px;
+  overflow: hidden;
+}
+
+.quest-progress-card i {
+  background: linear-gradient(90deg, #d9a441, #0e7c7b);
+  display: block;
+  height: 100%;
+}
+
+.quest-workbench {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 280px minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1420px;
+  padding: 34px 5vw 80px;
+}
+
+.quest-side-panel {
+  align-self: start;
+  position: sticky;
+  top: 92px;
+}
+
+.quest-save-panel {
+  align-items: center;
+  background: rgba(255, 248, 234, 0.08);
+  border: 1px solid rgba(255, 248, 234, 0.14);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr auto;
+  padding: 14px;
+}
+
+.quest-save-panel strong {
+  color: rgba(255, 248, 234, 0.86);
+  font-size: 0.88rem;
+}
+
+.quest-save-panel button,
+.quest-navigation button,
+.quest-segmented button,
+.quest-species-actions button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.quest-save-panel button {
+  background: transparent;
+  color: #d9a441;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quest-save-dot {
+  background: #c9a66b;
+  height: 10px;
+  width: 10px;
+}
+
+.quest-save-saved {
+  background: #0e7c7b;
+}
+
+.quest-save-error {
+  background: #a3402a;
+}
+
+.quest-step-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.quest-source-panel {
+  background:
+    linear-gradient(135deg, rgba(8, 20, 38, 0.96), rgba(8, 20, 38, 0.82)),
+    linear-gradient(90deg, rgba(217, 164, 65, 0.2), transparent);
+  border-left: 5px solid #0e7c7b;
+  color: #fff8ea;
+  margin-bottom: 28px;
+  padding: 20px;
+}
+
+.quest-side-panel .quest-source-panel {
+  margin-bottom: 0;
+  margin-top: 16px;
+}
+
+.quest-source-panel h3 {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.quest-source-panel p:not(.quest-kicker) {
+  color: rgba(255, 248, 234, 0.78);
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+
+.quest-source-links {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quest-source-links a {
+  align-items: center;
+  background: rgba(255, 248, 234, 0.1);
+  border: 1px solid rgba(255, 248, 234, 0.14);
+  color: #fff8ea;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 11px 12px;
+  text-decoration: none;
+}
+
+.quest-source-links a:hover {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.quest-source-links span {
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.quest-source-links small {
+  background: rgba(5, 7, 13, 0.5);
+  color: #fff8ea;
+  flex: 0 0 auto;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 4px 6px;
+  text-transform: uppercase;
+}
+
+.quest-source-panel-compact {
+  border-left-color: #d9a441;
+  padding: 14px;
+}
+
+.quest-source-panel-compact h3 {
+  font-size: 1.3rem;
+}
+
+.quest-source-panel-compact p:not(.quest-kicker) {
+  font-size: 0.86rem;
+}
+
+.quest-source-panel-compact .quest-source-links a {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.quest-source-reminder {
+  background: rgba(8, 20, 38, 0.08);
+  border-left: 4px solid #0e7c7b;
+  color: rgba(8, 20, 38, 0.72);
+  font-weight: 850;
+  line-height: 1.45;
+  margin-bottom: 24px;
+  padding: 12px 14px;
+}
+
+.quest-step-list button {
+  align-items: center;
+  background: rgba(255, 248, 234, 0.06);
+  border: 1px solid rgba(255, 248, 234, 0.1);
+  color: rgba(255, 248, 234, 0.76);
+  cursor: pointer;
+  display: flex;
+  gap: 12px;
+  font-weight: 900;
+  padding: 12px;
+  text-align: left;
+  text-transform: uppercase;
+  min-width: 0;
+}
+
+.quest-step-list span {
+  color: #d9a441;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+}
+
+.quest-step-list b {
+  flex: 1;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.quest-step-list i {
+  background: rgba(14, 124, 123, 0.78);
+  color: #fff8ea;
+  font-size: 0.64rem;
+  font-style: normal;
+  font-weight: 900;
+  padding: 4px 6px;
+}
+
+.quest-step-list .quest-step-active {
+  background: rgba(217, 164, 65, 0.16);
+  border-color: rgba(217, 164, 65, 0.48);
+  color: #fff8ea;
+}
+
+.quest-panel {
+  background:
+    linear-gradient(rgba(8, 20, 38, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 20, 38, 0.025) 1px, transparent 1px),
+    #fff8ea;
+  background-size: 34px 34px;
+  color: #081426;
+  min-height: 720px;
+  padding: clamp(28px, 5vw, 72px);
+}
+
+.quest-section-title {
+  color: #081426;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  max-width: 880px;
+  overflow-wrap: anywhere;
+}
+
+.quest-section-intro {
+  color: rgba(8, 20, 38, 0.72);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.65;
+  margin: 18px 0 30px;
+  max-width: 820px;
+}
+
+.quest-field-grid,
+.quest-field-stack,
+.quest-field-stack-columns,
+.quest-misconception-list,
+.quest-checklist,
+.quest-compare-briefings {
+  display: grid;
+  gap: 18px;
+}
+
+.quest-field-grid,
+.quest-field-stack-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quest-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.quest-field span,
+.quest-question-card h3,
+.quest-species-option h3 {
+  color: #081426;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.quest-field span {
+  font-size: 1rem;
+}
+
+.quest-field input,
+.quest-field textarea {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(8, 20, 38, 0.2);
+  color: #081426;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.45;
+  padding: 14px;
+  resize: vertical;
+  width: 100%;
+}
+
+.quest-field input:focus,
+.quest-field textarea:focus,
+.quest-step-list button:focus,
+.quest-navigation button:focus,
+.quest-segmented button:focus,
+.quest-species-actions button:focus,
+.quest-save-panel button:focus {
+  outline: 3px solid rgba(217, 164, 65, 0.7);
+  outline-offset: 2px;
+}
+
+.quest-field small {
+  color: rgba(8, 20, 38, 0.58);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: right;
+}
+
+.quest-field .quest-limit-warn {
+  color: #a3402a;
+}
+
+.quest-question-card,
+.quest-species-option {
+  background: rgba(255, 255, 255, 0.68);
+  border-left: 4px solid #d9a441;
+  box-shadow: 0 18px 45px rgba(8, 20, 38, 0.08);
+  padding: 18px;
+  min-width: 0;
+}
+
+.quest-video-feature {
+  background: #081426;
+  color: #fff8ea;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(240px, 0.72fr) minmax(360px, 1fr);
+  margin-bottom: 28px;
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 32px);
+}
+
+.quest-video-feature h3,
+.quest-choice-brief strong,
+.quest-research-launch h3,
+.quest-evidence-strip h3,
+.quest-field-note-copy h3,
+.quest-mini-briefing h3,
+.quest-sapiens-copy h3 {
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.14;
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding-bottom: 0.04em;
+  text-transform: uppercase;
+}
+
+.quest-video-feature h3 {
+  color: #fff8ea;
+  font-size: clamp(1.85rem, 3.6vw, 4.1rem);
+}
+
+.quest-video-feature p {
+  color: rgba(255, 248, 234, 0.78);
+  font-weight: 800;
+  line-height: 1.6;
+  margin: 18px 0 0;
+}
+
+.quest-video-feature iframe {
+  aspect-ratio: 16 / 9;
+  border: 0;
+  min-height: 320px;
+  width: 100%;
+}
+
+.quest-question-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+
+.quest-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quest-segmented button,
+.quest-species-actions button {
+  background: #081426;
+  color: #fff8ea;
+  font-size: 0.85rem;
+  font-weight: 900;
+  padding: 9px 12px;
+  text-transform: uppercase;
+}
+
+.quest-segmented .quest-choice-active,
+.quest-species-actions .quest-pill-active {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.quest-species-picker {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.quest-species-option {
+  border-left: 0;
+  display: grid;
+  gap: 12px;
+  padding: 0 0 16px;
+  overflow: hidden;
+}
+
+.quest-species-image-button {
+  aspect-ratio: 3 / 4;
+  background: #081426;
+  border: 0;
+  color: #fff8ea;
+  cursor: pointer;
+  min-height: 430px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-align: left;
+}
+
+.quest-species-image-button::after {
+  background: linear-gradient(180deg, transparent 44%, rgba(5, 7, 13, 0.8) 100%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.quest-species-image-button span {
+  background: rgba(217, 164, 65, 0.94);
+  bottom: 18px;
+  color: #05070d;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 900;
+  left: 18px;
+  padding: 8px 10px;
+  position: absolute;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.quest-species-option h3,
+.quest-species-option p,
+.quest-species-option small,
+.quest-species-actions {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.quest-species-option h3 {
+  font-size: 1.2rem;
+  overflow-wrap: anywhere;
+}
+
+.quest-species-option p {
+  color: rgba(8, 20, 38, 0.68);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.quest-species-option p + p {
+  color: rgba(8, 20, 38, 0.82);
+  font-size: 0.98rem;
+}
+
+.quest-species-option small {
+  background: #081426;
+  color: #fff8ea;
+  display: inline-block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  justify-self: start;
+  padding: 5px 7px;
+  text-transform: uppercase;
+}
+
+.quest-species-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quest-choice-brief,
+.quest-handout-callout,
+.quest-baseline-note {
+  background: rgba(8, 20, 38, 0.92);
+  border-left: 5px solid #d9a441;
+  color: #fff8ea;
+  margin-bottom: 24px;
+  padding: 18px 20px;
+}
+
+.quest-choice-brief strong,
+.quest-baseline-note strong {
+  color: #d9a441;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quest-choice-brief p,
+.quest-handout-callout,
+.quest-baseline-note p {
+  color: rgba(255, 248, 234, 0.82);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.quest-choice-brief p,
+.quest-baseline-note p {
+  margin: 8px 0 0;
+}
+
+.quest-modal-backdrop {
+  align-items: center;
+  background: rgba(5, 7, 13, 0.84);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 40;
+}
+
+.quest-field-note-modal {
+  background: #fff8ea;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.48);
+  color: #081426;
+  display: grid;
+  grid-template-columns: minmax(360px, 0.85fr) minmax(420px, 1fr);
+  max-height: min(860px, calc(100vh - 48px));
+  max-width: 1180px;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}
+
+.quest-modal-close {
+  background: #d9a441;
+  border: 0;
+  color: #05070d;
+  cursor: pointer;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  padding: 10px 14px;
+  position: absolute;
+  right: 14px;
+  text-transform: uppercase;
+  top: 14px;
+  z-index: 2;
+}
+
+.quest-field-note-image {
+  min-height: 640px;
+  position: relative;
+}
+
+.quest-field-note-copy {
+  padding: clamp(28px, 4vw, 54px);
+}
+
+.quest-field-note-copy h3 {
+  color: #081426;
+  font-size: clamp(2.2rem, 4.4vw, 5rem);
+}
+
+.quest-field-note-copy > p {
+  color: rgba(8, 20, 38, 0.75);
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.quest-field-note-copy dl,
+.quest-mini-briefing dl {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.quest-field-note-copy dl div,
+.quest-mini-briefing dl div {
+  border-left: 4px solid #d9a441;
+  padding-left: 12px;
+}
+
+.quest-field-note-copy dt,
+.quest-mini-briefing dt {
+  color: #a3402a;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quest-field-note-copy dd,
+.quest-mini-briefing dd {
+  color: rgba(8, 20, 38, 0.78);
+  font-weight: 800;
+  line-height: 1.45;
+  margin: 2px 0 0;
+}
+
+.quest-field-note-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 22px;
+}
+
+.quest-field-note-grid article {
+  background: rgba(8, 20, 38, 0.06);
+  padding: 14px;
+}
+
+.quest-field-note-grid strong {
+  color: #081426;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quest-field-note-grid p {
+  color: rgba(8, 20, 38, 0.74);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.42;
+  margin: 6px 0 0;
+}
+
+.quest-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.quest-link-row a {
+  background: #081426;
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 900;
+  padding: 10px 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.quest-link-row a:hover {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.quest-research-launch {
+  background:
+    linear-gradient(90deg, rgba(8, 20, 38, 0.94), rgba(8, 20, 38, 0.78)),
+    linear-gradient(135deg, rgba(14, 124, 123, 0.24), transparent);
+  color: #fff8ea;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  margin-bottom: 28px;
+  padding: 22px;
+}
+
+.quest-research-launch > div,
+.quest-evidence-strip > div,
+.quest-field-note-copy,
+.quest-mini-briefing,
+.quest-sapiens-copy {
+  min-width: 0;
+}
+
+.quest-research-poster {
+  aspect-ratio: 3 / 4;
+  min-height: 360px;
+  position: relative;
+}
+
+.quest-research-launch h3,
+.quest-evidence-strip h3 {
+  color: #fff8ea;
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+
+.quest-research-launch p,
+.quest-evidence-strip p {
+  color: rgba(255, 248, 234, 0.8);
+  font-weight: 800;
+  line-height: 1.58;
+  margin: 14px 0 0;
+}
+
+.quest-handout-callout {
+  background: rgba(217, 164, 65, 0.14);
+  border-color: #0e7c7b;
+  margin-bottom: 0;
+}
+
+.quest-evidence-strip {
+  background: #081426;
+  color: #fff8ea;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+  margin-bottom: 24px;
+  min-height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.quest-evidence-strip > img {
+  position: relative !important;
+}
+
+.quest-evidence-strip > div {
+  padding: 28px 28px 28px 0;
+}
+
+.quest-evidence-strip a {
+  color: #d9a441;
+  display: inline-block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+.quest-compare-briefings {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 28px;
+}
+
+.quest-sapiens-feature {
+  background:
+    linear-gradient(90deg, rgba(8, 20, 38, 0.95), rgba(8, 20, 38, 0.78)),
+    linear-gradient(135deg, rgba(217, 164, 65, 0.18), transparent);
+  color: #fff8ea;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(360px, 1.1fr) minmax(360px, 0.9fr);
+  overflow: hidden;
+  padding: 24px;
+}
+
+.quest-sapiens-image {
+  min-height: 520px;
+  position: relative;
+}
+
+.quest-sapiens-copy {
+  align-self: center;
+}
+
+.quest-sapiens-copy h3 {
+  color: #fff8ea;
+  font-size: clamp(3rem, 7vw, 6.8rem);
+}
+
+.quest-sapiens-copy > p {
+  color: rgba(255, 248, 234, 0.82);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.58;
+}
+
+.quest-sapiens-feature .quest-field-note-grid article {
+  background: rgba(255, 248, 234, 0.1);
+}
+
+.quest-sapiens-feature .quest-field-note-grid strong,
+.quest-sapiens-feature .quest-field-note-grid p {
+  color: #fff8ea;
+}
+
+.quest-sapiens-reminder {
+  margin-bottom: 0;
+}
+
+.quest-mini-briefing {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 18px 45px rgba(8, 20, 38, 0.08);
+  overflow: hidden;
+}
+
+.quest-mini-briefing > div:first-child {
+  aspect-ratio: 4 / 3;
+  position: relative;
+}
+
+.quest-mini-briefing > :not(div:first-child) {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.quest-mini-briefing h3 {
+  color: #081426;
+  font-size: 1.45rem;
+}
+
+.quest-mini-briefing p {
+  color: rgba(8, 20, 38, 0.76);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.quest-checklist {
+  margin-bottom: 24px;
+}
+
+.quest-checklist label {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.64);
+  border-left: 4px solid #0e7c7b;
+  display: flex;
+  gap: 12px;
+  padding: 13px 15px;
+}
+
+.quest-checklist input {
+  accent-color: #0e7c7b;
+  height: 18px;
+  width: 18px;
+}
+
+.quest-checklist span {
+  color: #081426;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.quest-starter-review {
+  background:
+    linear-gradient(135deg, rgba(8, 20, 38, 0.95), rgba(8, 20, 38, 0.82)),
+    linear-gradient(90deg, rgba(217, 164, 65, 0.18), transparent);
+  color: #fff8ea;
+  margin-bottom: 28px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.quest-starter-review h3 {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+}
+
+.quest-starter-review > div {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quest-starter-review article {
+  background: rgba(255, 248, 234, 0.1);
+  border-left: 4px solid #d9a441;
+  padding: 14px;
+}
+
+.quest-starter-review strong {
+  color: #fff8ea;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.quest-starter-review span {
+  color: #d9a441;
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 900;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.quest-starter-review p {
+  color: rgba(255, 248, 234, 0.76);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.42;
+  margin: 8px 0 0;
+}
+
+.quest-navigation {
+  border-top: 1px solid rgba(8, 20, 38, 0.16);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 34px;
+  padding-top: 22px;
+}
+
+.quest-navigation button {
+  background: #081426;
+  color: #fff8ea;
+  font-weight: 900;
+  padding: 12px 22px;
+  text-transform: uppercase;
+}
+
+.quest-navigation button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.quest-species-actions button:disabled {
+  background: rgba(8, 20, 38, 0.22);
+  color: rgba(8, 20, 38, 0.58);
+  cursor: not-allowed;
+}
+
+.quest-next-stage-note {
+  background:
+    linear-gradient(90deg, rgba(8, 20, 38, 0.95), rgba(8, 20, 38, 0.84)),
+    linear-gradient(135deg, rgba(217, 164, 65, 0.28), transparent);
+  color: #fff8ea;
+  margin-top: 28px;
+  padding: 18px 20px;
+}
+
+.quest-next-stage-note strong {
+  color: #d9a441;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.quest-next-stage-note p {
+  color: rgba(255, 248, 234, 0.8);
+  font-weight: 800;
+  line-height: 1.45;
+  margin: 8px 0 0;
+}
+
+@media (max-width: 980px) {
+  .quest-workbench,
+  .quest-field-grid,
+  .quest-field-stack-columns,
+  .quest-starter-review > div,
+  .quest-video-feature,
+  .quest-research-launch,
+  .quest-evidence-strip,
+  .quest-compare-briefings,
+  .quest-field-note-modal,
+  .quest-sapiens-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-side-panel {
+    position: static;
+  }
+
+  .quest-step-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quest-field-note-image {
+    min-height: 420px;
+  }
+
+  .quest-evidence-strip > div {
+    padding: 0 22px 24px;
+  }
+
+  .quest-sapiens-image {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 620px) {
+  .quest-hero-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .quest-workbench {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .quest-panel {
+    padding: 22px;
+  }
+
+  .quest-step-list {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-species-picker,
+  .quest-field-note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-species-image-button {
+    min-height: 360px;
+  }
+
+  .quest-modal-backdrop {
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .quest-field-note-modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .quest-video-feature iframe {
+    min-height: 210px;
+  }
+
+  .quest-sapiens-feature {
+    padding: 16px;
+  }
+
+  .quest-sapiens-image {
+    min-height: 320px;
+  }
+}
+
 @page {
   margin: 0;
   size: A4;

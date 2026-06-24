@@ -8,6 +8,9 @@ export function SiteHeader() {
           Ancient Human Relatives
         </Link>
         <div className="flex items-center gap-3 text-sm font-semibold">
+          <Link className="rounded-full px-3 py-2 text-paper/80 transition hover:bg-white/10 hover:text-paper focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-gold" href="/quest">
+            Web quest
+          </Link>
           <Link className="rounded-full px-3 py-2 text-paper/80 transition hover:bg-white/10 hover:text-paper focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-gold" href="/species">
             Browse groups
           </Link>
