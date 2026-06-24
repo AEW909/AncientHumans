@@ -1,0 +1,140 @@
+import type { MisconceptionResponse, StudentWork } from "@/types/studentWork";
+
+export const STUDENT_WORK_SCHEMA_VERSION = 1;
+
+export const misconceptionPrompts = [
+  {
+    id: "humans-from-monkeys",
+    statement: "Humans evolved from monkeys.",
+  },
+  {
+    id: "evolution-better",
+    statement: "Evolution always makes organisms better.",
+  },
+  {
+    id: "straight-line",
+    statement: "Human evolution was a straight line leading to us.",
+  },
+  {
+    id: "neanderthals-unintelligent",
+    statement: "Neanderthals were unintelligent cave people.",
+  },
+  {
+    id: "bigger-brains",
+    statement: "Bigger brains always mean a species is more successful.",
+  },
+  {
+    id: "sapiens-overlap",
+    statement: "Homo sapiens lived at the same time as other human species.",
+  },
+] as const;
+
+export const selfAssessmentItems = [
+  {
+    id: "three-relatives",
+    label: "Described at least three ancient human relatives.",
+  },
+  {
+    id: "dates",
+    label: "Used dates and approximate time periods.",
+  },
+  {
+    id: "evidence",
+    label: "Included fossil, tool, DNA or archaeological evidence.",
+  },
+  {
+    id: "not-straight-line",
+    label: "Explained why human evolution is not a straight line.",
+  },
+  {
+    id: "uncertainty",
+    label: "Included uncertainty or scientific debate.",
+  },
+  {
+    id: "vocabulary",
+    label: "Used scientific vocabulary correctly.",
+  },
+  {
+    id: "judgement",
+    label: "Written a clear final judgement.",
+  },
+] as const;
+
+export function createDefaultStudentWork(now = new Date().toISOString()): StudentWork {
+  return {
+    schemaVersion: STUDENT_WORK_SCHEMA_VERSION,
+    createdAt: now,
+    updatedAt: null,
+    student: {
+      name: "",
+      className: "",
+      date: "",
+      chosenGroupSlug: "",
+      comparisonGroupSlug: "",
+    },
+    misconceptions: createDefaultMisconceptions(),
+    research: {
+      livedWhen: "",
+      livedWhere: "",
+      body: "",
+      lifestyle: "",
+      evidence: "",
+      importance: "",
+      uncertainty: "",
+    },
+    evidence: {
+      fossils: "",
+      tools: "",
+      dna: "",
+      archaeology: "",
+      strongest: "",
+      limitations: "",
+    },
+    life: {
+      keyFeature: "",
+      featureUsefulness: "",
+      likelyEnvironment: "",
+      likelyLifestyle: "",
+      survivalPressure: "",
+    },
+    comparison: {
+      similarities: "",
+      differences: "",
+      mostSimilar: "",
+      mostDifferent: "",
+      conclusion: "",
+    },
+    timeline: {
+      sapiensOverlap: "",
+      groupOverlap: "",
+      ladderChallenge: "",
+      branchingTree: "",
+      geography: "",
+    },
+    finalReport: {
+      title: "",
+      introduction: "",
+      earlyEvidence: "",
+      laterEvidence: "",
+      overlapAndUncertainty: "",
+      conclusion: "",
+      finalAnswer: "",
+      oneSentenceJudgement: "",
+    },
+    reflection: {
+      checklist: Object.fromEntries(selfAssessmentItems.map((item) => [item.id, false])),
+      mostInteresting: "",
+      stillDebated: "",
+      improvementTarget: "",
+    },
+  };
+}
+
+function createDefaultMisconceptions(): MisconceptionResponse[] {
+  return misconceptionPrompts.map((prompt) => ({
+    id: prompt.id,
+    statement: prompt.statement,
+    choice: "",
+    explanation: "",
+  }));
+}

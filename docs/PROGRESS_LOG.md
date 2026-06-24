@@ -2,8 +2,8 @@
 
 ## Latest Update
 
-Date: 2026-06-23
-Task: Continued Stage 3 mock magazine-style report preview and generated evidence vignette assets.
+Date: 2026-06-24
+Task: Built Stage 4 student work data model and localStorage foundation.
 
 ## Completed
 
@@ -47,6 +47,12 @@ Task: Continued Stage 3 mock magazine-style report preview and generated evidenc
 - Scoped the page 7 drop-cap styling to the final essay paragraph only, preventing the `Final evaluation` kicker from overlapping with the title.
 - Reworked page 8 with a mosaic of unused made/activity images so the back cover feels closer to the cover-art tone.
 - Removed the `Field report` overlay text from the cover page, leaving the cover art plus student details.
+- Defined the Stage 4 student work TypeScript model covering student details, misconceptions, guided research, evidence, life/adaptations, comparison, timeline, final report and reflection.
+- Created default empty student work with schema versioning, created timestamp and empty responses for all web quest sections.
+- Added localStorage helpers to load, save, reset and detect saved student work using the project storage key.
+- Added save timestamp handling through `updatedAt`.
+- Added fallback normalization so missing, partial or older saved data is merged back into a safe complete shape.
+- Added basic progress calculation across required fields and completed sections.
 
 ## Files Created or Changed
 
@@ -118,8 +124,11 @@ Task: Continued Stage 3 mock magazine-style report preview and generated evidenc
 - `src/components/report/ReportPage.tsx`
 - `src/app/report-preview/page.tsx`
 - `src/data/hominins.ts`
+- `src/data/defaultStudentWork.ts`
 - `src/data/mockReport.ts`
+- `src/lib/studentWorkStorage.ts`
 - `src/types/hominin.ts`
+- `src/types/studentWork.ts`
 - `src/types/report.ts`
 - `docs/PROGRESS_LOG.md`
 
@@ -128,12 +137,15 @@ Task: Continued Stage 3 mock magazine-style report preview and generated evidenc
 - Stage 1 complete and verified.
 - Stage 2 complete and verified.
 - Stage 3 complete and verified in code.
+- Stage 4 complete and verified in code.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.
+- Latest student work data/storage foundation verified with `npm run build`.
 
 ## Known Issues
 
-- Student forms, localStorage, real report data connection, PDF export, Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
+- Student forms, real report data connection, PDF export, Airtable, Supabase, login, teacher dashboard, AI feedback and analytics have intentionally not been implemented.
+- localStorage helpers are implemented but not yet connected to a student-facing form flow.
 - The cover source remains in `assets/cover/Cover v 2.png`; the app uses the copied public asset path required by Next.js.
 - `npm audit --omit=dev` reports two moderate issues through Next.js' bundled PostCSS dependency. `npm audit fix --force` recommends a breaking downgrade to Next 9.3.3, so it was not applied.
 - In this managed Codex sandbox, `next dev` needed escalated process permissions because the first sandboxed run failed with `spawn EPERM`.
@@ -148,4 +160,4 @@ Task: Continued Stage 3 mock magazine-style report preview and generated evidenc
 
 ## Next Recommended Task
 
-- Review the first-pass figure and vignette assets for scientific fit, then continue Stage 4: define the student work data model, create default empty work, and add localStorage save/load/reset helpers without building the full form flow yet.
+- Build Stage 5: create the guided student web quest flow and connect it to the Stage 4 localStorage helpers with autosave, progress display and character limits.
