@@ -85,6 +85,57 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           <p className="mt-5 leading-7 text-paper/80">{hominin.reportCaption}</p>
         </div>
       </section>
+
+      <section className="relative border-y border-white/10 bg-black/30">
+        <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="font-heading text-sm font-black uppercase tracking-[0.22em] text-gold">Visual evidence set</p>
+            <h2 className="mt-2 font-heading text-4xl font-black uppercase leading-none text-paper">
+              Images to compare and question
+            </h2>
+            <p className="mt-4 leading-7 text-paper/74">
+              These images give more context than the field-note pop-up. Treat reconstructions as interpretations and
+              use the captions to separate evidence from inference.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <ImageStudyCard
+              caption={hominin.figureCaption ?? hominin.imageCaption}
+              label="Figure"
+              src={hominin.figureImage ?? hominin.posterImage}
+            />
+            <ImageStudyCard
+              caption={hominin.activityCaption ?? hominin.lifestyle}
+              label="Behaviour"
+              src={hominin.activityImage ?? hominin.posterImage}
+            />
+            <ImageStudyCard
+              caption={hominin.madeCaption ?? hominin.evidence}
+              label="Made / Evidence"
+              src={hominin.madeImage ?? hominin.vignetteImage ?? hominin.posterImage}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative mx-auto grid max-w-7xl gap-6 px-5 py-12 md:grid-cols-[1fr_1fr] lg:px-8">
+        <div className="border-l-4 border-teal bg-paper/95 p-6 text-navy">
+          <h2 className="font-heading text-3xl font-black uppercase">Use this in your report</h2>
+          <ul className="mt-5 space-y-3 font-semibold leading-7 text-navy/78">
+            <li>Use the date range to check whether this branch overlapped with other human relatives.</li>
+            <li>Use the location to think about geography, isolation and different environments.</li>
+            <li>Use the uncertainty statement to avoid writing as if scientists know everything for certain.</li>
+          </ul>
+        </div>
+        <div className="border-l-4 border-rust bg-paper/95 p-6 text-navy">
+          <h2 className="font-heading text-3xl font-black uppercase">Questions to ask</h2>
+          <ul className="mt-5 space-y-3 font-semibold leading-7 text-navy/78">
+            <li>Which evidence is direct, and which part is interpretation?</li>
+            <li>What would change if new fossils, DNA or archaeological evidence were found?</li>
+            <li>How does this group challenge the idea of a simple ladder?</li>
+          </ul>
+        </div>
+      </section>
     </article>
   );
 }
@@ -101,5 +152,19 @@ function InfoPanel({ title, body, tone }: { title: string; body: string; tone: "
       <h2 className="font-heading text-2xl font-black uppercase text-navy">{title}</h2>
       <p className="mt-3 leading-7 text-navy/80">{body}</p>
     </div>
+  );
+}
+
+function ImageStudyCard({ caption, label, src }: { caption: string; label: string; src: string }) {
+  return (
+    <article className="overflow-hidden border border-white/10 bg-midnight/74 shadow-[0_30px_90px_rgba(0,0,0,0.3)]">
+      <div className="relative aspect-[4/3]">
+        <Image src={src} alt={caption} fill sizes="33vw" className="object-cover object-top" />
+      </div>
+      <div className="p-5">
+        <p className="font-heading text-xs font-black uppercase tracking-[0.2em] text-gold">{label}</p>
+        <p className="mt-3 text-sm font-semibold leading-6 text-paper/76">{caption}</p>
+      </div>
+    </article>
   );
 }

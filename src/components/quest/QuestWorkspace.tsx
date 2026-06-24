@@ -33,6 +33,7 @@ const textLimits = {
 const sections = [
   { key: "details", label: "Details" },
   { key: "misconceptions", label: "Starter" },
+  { key: "intro", label: "Intro" },
   { key: "choose", label: "Choose" },
   { key: "research", label: "Research" },
   { key: "evidence", label: "Evidence" },
@@ -132,6 +133,10 @@ export function QuestWorkspace() {
       return true;
     }
 
+    if (key === "intro") {
+      return true;
+    }
+
     return progress.completedSections.includes(key);
   }
 
@@ -202,15 +207,16 @@ export function QuestWorkspace() {
         <div className="quest-panel">
           {activeStep === 0 && <StudentDetailsStep updateWork={updateWork} work={work} />}
           {activeStep === 1 && <MisconceptionsStep updateWork={updateWork} work={work} />}
-          {activeStep === 2 && <ChooseGroupStep updateWork={updateWork} work={work} />}
-          {activeStep === 3 && <GuidedResearchStep updateWork={updateWork} work={work} />}
-          {activeStep === 4 && <EvidenceStep updateWork={updateWork} work={work} />}
-          {activeStep === 5 && <LifeStep updateWork={updateWork} work={work} />}
-          {activeStep === 6 && <SapiensBridgeStep />}
-          {activeStep === 7 && <ComparisonStep updateWork={updateWork} work={work} />}
-          {activeStep === 8 && <TimelineStep updateWork={updateWork} work={work} />}
-          {activeStep === 9 && <FinalReportStep updateWork={updateWork} work={work} />}
-          {activeStep === 10 && <ReflectionStep updateWork={updateWork} work={work} />}
+          {activeStep === 2 && <ProjectIntroStep />}
+          {activeStep === 3 && <ChooseGroupStep updateWork={updateWork} work={work} />}
+          {activeStep === 4 && <GuidedResearchStep updateWork={updateWork} work={work} />}
+          {activeStep === 5 && <EvidenceStep updateWork={updateWork} work={work} />}
+          {activeStep === 6 && <LifeStep updateWork={updateWork} work={work} />}
+          {activeStep === 7 && <SapiensBridgeStep />}
+          {activeStep === 8 && <ComparisonStep updateWork={updateWork} work={work} />}
+          {activeStep === 9 && <TimelineStep updateWork={updateWork} work={work} />}
+          {activeStep === 10 && <FinalReportStep updateWork={updateWork} work={work} />}
+          {activeStep === 11 && <ReflectionStep updateWork={updateWork} work={work} />}
 
           <div className="quest-navigation">
             <button disabled={activeStep === 0} onClick={() => setActiveStep((step) => Math.max(0, step - 1))} type="button">
@@ -249,26 +255,10 @@ function MisconceptionsStep({ work, updateWork }: StepProps) {
       title="Record your first thoughts"
       intro="Before you research, capture what you already think. These are not final answers: you will revisit them in the reflection."
     >
-      <div className="quest-video-feature">
-        <div>
-          <p className="quest-kicker">Before you begin</p>
-          <h3>Watch for branches, overlap and uncertainty</h3>
-          <p>
-            This Kurzgesagt introduction is useful for the big picture. As you watch, look for evidence that human
-            evolution was not a neat line of improvement.
-          </p>
-        </div>
-        <iframe
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          src="https://www.youtube.com/embed/dGiQaabX3_o"
-          title="Kurzgesagt: What Happened Before History? Human Origins"
-        />
-      </div>
       <div className="quest-baseline-note">
         <strong>Baseline check</strong>
         <p>
-          Answer from memory and instinct first. Later, section 11 will ask you to look back at these ideas and decide
+          Answer from memory and instinct first. Later, the reflection will ask you to look back at these ideas and decide
           what changed after looking at the evidence.
         </p>
       </div>
@@ -302,6 +292,55 @@ function MisconceptionsStep({ work, updateWork }: StepProps) {
             />
           </div>
         ))}
+      </div>
+    </QuestSection>
+  );
+}
+
+function ProjectIntroStep() {
+  return (
+    <QuestSection
+      eyebrow="Project map"
+      title="How the investigation works"
+      intro="You will research one ancient human relative, compare it with Homo sapiens and another branch, then turn your evidence into a magazine-style field report."
+    >
+      <div className="quest-video-feature">
+        <div>
+          <p className="quest-kicker">Big picture</p>
+          <h3>Watch for branches, overlap and uncertainty</h3>
+          <p>
+            This introduction gives the broad human-origins story. As you watch, notice when several human groups exist
+            at the same time and when evidence is incomplete or debated.
+          </p>
+        </div>
+        <iframe
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          src="https://www.youtube.com/embed/dGiQaabX3_o"
+          title="Kurzgesagt: What Happened Before History? Human Origins"
+        />
+      </div>
+      <div className="quest-project-map">
+        <article>
+          <span>01</span>
+          <strong>Choose a focus branch</strong>
+          <p>Open field notes, compare options and pick one ancient human relative to investigate in depth.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Gather evidence</strong>
+          <p>Use images, information sheets, species pages and trusted external sites to record careful notes.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Compare without ranking</strong>
+          <p>Compare your focus branch with Homo sapiens and one other ancient relative as separate branches.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <strong>Publish the report</strong>
+          <p>Your saved answers feed an 8-page magazine-style field report that can be saved as a PDF.</p>
+        </article>
       </div>
     </QuestSection>
   );
@@ -342,17 +381,31 @@ function ChooseGroupStep({ work, updateWork }: StepProps) {
             <div className="quest-species-actions">
               <button
                 className={work.student.chosenGroupSlug === group.slug ? "quest-pill-active" : ""}
-                onClick={() => updateWork((current) => ({ ...current, student: { ...current.student, chosenGroupSlug: group.slug } }))}
+                onClick={() => updateWork((current) => ({
+                  ...current,
+                  student: {
+                    ...current.student,
+                    chosenGroupSlug: group.slug,
+                    comparisonGroupSlug: current.student.comparisonGroupSlug === group.slug ? "" : current.student.comparisonGroupSlug,
+                  },
+                }))}
                 type="button"
               >
                 Focus
               </button>
               <button
                 className={work.student.comparisonGroupSlug === group.slug ? "quest-pill-active" : ""}
-                onClick={() => updateWork((current) => ({ ...current, student: { ...current.student, comparisonGroupSlug: group.slug } }))}
+                disabled={work.student.chosenGroupSlug === group.slug}
+                onClick={() => updateWork((current) => ({
+                  ...current,
+                  student: {
+                    ...current.student,
+                    comparisonGroupSlug: current.student.chosenGroupSlug === group.slug ? current.student.comparisonGroupSlug : group.slug,
+                  },
+                }))}
                 type="button"
               >
-                Compare
+                {work.student.chosenGroupSlug === group.slug ? "Focus branch" : "Compare"}
               </button>
             </div>
           </article>
@@ -364,8 +417,21 @@ function ChooseGroupStep({ work, updateWork }: StepProps) {
           isComparison={work.student.comparisonGroupSlug === inspectedGroup.slug}
           isFocus={work.student.chosenGroupSlug === inspectedGroup.slug}
           onClose={() => setInspectedSlug(null)}
-          onSelectComparison={() => updateWork((current) => ({ ...current, student: { ...current.student, comparisonGroupSlug: inspectedGroup.slug } }))}
-          onSelectFocus={() => updateWork((current) => ({ ...current, student: { ...current.student, chosenGroupSlug: inspectedGroup.slug } }))}
+          onSelectComparison={() => updateWork((current) => ({
+            ...current,
+            student: {
+              ...current.student,
+              comparisonGroupSlug: current.student.chosenGroupSlug === inspectedGroup.slug ? current.student.comparisonGroupSlug : inspectedGroup.slug,
+            },
+          }))}
+          onSelectFocus={() => updateWork((current) => ({
+            ...current,
+            student: {
+              ...current.student,
+              chosenGroupSlug: inspectedGroup.slug,
+              comparisonGroupSlug: current.student.comparisonGroupSlug === inspectedGroup.slug ? "" : current.student.comparisonGroupSlug,
+            },
+          }))}
         />
       )}
     </QuestSection>
@@ -396,6 +462,7 @@ function EvidenceStep({ work, updateWork }: StepProps) {
 
   return (
     <QuestSection eyebrow="Evidence dossier" title="How do we know?" intro="Separate fossils, tools, DNA and archaeological clues from interpretation.">
+      {chosen && <QuestResourceRow group={chosen} />}
       {chosen && (
         <div className="quest-evidence-strip">
           <Image src={chosen.madeImage ?? chosen.posterImage} alt={chosen.madeCaption ?? chosen.imageCaption} fill sizes="360px" className="object-cover" />
@@ -420,8 +487,11 @@ function EvidenceStep({ work, updateWork }: StepProps) {
 }
 
 function LifeStep({ work, updateWork }: StepProps) {
+  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
+
   return (
     <QuestSection eyebrow="Life and adaptations" title="Body, environment and survival" intro="Explain what evidence suggests, and keep possible adaptations cautious.">
+      {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack columns>
         <TextArea label="One important physical feature" limit={textLimits.research} value={work.life.keyFeature} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, keyFeature: value } }))} />
         <TextArea label="Why may it have been useful?" limit={textLimits.research} value={work.life.featureUsefulness} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, featureUsefulness: value } }))} />
@@ -467,6 +537,7 @@ function SapiensBridgeStep() {
           </div>
         </div>
       </div>
+      <QuestResourceRow group={sapiens} />
     </QuestSection>
   );
 }
@@ -479,6 +550,7 @@ function ComparisonStep({ work, updateWork }: StepProps) {
 
   return (
     <QuestSection eyebrow="Comparison" title="Three branches, no ranking" intro="Compare your focus group with Homo sapiens and one other group.">
+      {chosen && <QuestResourceRow group={chosen} />}
       <div className="quest-compare-briefings">
         {comparisonGroups.length > 0 ? comparisonGroups.map((group) => (
           <MiniBriefing group={group} key={group.slug} />
@@ -510,14 +582,37 @@ function ComparisonStep({ work, updateWork }: StepProps) {
 }
 
 function TimelineStep({ work, updateWork }: StepProps) {
+  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
+
   return (
-    <QuestSection eyebrow="Timeline and overlap" title="Many humans, shared time" intro="Use overlap and geography to challenge a simple ladder model.">
+    <QuestSection eyebrow="Timeline and overlap" title="Many humans, shared time" intro="Use overlap and geography to decide which model best fits the evidence.">
+      {chosen && <QuestResourceRow group={chosen} />}
+      <div className="quest-timeline-stimulus">
+        <div>
+          <Image
+            src="/assets/report/back-cover-branches.png"
+            alt="Branching human evolution visual prompt"
+            fill
+            sizes="420px"
+            className="object-cover"
+          />
+        </div>
+        <article>
+          <p className="quest-kicker">Model check</p>
+          <h3>Line, ladder or branching tree?</h3>
+          <p>
+            Use dates, overlap, places and uncertainty to decide whether the evidence fits a simple sequence or a
+            branching family tree. Open this visual as a prompt if you want a larger view.
+          </p>
+          <a href="/assets/report/back-cover-branches.png" target="_blank" rel="noreferrer">Open prompt poster</a>
+        </article>
+      </div>
       <FieldStack columns>
-        <TextArea label="Which groups overlapped with Homo sapiens?" limit={textLimits.comparison} value={work.timeline.sapiensOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, sapiensOverlap: value } }))} />
-        <TextArea label="Which groups overlapped with each other?" limit={textLimits.comparison} value={work.timeline.groupOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, groupOverlap: value } }))} />
-        <TextArea label="Why does this challenge a ladder?" limit={textLimits.comparison} value={work.timeline.ladderChallenge} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, ladderChallenge: value } }))} />
-        <TextArea label="Why is a branching tree better?" limit={textLimits.comparison} value={work.timeline.branchingTree} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, branchingTree: value } }))} />
-        <TextArea label="How does geography matter?" limit={textLimits.comparison} value={work.timeline.geography} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, geography: value } }))} />
+        <TextArea label="Which groups existed at similar times?" limit={textLimits.comparison} value={work.timeline.sapiensOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, sapiensOverlap: value } }))} />
+        <TextArea label="What overlap or uncertainty can you find?" limit={textLimits.comparison} value={work.timeline.groupOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, groupOverlap: value } }))} />
+        <TextArea label="What would a ladder model explain well or badly?" limit={textLimits.comparison} value={work.timeline.ladderChallenge} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, ladderChallenge: value } }))} />
+        <TextArea label="What would a branching tree explain well or badly?" limit={textLimits.comparison} value={work.timeline.branchingTree} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, branchingTree: value } }))} />
+        <TextArea label="How do different places affect the story?" limit={textLimits.comparison} value={work.timeline.geography} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, geography: value } }))} />
       </FieldStack>
     </QuestSection>
   );
@@ -640,8 +735,8 @@ function SpeciesFieldNote({
             <button className={isFocus ? "quest-pill-active" : ""} disabled={group.slug === "homo-sapiens"} onClick={onSelectFocus} type="button">
               {isFocus ? "Focus selected" : "Use as focus"}
             </button>
-            <button className={isComparison ? "quest-pill-active" : ""} disabled={group.slug === "homo-sapiens"} onClick={onSelectComparison} type="button">
-              {group.slug === "homo-sapiens" ? "Always included" : isComparison ? "Comparison selected" : "Use as comparison"}
+            <button className={isComparison ? "quest-pill-active" : ""} disabled={group.slug === "homo-sapiens" || isFocus} onClick={onSelectComparison} type="button">
+              {group.slug === "homo-sapiens" ? "Always included" : isFocus ? "Focus branch" : isComparison ? "Comparison selected" : "Use as comparison"}
             </button>
           </div>
         </div>
@@ -667,12 +762,19 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
   return (
     <div className="quest-research-launch">
       <div className="quest-research-poster">
-        <Image src={group.posterImage} alt={group.imageCaption} fill sizes="320px" className="object-cover" />
+        <Image
+          src={group.activityImage ?? group.vignetteImage ?? group.posterImage}
+          alt={group.activityCaption ?? group.vignetteCaption ?? group.imageCaption}
+          fill
+          sizes="320px"
+          className="object-cover"
+        />
       </div>
       <div>
         <p className="quest-kicker">Research launchpad</p>
         <h3>{group.displayName}</h3>
         <p>{group.hook}</p>
+        <p className="quest-asset-note">Stimulus image placeholder: replace with a dedicated research prompt image set later.</p>
         <div className="quest-link-row">
           <a href={group.posterImage} target="_blank" rel="noreferrer">Open the full information sheet</a>
           <a href={`/species/${group.slug}`} target="_blank" rel="noreferrer">Use the app species page</a>
@@ -684,6 +786,18 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
           Ask your teacher for the printed information sheet if you want to annotate evidence by hand.
         </div>
       </div>
+    </div>
+  );
+}
+
+function QuestResourceRow({ group }: { group: Hominin }) {
+  return (
+    <div className="quest-resource-row">
+      <a href={group.posterImage} target="_blank" rel="noreferrer">Information sheet</a>
+      <a href={`/species/${group.slug}`} target="_blank" rel="noreferrer">Species page</a>
+      {researchLinks.map((link) => (
+        <a href={link.href} key={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+      ))}
     </div>
   );
 }

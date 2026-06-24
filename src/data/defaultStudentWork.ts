@@ -5,27 +5,27 @@ export const STUDENT_WORK_SCHEMA_VERSION = 1;
 export const misconceptionPrompts = [
   {
     id: "humans-from-monkeys",
-    statement: "Humans evolved from monkeys.",
+    statement: "Humans and living monkeys are connected through common ancestry.",
   },
   {
     id: "evolution-better",
-    statement: "Evolution always makes organisms better.",
+    statement: "Evolution can produce traits that fit a particular environment.",
   },
   {
     id: "straight-line",
-    statement: "Human evolution was a straight line leading to us.",
+    statement: "The human family tree can be shown as one simple line.",
   },
   {
     id: "neanderthals-unintelligent",
-    statement: "Neanderthals were unintelligent cave people.",
+    statement: "Neanderthals had behaviours that can be investigated using evidence.",
   },
   {
     id: "bigger-brains",
-    statement: "Bigger brains always mean a species is more successful.",
+    statement: "Brain size is one useful clue when comparing ancient human relatives.",
   },
   {
     id: "sapiens-overlap",
-    statement: "Homo sapiens lived at the same time as other human species.",
+    statement: "Homo sapiens overlapped in time with other human species.",
   },
 ] as const;
 

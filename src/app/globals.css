@@ -1345,6 +1345,45 @@ a {
   width: 100%;
 }
 
+.quest-project-map {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
+.quest-project-map article {
+  background: rgba(255, 255, 255, 0.68);
+  border-top: 4px solid #d9a441;
+  padding: 16px;
+}
+
+.quest-project-map span {
+  color: #a3402a;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.quest-project-map strong {
+  color: #081426;
+  display: block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.quest-project-map p {
+  color: rgba(8, 20, 38, 0.72);
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 8px 0 0;
+}
+
 .quest-question-card h3 {
   font-size: 1.25rem;
   margin-bottom: 14px;
@@ -1420,6 +1459,13 @@ a {
   position: absolute;
   text-transform: uppercase;
   z-index: 2;
+}
+
+.quest-species-image-button img,
+.quest-field-note-image img,
+.quest-mini-briefing img,
+.quest-sapiens-image img {
+  object-position: top center;
 }
 
 .quest-species-option h3,
@@ -1653,6 +1699,38 @@ a {
   padding: 22px;
 }
 
+.quest-resource-row {
+  background: rgba(8, 20, 38, 0.92);
+  border-left: 5px solid #0e7c7b;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 14px;
+}
+
+.quest-resource-row a {
+  background: rgba(255, 248, 234, 0.1);
+  border: 1px solid rgba(255, 248, 234, 0.16);
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  padding: 9px 10px;
+  text-transform: uppercase;
+}
+
+.quest-resource-row a:hover {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.quest-asset-note {
+  color: rgba(255, 248, 234, 0.62) !important;
+  font-size: 0.82rem;
+  margin-top: 8px !important;
+}
+
 .quest-research-launch > div,
 .quest-evidence-strip > div,
 .quest-field-note-copy,
@@ -1728,13 +1806,13 @@ a {
   color: #fff8ea;
   display: grid;
   gap: 28px;
-  grid-template-columns: minmax(360px, 1.1fr) minmax(360px, 0.9fr);
+  grid-template-columns: minmax(320px, 1fr) minmax(360px, 0.95fr);
   overflow: hidden;
   padding: 24px;
 }
 
 .quest-sapiens-image {
-  min-height: 520px;
+  min-height: 440px;
   position: relative;
 }
 
@@ -1744,7 +1822,7 @@ a {
 
 .quest-sapiens-copy h3 {
   color: #fff8ea;
-  font-size: clamp(3rem, 7vw, 6.8rem);
+  font-size: clamp(2.6rem, 5.6vw, 5.6rem);
 }
 
 .quest-sapiens-copy > p {
@@ -1776,6 +1854,52 @@ a {
 .quest-mini-briefing > div:first-child {
   aspect-ratio: 4 / 3;
   position: relative;
+}
+
+.quest-timeline-stimulus {
+  background: #081426;
+  color: #fff8ea;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(240px, 0.62fr) minmax(0, 1fr);
+  margin-bottom: 24px;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.quest-timeline-stimulus > div {
+  min-height: 260px;
+  position: relative;
+}
+
+.quest-timeline-stimulus article {
+  align-self: center;
+  padding: 24px 24px 24px 0;
+}
+
+.quest-timeline-stimulus h3 {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.quest-timeline-stimulus p:not(.quest-kicker) {
+  color: rgba(255, 248, 234, 0.78);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.quest-timeline-stimulus a {
+  color: #d9a441;
+  display: inline-block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-weight: 900;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
 
 .quest-mini-briefing > :not(div:first-child) {
@@ -1941,9 +2065,11 @@ a {
   .quest-video-feature,
   .quest-research-launch,
   .quest-evidence-strip,
+  .quest-timeline-stimulus,
   .quest-compare-briefings,
   .quest-field-note-modal,
-  .quest-sapiens-feature {
+  .quest-sapiens-feature,
+  .quest-project-map {
     grid-template-columns: 1fr;
   }
 
@@ -1963,8 +2089,12 @@ a {
     padding: 0 22px 24px;
   }
 
+  .quest-timeline-stimulus article {
+    padding: 0 22px 24px;
+  }
+
   .quest-sapiens-image {
-    min-height: 420px;
+    min-height: 360px;
   }
 }
 

@@ -3,7 +3,7 @@
 ## Latest Update
 
 Date: 2026-06-24
-Task: Built Stage 6 report-preview wiring and Stage 7 first-pass PDF export.
+Task: Revised the web quest learning flow after end-to-end wiring.
 
 ## Completed
 
@@ -94,6 +94,18 @@ Task: Built Stage 6 report-preview wiring and Stage 7 first-pass PDF export.
 - Wired first-pass PDF export through the browser print dialog using the existing A4 print stylesheet.
 - Temporarily sets a report-friendly document title before opening print so the browser's suggested PDF filename is more useful.
 - Updated section 11 copy so the web quest points students toward previewing and downloading/saving their report.
+- Added a new Intro section between the starter and species choice page to explain the whole project flow.
+- Moved the Kurzgesagt video from the starter into the new Intro page so section 02 remains a genuine baseline snapshot.
+- Reworded starter statements to be less leading while still surfacing useful initial ideas.
+- Prevented pupils from selecting the same species as both focus and comparison; choosing a focus clears any matching comparison.
+- Expanded the full species detail pages with figure, behaviour and made/evidence image study cards plus report-use prompts.
+- Swapped the guided research launchpad away from repeating the information-sheet poster and toward an activity/stimulus image.
+- Added a note that dedicated research stimulus images should be generated later.
+- Added a reusable resource row with links to the information sheet, species page and trusted external research sites across the later quest sections.
+- Top-aligned hominin images in chooser and briefing panels so cropping favours feet rather than heads.
+- Added a timeline/model-check stimulus panel with an open-in-new-tab prompt image.
+- Reworded timeline prompts to ask pupils to evaluate models rather than simply confirm the branching-tree conclusion.
+- Tightened the Homo sapiens bridge section sizing and image alignment to reduce fit issues on medium viewports.
 
 ## Files Created or Changed
 
@@ -196,6 +208,8 @@ Task: Built Stage 6 report-preview wiring and Stage 7 first-pass PDF export.
 - Latest browser pass verified section 03 now uses a compact research-site reminder in the main flow while keeping trusted source links available in the side panel, with no horizontal overflow.
 - Latest report-preview browser pass verified the connected preview renders 8 pages, shows saved/placeholder status messaging, keeps the web quest return link visible and has no horizontal overflow.
 - Latest report-preview browser pass verified the `Download PDF` toolbar control appears alongside the web quest return link and the report still renders 8 pages with no horizontal overflow.
+- Latest web quest browser pass verified the new 12-section flow, starter without video, intro with video, duplicate comparison guard, research stimulus image, timeline stimulus panel, resource rows and top-aligned hominin image crops with no horizontal overflow.
+- Latest species detail browser pass verified expanded species pages include the visual evidence set, report-use prompts and question prompts with no horizontal overflow.
 - Print CSS verified in code: browser-only toolbar and status banner are hidden under `@media print`.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.
@@ -215,6 +229,7 @@ Task: Built Stage 6 report-preview wiring and Stage 7 first-pass PDF export.
 - Some `madeImage` slots are deliberately framed as evidence objects rather than made artefacts, because forcing a tool/jewellery claim for every group would weaken scientific accuracy.
 - Generated decorative visuals must not be used as factual migration-route evidence unless reviewed against reliable sources.
 - Page 6 currently uses broad geographic regions only; a reliable map should be added later from reviewed palaeoanthropology sources if needed.
+- Guided research currently reuses activity/stimulus images; a dedicated research-prompt image set should be generated later.
 - Browser screenshot capture was blocked by local Chromium/Edge crashpad permissions and in-app browser screenshot timeouts on the image-heavy report; report verification used `npm run build` plus DOM layout/overflow measurements instead.
 - Temporary browser profile/contact-sheet artifacts may remain locally but are ignored by git.
 
