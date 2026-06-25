@@ -54,7 +54,7 @@ export function MockReport({ report, readiness, source = "saved", toolbarActions
     <div className="report-preview-shell">
       <ReportToolbar readiness={readiness} source={source} toolbarActions={toolbarActions} />
       <div className="report-document">
-        <CoverPage report={report} chosen={chosen} />
+        <CoverPage report={report} />
         <SpeciesFeaturePage report={report} chosen={chosen} />
         <EvidencePage report={report} chosen={chosen} />
         <AdaptationsPage report={report} chosen={chosen} />
@@ -97,7 +97,7 @@ function ReportToolbar({
   );
 }
 
-function CoverPage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
+function CoverPage({ report }: { report: MockReportData }) {
   return (
     <ReportPage pageNumber={1} title="Cover" className="report-cover-page">
       <div className="report-cover-header">
@@ -131,10 +131,6 @@ function CoverPage({ report, chosen }: { report: MockReportData; chosen: Hominin
         <div>
           <dt>Date</dt>
           <dd>{report.student.date}</dd>
-        </div>
-        <div>
-          <dt>Focus group</dt>
-          <dd>{chosen.displayName}</dd>
         </div>
       </dl>
     </ReportPage>
@@ -361,17 +357,6 @@ function ReflectionPage({ report }: { report: MockReportData }) {
       />
       <ReportKicker>Reflection / back cover</ReportKicker>
       <ReportTitle>What the evidence changed</ReportTitle>
-      <div className="report-reflection-layout">
-        <div className="report-checklist">
-          {report.reflection.checklist.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-        <p className="report-reflection-statement">
-          The evidence changed the picture by replacing a simple sequence with overlapping branches, mixed evidence
-          types and genuine scientific uncertainty.
-        </p>
-      </div>
       <div className="report-reflection-cards">
         <ReportPanel title="Most interesting" tone="gold"><p>{report.reflection.mostInteresting}</p></ReportPanel>
         <ReportPanel title="Still debated" tone="rust"><p>{report.reflection.stillDebated}</p></ReportPanel>
