@@ -165,9 +165,9 @@ function SpeciesFeaturePage({ report, chosen }: { report: MockReportData; chosen
 
 function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
   return (
-    <ReportPage pageNumber={3} title="Evidence Dossier" className="report-paper-page">
-      <ReportKicker>Evidence reviewed</ReportKicker>
-      <ReportTitle>Evidence dossier: <i>{chosen.displayName}</i></ReportTitle>
+    <ReportPage pageNumber={3} title="How We Know" className="report-paper-page">
+      <ReportKicker>Investigate / how we know</ReportKicker>
+      <ReportTitle>Evidence reasoning: <i>{chosen.displayName}</i></ReportTitle>
       <div className="report-evidence-banner">
         <ReportImage
           src="/assets/report/evidence-dossier-banner.png"
@@ -176,15 +176,14 @@ function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Homi
         />
       </div>
       <ReportStimulusRow assets={getStimuliForSpecies(chosen.slug)} />
-      <div className="report-evidence-grid">
-        <ReportPanel title="Fossils" tone="gold"><p>{report.evidence.fossils}</p></ReportPanel>
-        <ReportPanel title="Tools" tone="teal"><p>{report.evidence.tools}</p></ReportPanel>
-        <ReportPanel title="DNA" tone="rust"><p>{report.evidence.dna}</p></ReportPanel>
-        <ReportPanel title="Archaeology" tone="navy"><p>{report.evidence.archaeology}</p></ReportPanel>
+      <div className="report-investigation-grid">
+        <ReportPanel title="Your evidence answer" tone="gold"><p>{report.investigation.evidence}</p></ReportPanel>
+        <ReportPanel title="Evidence type" tone="teal"><p>{chosen.reportCaption}</p></ReportPanel>
+        <ReportPanel title="Limits and uncertainty" tone="rust"><p>{report.evidence.limitations}</p></ReportPanel>
       </div>
       <div className="report-two-column">
-        <ReportPanel title="Strongest evidence" tone="gold"><p>{report.evidence.strongest}</p></ReportPanel>
-        <ReportPanel title="Limitations and uncertainty" tone="rust"><p>{report.evidence.limitations}</p><p>{chosen.uncertainty}</p></ReportPanel>
+        <ReportPanel title="Known for" tone="navy"><p>{chosen.knownFor}</p></ReportPanel>
+        <ReportPanel title="Evidence summary" tone="gold"><p>{chosen.evidence}</p></ReportPanel>
       </div>
     </ReportPage>
   );
@@ -195,9 +194,9 @@ function AdaptationsPage({ report, chosen }: { report: MockReportData; chosen: H
   const activityCaption = chosen.activityWideCaption ?? chosen.activityCaption;
 
   return (
-    <ReportPage pageNumber={4} title="Life and Adaptations" className="report-dark-page">
-      <ReportKicker>Evidence suggests / possible adaptation</ReportKicker>
-      <ReportTitle>Life, body and survival</ReportTitle>
+    <ReportPage pageNumber={4} title="Look and Behaviour" className="report-dark-page">
+      <ReportKicker>Investigate / look and behave</ReportKicker>
+      <ReportTitle>Body, behaviour and context</ReportTitle>
       <div className="report-adaptation-layout">
         {activityImage ? (
           <div className="report-activity-frame">
@@ -216,13 +215,13 @@ function AdaptationsPage({ report, chosen }: { report: MockReportData; chosen: H
         )}
         <div className="report-adaptation-panels">
           <ReportPanel title="Body plan" tone="gold"><p>{chosen.bodyPlan}</p></ReportPanel>
-          <ReportPanel title="Key feature" tone="teal"><p>{report.life.keyFeature}</p></ReportPanel>
-          <ReportPanel title="Why it may have helped" tone="rust"><p>{report.life.featureUsefulness}</p></ReportPanel>
+          <ReportPanel title="Look answer" tone="teal"><p>{report.investigation.look}</p></ReportPanel>
+          <ReportPanel title="Behaviour answer" tone="rust"><p>{report.investigation.behaviour}</p></ReportPanel>
           <ReportPanel title="Likely environment" tone="navy"><p>{report.life.likelyEnvironment}</p></ReportPanel>
         </div>
       </div>
       <div className="report-environment-strip">
-        <strong>Survival pressure:</strong> {report.life.survivalPressure}
+        <strong>Context:</strong> {chosen.location} / {chosen.dateRange}
       </div>
     </ReportPage>
   );
@@ -316,7 +315,15 @@ function FinalArticlePage({ report }: { report: MockReportData }) {
           <strong>Final judgement</strong>
           <span>{report.oneSentenceJudgement}</span>
           <div className="report-big-ideas-note">
-            <b>Big idea to use</b>
+            <b>Fire</b>
+            <span>{report.bigIdeas.fireThinking}</span>
+          </div>
+          <div className="report-big-ideas-note">
+            <b>Language</b>
+            <span>{report.bigIdeas.languageThinking}</span>
+          </div>
+          <div className="report-big-ideas-note">
+            <b>Best concept</b>
             <span>{report.bigIdeas.conceptConnection}</span>
           </div>
         </aside>

@@ -13,6 +13,14 @@ export const mockReport: MockReportData = {
     "Human evolution is best understood as a branching tree because several human groups overlapped, adapted in different ways and left different kinds of evidence.",
   importanceAnswer:
     "Neanderthals matter because they show that Homo sapiens were not the only skilled and intelligent humans. Fossils, tools and DNA suggest a close relative with complex behaviour, not a failed step before us.",
+  investigation: {
+    look:
+      "Neanderthal fossils show a stocky, muscular body with a broad chest, large nose, heavy brow ridges and a large brain. Those features fit life in cold Ice Age environments.",
+    behaviour:
+      "Tools, hearths, hunting evidence and possible care for injured individuals suggest Neanderthals worked together, learned skills and solved survival problems in demanding landscapes.",
+    evidence:
+      "The strongest case combines fossils, tools and ancient DNA. DNA is especially powerful because it directly shows overlap and interbreeding with Homo sapiens.",
+  },
   evidence: {
     fossils:
       "Many Neanderthal fossils have been found across Europe and western Asia, including skulls, jaws and skeletons that show stocky bodies, large brains and cold-adapted features.",
@@ -37,6 +45,10 @@ export const mockReport: MockReportData = {
       "Changing climates, competition, small population sizes and contact with Homo sapiens may all have affected survival.",
   },
   bigIdeas: {
+    fireThinking:
+      "Fire evidence is physical: hearths, burnt bone and heated sediment can survive, so it can be checked against real traces at sites.",
+    languageThinking:
+      "Language is harder because speech does not fossilise. Scientists have to reason from indirect clues such as anatomy, genetics and complex learned behaviour.",
     conceptConnection:
       "Shared learning and hearth-based group life help explain why survival depended on culture as well as body shape.",
   },

@@ -9,6 +9,11 @@ export type MockReportData = {
   articleTitle: string;
   oneSentenceJudgement: string;
   importanceAnswer: string;
+  investigation: {
+    look: string;
+    behaviour: string;
+    evidence: string;
+  };
   evidence: {
     fossils: string;
     tools: string;
@@ -24,6 +29,8 @@ export type MockReportData = {
     survivalPressure: string;
   };
   bigIdeas: {
+    fireThinking: string;
+    languageThinking: string;
     conceptConnection: string;
   };
   comparison: {

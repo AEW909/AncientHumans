@@ -32,6 +32,11 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       work.research.importance,
       `${chosen.displayName} matters because ${chosen.bigIdea.toLowerCase()}`,
     ),
+    investigation: {
+      look: withFallback(work.research.body, chosen.bodyPlan),
+      behaviour: withFallback(work.research.lifestyle, chosen.lifestyle),
+      evidence: withFallback(work.evidence.strongest, chosen.reportCaption),
+    },
     evidence: {
       fossils: withFallback(work.evidence.fossils, chosen.evidence),
       tools: withFallback(work.evidence.tools, "Add tool or artefact evidence from your research notes."),
@@ -47,6 +52,8 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       survivalPressure: withFallback(work.life.survivalPressure, "Add one survival pressure or environmental challenge from your research."),
     },
     bigIdeas: {
+      fireThinking: withFallback(work.bigIdeas.fireCooking, "Use the Fire prompt in section 05 to explain what physical traces can and cannot show."),
+      languageThinking: withFallback(work.bigIdeas.languageLearning, "Use the Language prompt in section 05 to explain why indirect clues require careful inference."),
       conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Choose one big idea that strengthens your final explanation."),
     },
     comparison: {
