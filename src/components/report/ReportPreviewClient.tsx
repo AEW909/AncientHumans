@@ -35,20 +35,38 @@ export function ReportPreviewClient() {
         report={report}
         source={source}
         readiness={readiness}
-        toolbarActions={<button className="report-print-button" onClick={() => printReport(report)} type="button">Download PDF</button>}
+        toolbarActions={<button className="report-print-button" onClick={() => void printReport(report)} type="button">Download PDF</button>}
       />
     </>
   );
 }
 
-function printReport(report: ReturnType<typeof createReportDataFromStudentWork>) {
+async function printReport(report: ReturnType<typeof createReportDataFromStudentWork>) {
   const originalTitle = document.title;
   document.title = createPdfFileName(report);
+  await waitForReportImages();
   window.print();
 
   window.setTimeout(() => {
     document.title = originalTitle;
   }, 750);
+}
+
+async function waitForReportImages() {
+  const images = Array.from(document.querySelectorAll<HTMLImageElement>(".report-document img"));
+
+  await Promise.all(
+    images.map((image) => {
+      if (image.complete) {
+        return Promise.resolve();
+      }
+
+      return new Promise<void>((resolve) => {
+        image.addEventListener("load", () => resolve(), { once: true });
+        image.addEventListener("error", () => resolve(), { once: true });
+      });
+    }),
+  );
 }
 
 function createPdfFileName(report: ReturnType<typeof createReportDataFromStudentWork>) {

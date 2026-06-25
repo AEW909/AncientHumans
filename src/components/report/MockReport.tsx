@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { hominins } from "@/data/hominins";
@@ -101,12 +100,9 @@ function ReportToolbar({
 function CoverPage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
   return (
     <ReportPage pageNumber={1} title="Cover" className="report-cover-page">
-      <Image
+      <ReportImage
         src="/assets/covers/ancient-human-relatives-cover.png"
         alt="Ancient Human Relatives cover artwork"
-        fill
-        priority
-        sizes="210mm"
         className="report-cover-image"
       />
       <div className="report-cover-fade" />
@@ -137,11 +133,9 @@ function SpeciesFeaturePage({ report, chosen }: { report: MockReportData; chosen
     <ReportPage pageNumber={2} title="Species Feature" className="report-dark-page">
       <div className="report-feature-grid">
         <div className="report-poster-frame">
-          <Image
+          <ReportImage
             src={chosen.figureImage ?? chosen.posterImage}
             alt={chosen.figureCaption ?? chosen.imageCaption}
-            fill
-            sizes="88mm"
             className="object-cover"
           />
         </div>
@@ -175,11 +169,9 @@ function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Homi
       <ReportKicker>Evidence reviewed</ReportKicker>
       <ReportTitle>Evidence dossier: <i>{chosen.displayName}</i></ReportTitle>
       <div className="report-evidence-banner">
-        <Image
+        <ReportImage
           src="/assets/report/evidence-dossier-banner.png"
           alt="Fossil, stone tool, DNA and archaeology evidence graphic"
-          fill
-          sizes="174mm"
           className="object-cover"
         />
       </div>
@@ -209,11 +201,9 @@ function AdaptationsPage({ report, chosen }: { report: MockReportData; chosen: H
       <div className="report-adaptation-layout">
         {activityImage ? (
           <div className="report-activity-frame">
-            <Image
+            <ReportImage
               src={activityImage}
               alt={activityCaption ?? `${chosen.displayName} activity scene`}
-              fill
-              sizes="210mm"
               className="object-cover"
             />
             <span>{activityCaption ?? `Activity scene: ${chosen.displayName}`}</span>
@@ -248,11 +238,9 @@ function ComparisonPage({ report, chosen, sapiens, comparison }: { report: MockR
           <div className="report-profile-card" key={group.id}>
             {group.madeImage ? (
               <div className="report-profile-image">
-                <Image
+                <ReportImage
                   src={group.madeImage}
                   alt={group.madeCaption ?? `${group.displayName} made or evidence image`}
-                  fill
-                  sizes="45mm"
                   className="object-cover"
                 />
               </div>
@@ -376,6 +364,11 @@ function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockR
 
   return (
     <ReportPage pageNumber={8} title="Reflection" className="report-back-page">
+      <ReportImage
+        src="/assets/report/back-cover-branches.png"
+        alt="Branching human evolution back cover artwork"
+        className="report-back-image"
+      />
       <ReportKicker>Reflection / back cover</ReportKicker>
       <ReportTitle>What the evidence changed</ReportTitle>
       <div className="report-reflection-layout">
@@ -387,11 +380,9 @@ function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockR
         <div className="report-evidence-mosaic">
           {unusedImages.map((image) => (
             <div key={`${image.group.id}-${image.type}`}>
-              <Image
+              <ReportImage
                 src={image.src}
                 alt={image.caption}
-                fill
-                sizes="28mm"
                 className="object-cover"
               />
             </div>
@@ -425,11 +416,15 @@ function ReportStimulusRow({ assets, compact = false }: { assets: typeof coreEvi
     <div className={compact ? "report-stimulus-row report-stimulus-row-compact" : "report-stimulus-row"} aria-label="Evidence stimulus objects">
       {assets.map((asset) => (
         <div key={asset.src}>
-          <Image src={asset.src} alt={asset.alt} fill sizes={compact ? "22mm" : "30mm"} className="object-cover" />
+          <ReportImage src={asset.src} alt={asset.alt} className="object-cover" />
         </div>
       ))}
     </div>
   );
+}
+
+function ReportImage({ alt, className = "", src }: { alt: string; className?: string; src: string }) {
+  return <img alt={alt} className={`report-fill-image ${className}`} loading="eager" src={src} />;
 }
 
 function getRequiredHominin(slug: string) {
