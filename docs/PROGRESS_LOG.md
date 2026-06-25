@@ -227,6 +227,7 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - Latest generated asset pass added one cultural/social stimulus image per hominin and wired them into the research launchpad and species detail pages.
 - Latest knowledge review pass reduced repetition on species detail pages by adding species-specific learning notes: what the evidence shows, how pupils can use it in the report, and useful comparison clues.
 - Latest source review pass added species-specific trusted source links to the hominin data, web quest resource rows and species detail pages; Australian Museum, Smithsonian and Natural History Museum links were checked, and invalid Denisovan guesses were replaced with valid NHM/Smithsonian sources.
+- Latest species knowledge pass added caveated "Ideas scientists discuss" content and species-specific visual prompts across all nine species pages, reducing repeated captions and broadening credible discussion points such as fire, symbolic behaviour, care, island dwarfism, DNA inheritance and H. naledi body-placement debates.
 - Print CSS verified in code: browser-only toolbar and status banner are hidden under `@media print`.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.

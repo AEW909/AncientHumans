@@ -41,6 +41,13 @@ export type Hominin = {
     evidenceShows: string[];
     reportUses: string[];
     comparisonClues: string[];
+    ideasToExplore?: string[];
+  };
+  visualPrompts?: {
+    figure: string;
+    culture: string;
+    activity: string;
+    made: string;
   };
   sourceLinks?: HomininSourceLink[];
   imageCaption: string;

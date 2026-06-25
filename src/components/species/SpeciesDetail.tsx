@@ -23,25 +23,25 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
   const imageStudies = [
     {
       caption: hominin.figureCaption ?? hominin.imageCaption,
-      detail: "Use this reconstruction to look for body proportions, posture and features described in the evidence.",
+      detail: hominin.visualPrompts?.figure ?? "Use this reconstruction to look for body proportions, posture and features described in the evidence.",
       label: "Figure",
       src: hominin.figureImage ?? hominin.posterImage,
     },
     {
       caption: hominin.cultureCaption ?? hominin.bigIdea,
-      detail: "Use this as a stimulus for thinking about social behaviour and the kinds of evidence scientists use to study it.",
+      detail: hominin.visualPrompts?.culture ?? "Use this as a stimulus for thinking about social behaviour and the kinds of evidence scientists use to study it.",
       label: "Cultural stimulus",
       src: hominin.cultureImage ?? hominin.activityImage ?? hominin.posterImage,
     },
     {
       caption: hominin.activityCaption ?? hominin.lifestyle,
-      detail: "Compare this scene with the body and lifestyle notes. Look for links between environment, anatomy and likely behaviour.",
+      detail: hominin.visualPrompts?.activity ?? "Compare this scene with the body and lifestyle notes. Look for links between environment, anatomy and likely behaviour.",
       label: "Behaviour",
       src: hominin.activityImage ?? hominin.posterImage,
     },
     {
       caption: hominin.madeCaption ?? hominin.evidence,
-      detail: "Use this image to identify the evidence type: artefact, trace, fossil clue or broader archaeological context.",
+      detail: hominin.visualPrompts?.made ?? "Use this image to identify the evidence type: artefact, trace, fossil clue or broader archaeological context.",
       label: "Made / Evidence",
       src: hominin.madeImage ?? hominin.vignetteImage ?? hominin.posterImage,
     },
@@ -101,6 +101,28 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           <LearningPanel title="Comparison clues" items={learningNotes.comparisonClues} tone="rust" />
         </div>
       </section>
+
+      {learningNotes.ideasToExplore && (
+        <section className="relative mx-auto max-w-7xl px-5 py-10 lg:px-8">
+          <div className="grid gap-6 bg-midnight/66 p-6 text-paper backdrop-blur lg:grid-cols-[0.42fr_1fr]">
+            <div>
+              <p className="font-heading text-xs font-black uppercase tracking-[0.2em] text-gold">Ideas scientists discuss</p>
+              <h2 className="mt-2 font-heading text-3xl font-black uppercase leading-tight">Credible possibilities</h2>
+              <p className="mt-4 font-semibold leading-7 text-paper/72">
+                These are useful angles for questioning and comparison. Use careful wording such as
+                "some evidence suggests", "one view is", or "scientists debate".
+              </p>
+            </div>
+            <ul className="grid gap-4 md:grid-cols-2">
+              {learningNotes.ideasToExplore.map((idea) => (
+                <li className="border-l-4 border-gold bg-black/24 p-4 font-semibold leading-7 text-paper/82" key={idea}>
+                  {idea}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section className="relative isolate overflow-hidden py-16">
         <Image
