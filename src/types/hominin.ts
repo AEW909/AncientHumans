@@ -5,6 +5,11 @@ export type HomininSourceLink = {
   href: string;
 };
 
+export type HomininResearchPrompt = {
+  heading: string;
+  prompt: string;
+};
+
 export type Hominin = {
   id: string;
   slug: string;
@@ -24,6 +29,11 @@ export type Hominin = {
   uncertainty: string;
   pullQuote: string;
   reportCaption: string;
+  researchPrompts: {
+    look: HomininResearchPrompt;
+    behave: HomininResearchPrompt;
+    evidence: HomininResearchPrompt;
+  };
   posterImage: string;
   figureImage?: string;
   figureCaption?: string;

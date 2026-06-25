@@ -1,61 +1,49 @@
 import { stimulusAssets, type StimulusAsset } from "./stimulusAssets";
 
 export type EvolutionaryIdea = {
-  id: "language-learning" | "fire-cooking";
+  id: "fire" | "language";
   title: string;
   shortTitle: string;
-  summary: string;
-  evidenceAngle: string;
-  caveat: string;
+  body: string;
+  evidence: string;
   prompt: string;
   asset: StimulusAsset;
 };
 
+export const bigIdeasPageContent = {
+  pageIntro:
+    "Some of the biggest changes in the human story don't belong to any single species. Fire and language both appear, spread and matter across several branches at once. Pause on them here — not as the things that made one kind of human 'better', but as turning points that changed what was possible, and as two very different puzzles for working out how we know.",
+  closing:
+    "Put the two side by side. Fire is something you can dig up; language is something you mostly have to reason your way towards. That gap in how confident we can be is the real lesson — two big ideas, two very different kinds of evidence.",
+} as const;
+
 export const evolutionaryIdeas: EvolutionaryIdea[] = [
   {
-    id: "language-learning",
-    title: "Language, learning and tradition",
-    shortTitle: "Language and learning",
-    summary:
-      "Communication matters because useful behaviour can spread through a group. Teaching, imitation and shared memory allow skills to build across generations.",
-    evidenceAngle:
-      "Look for behaviours that would benefit from shared attention: tool-making routines, coordinated hunting, care for others, symbolic objects and long-distance exchange.",
-    caveat:
-      "Spoken language does not fossilise, so pupils should write about communication, teaching and social learning rather than claiming exact speech.",
+    id: "fire",
+    title: "Fire",
+    shortTitle: "Fire",
+    body:
+      "Controlled fire appears tentatively with Homo erectus and more clearly later, with groups such as the Neanderthals. It may have meant cooking (more energy from the same food), warmth, protection from predators, light that stretched the day, and a place for a group to gather.",
+    evidence:
+      "Fire leaves real traces. Hearths, burnt bone, heated sediment and fire-cracked stone all survive, and scientists can often tell a managed campfire from an accidental wildfire.",
     prompt:
-      "How might communication or teaching have helped your focus group survive, make tools or pass on useful behaviour?",
-    asset: stimulusAssets.ochreBeads,
+      "Fire turns up with more than one human group, not just the 'latest' one. What does that suggest about treating evolution as a single ladder? And what is the difference between a group that used wildfire when they found it and one that could make fire whenever they wanted?",
+    asset: stimulusAssets.hearthFire,
   },
   {
-    id: "fire-cooking",
-    title: "Fire, cooking and energy",
-    shortTitle: "Fire and cooking",
-    summary:
-      "Fire can change survival by providing warmth, protection, light and new ways to process food. Some scientists argue cooking helped humans get more energy from food.",
-    evidenceAngle:
-      "Look for hearths, charcoal, burnt bones, changed diets and social activity around fires. Cooking is especially useful when discussing energy, digestion and brain evolution.",
-    caveat:
-      "Fire evidence varies by site and species. Use careful wording such as 'some sites suggest' or 'some scientists argue' rather than treating fire as universal.",
+    id: "language",
+    title: "Language",
+    shortTitle: "Language",
+    body:
+      "Language is much harder to pin down. It does not fossilise, so there is almost no direct evidence for when or how it began. Scientists look for indirect clues instead: the shape of the throat and a small bone called the hyoid, faint marks the brain leaves inside the skull, genetics, and behaviour like complex tool-making or symbolic objects that may need teaching to pass on.",
+    evidence:
+      "Where fire leaves ash you can dig up, language leaves almost nothing. Nearly everything we say about it is inference.",
     prompt:
-      "Could fire, cooking or shared hearths connect to survival, social life or larger energy-hungry brains in your explanation?",
-    asset: stimulusAssets.hearthFire,
+      "If language leaves no fossils, how can scientists argue it existed at all? Which clues feel convincing to you, and which feel like a stretch? Why might we be far less certain about language than about fire?",
+    asset: stimulusAssets.ochreBeads,
   },
 ];
 
-const speciesIdeaMap: Record<string, EvolutionaryIdea["id"][]> = {
-  "australopithecus-afarensis": ["language-learning"],
-  "homo-habilis": ["language-learning"],
-  "homo-erectus": ["fire-cooking", "language-learning"],
-  "homo-heidelbergensis": ["language-learning", "fire-cooking"],
-  neanderthals: ["language-learning", "fire-cooking"],
-  denisovans: ["language-learning"],
-  "homo-floresiensis": ["language-learning"],
-  "homo-sapiens": ["language-learning", "fire-cooking"],
-  "homo-naledi": ["language-learning"],
-};
-
-export function getEvolutionaryIdeasForSpecies(slug: string) {
-  const ids = speciesIdeaMap[slug] ?? evolutionaryIdeas.map((idea) => idea.id);
-
-  return evolutionaryIdeas.filter((idea) => ids.includes(idea.id));
+export function getEvolutionaryIdeasForSpecies(_slug: string) {
+  return evolutionaryIdeas;
 }

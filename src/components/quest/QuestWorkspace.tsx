@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { evolutionaryIdeas, getEvolutionaryIdeasForSpecies } from "@/data/evolutionaryIdeas";
+import { bigIdeasPageContent, evolutionaryIdeas } from "@/data/evolutionaryIdeas";
 import { hominins } from "@/data/hominins";
 import { selfAssessmentItems } from "@/data/defaultStudentWork";
-import { coreEvidenceStimuli, getStimuliForSpecies, stimulusAssets, type StimulusAsset } from "@/data/stimulusAssets";
+import { stimulusAssets, type StimulusAsset } from "@/data/stimulusAssets";
 import {
   calculateStudentWorkProgress,
   loadStudentWork,
@@ -34,17 +34,13 @@ const textLimits = {
 
 const sections = [
   { key: "details", label: "Details" },
-  { key: "misconceptions", label: "Starter" },
-  { key: "intro", label: "Intro" },
-  { key: "choose", label: "Choose" },
-  { key: "research", label: "Research" },
-  { key: "evidence", label: "Evidence" },
-  { key: "life", label: "Life" },
-  { key: "bigIdeas", label: "Ideas" },
-  { key: "sapiens", label: "Sapiens" },
+  { key: "misconceptions", label: "Baseline" },
+  { key: "introChoose", label: "Intro + choose" },
+  { key: "investigate", label: "Investigate" },
+  { key: "bigIdeas", label: "Fire + language" },
   { key: "comparison", label: "Compare" },
-  { key: "timeline", label: "Timeline" },
-  { key: "finalReport", label: "Article" },
+  { key: "timeline", label: "Model check" },
+  { key: "finalReport", label: "Report" },
   { key: "reflection", label: "Reflect" },
 ] as const;
 
@@ -146,16 +142,12 @@ export function QuestWorkspace() {
       return [work.student.name, work.student.className, work.student.date].every(hasText);
     }
 
-    if (key === "choose") {
+    if (key === "introChoose") {
       return [work.student.chosenGroupSlug, work.student.comparisonGroupSlug].every(isResearchHomininSlug);
     }
 
-    if (key === "sapiens") {
-      return true;
-    }
-
-    if (key === "intro") {
-      return true;
+    if (key === "investigate") {
+      return [work.research.body, work.research.lifestyle, work.evidence.strongest].every(hasText);
     }
 
     return progress.completedSections.includes(key);
@@ -228,17 +220,13 @@ export function QuestWorkspace() {
         <div className="quest-panel">
           {activeStep === 0 && <StudentDetailsStep updateWork={updateWork} work={work} />}
           {activeStep === 1 && <MisconceptionsStep updateWork={updateWork} work={work} />}
-          {activeStep === 2 && <ProjectIntroStep />}
-          {activeStep === 3 && <ChooseGroupStep updateWork={updateWork} work={work} />}
-          {activeStep === 4 && <GuidedResearchStep updateWork={updateWork} work={work} />}
-          {activeStep === 5 && <EvidenceStep updateWork={updateWork} work={work} />}
-          {activeStep === 6 && <LifeStep updateWork={updateWork} work={work} />}
-          {activeStep === 7 && <BigIdeasStep updateWork={updateWork} work={work} />}
-          {activeStep === 8 && <SapiensBridgeStep />}
-          {activeStep === 9 && <ComparisonStep updateWork={updateWork} work={work} />}
-          {activeStep === 10 && <TimelineStep updateWork={updateWork} work={work} />}
-          {activeStep === 11 && <FinalReportStep updateWork={updateWork} work={work} />}
-          {activeStep === 12 && <ReflectionStep updateWork={updateWork} work={work} />}
+          {activeStep === 2 && <IntroChooseStep updateWork={updateWork} work={work} />}
+          {activeStep === 3 && <InvestigateStep updateWork={updateWork} work={work} />}
+          {activeStep === 4 && <BigIdeasStep updateWork={updateWork} work={work} />}
+          {activeStep === 5 && <ComparisonStep updateWork={updateWork} work={work} />}
+          {activeStep === 6 && <TimelineStep updateWork={updateWork} work={work} />}
+          {activeStep === 7 && <FinalReportStep updateWork={updateWork} work={work} />}
+          {activeStep === 8 && <ReflectionStep updateWork={updateWork} work={work} />}
 
           <div className="quest-navigation">
             <button disabled={activeStep === 0} onClick={() => moveStep(-1)} type="button">
@@ -319,11 +307,20 @@ function MisconceptionsStep({ work, updateWork }: StepProps) {
   );
 }
 
+function IntroChooseStep({ work, updateWork }: StepProps) {
+  return (
+    <>
+      <ProjectIntroStep />
+      <ChooseGroupStep updateWork={updateWork} work={work} />
+    </>
+  );
+}
+
 function ProjectIntroStep() {
   return (
     <QuestSection
-      eyebrow="Project map"
-      title="How the investigation works"
+      eyebrow="Intro"
+      title="Intro + choose your branch"
       intro="You will research one ancient human relative, compare it with Homo sapiens and another branch, then turn your evidence into a magazine-style field report."
     >
       <div className="quest-video-feature quest-video-feature-stacked">
@@ -355,8 +352,8 @@ function ProjectIntroStep() {
         </article>
         <article>
           <span>03</span>
-          <strong>Compare without ranking</strong>
-          <p>Compare your focus branch with Homo sapiens and one other ancient relative as separate branches.</p>
+          <strong>Compare three branches</strong>
+          <p>Compare your focus branch with Homo sapiens and one other ancient relative using evidence for each branch.</p>
         </article>
         <article>
           <span>04</span>
@@ -470,155 +467,146 @@ function ChooseGroupStep({ work, updateWork }: StepProps) {
   );
 }
 
-function GuidedResearchStep({ work, updateWork }: StepProps) {
+function InvestigateStep({ work, updateWork }: StepProps) {
   const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
 
   return (
-    <QuestSection eyebrow="Guided research" title="Build the species profile" intro="Collect dates, places, body features, lifestyle clues and evidence for your chosen branch.">
+    <QuestSection
+      eyebrow="Investigate"
+      title="Look, behave, how we know"
+      intro="Use your species page, information sheet and trusted research sites to answer the three investigation prompts for your focus branch."
+    >
       <ResearchLaunchPad group={chosen} />
       {chosen && <QuestResourceRow group={chosen} />}
-      <FieldStack>
-        <TextArea label="When did this group live?" limit={textLimits.research} value={work.research.livedWhen} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, livedWhen: value } }))} />
-        <TextArea label="Where did this group live or where was it found?" limit={textLimits.research} value={work.research.livedWhere} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, livedWhere: value } }))} />
-        <TextArea label="What was its body like?" limit={textLimits.research} value={work.research.body} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, body: value } }))} />
-        <TextArea label="How may it have lived?" limit={textLimits.research} value={work.research.lifestyle} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, lifestyle: value } }))} />
-        <TextArea label="What evidence do scientists have?" limit={textLimits.research} value={work.research.evidence} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, evidence: value } }))} />
-        <TextArea label="Why does this group matter?" limit={textLimits.research} value={work.research.importance} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, importance: value } }))} />
-        <TextArea label="What is still debated or uncertain?" limit={textLimits.research} value={work.research.uncertainty} onChange={(value) => updateWork((current) => ({ ...current, research: { ...current.research, uncertainty: value } }))} />
-      </FieldStack>
-    </QuestSection>
-  );
-}
-
-function EvidenceStep({ work, updateWork }: StepProps) {
-  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
-
-  return (
-    <QuestSection eyebrow="Evidence dossier" title="How do we know?" intro="Sort the evidence into fossils, tools, DNA and archaeological clues, then explain what each type can show.">
       {chosen && (
-        <div className="quest-evidence-strip">
-          <Image src={chosen.madeImage ?? chosen.posterImage} alt={chosen.madeCaption ?? chosen.imageCaption} fill sizes="360px" className="object-cover" />
-          <div>
-            <p className="quest-kicker">Evidence prompt</p>
-            <h3>{chosen.knownFor}</h3>
-            <p>{chosen.evidence}</p>
-          </div>
+        <div className="quest-investigate-grid">
+          <article>
+            <div>
+              <Image src={chosen.figureImage ?? chosen.posterImage} alt={chosen.figureCaption ?? chosen.imageCaption} fill sizes="260px" className="object-cover" />
+            </div>
+            <p className="quest-kicker">Look</p>
+            <h3>{chosen.researchPrompts.look.heading}</h3>
+            <p>{chosen.researchPrompts.look.prompt}</p>
+            <TextArea
+              label="Your look notes"
+              limit={textLimits.research}
+              value={work.research.body}
+              onChange={(value) => updateWork((current) => ({
+                ...current,
+                life: { ...current.life, keyFeature: value },
+                research: { ...current.research, body: value },
+              }))}
+            />
+          </article>
+          <article>
+            <div>
+              <Image src={chosen.activityImage ?? chosen.cultureImage ?? chosen.posterImage} alt={chosen.activityCaption ?? chosen.cultureCaption ?? chosen.imageCaption} fill sizes="260px" className="object-cover" />
+            </div>
+            <p className="quest-kicker">Behave</p>
+            <h3>{chosen.researchPrompts.behave.heading}</h3>
+            <p>{chosen.researchPrompts.behave.prompt}</p>
+            <TextArea
+              label="Your behaviour notes"
+              limit={textLimits.research}
+              value={work.research.lifestyle}
+              onChange={(value) => updateWork((current) => ({
+                ...current,
+                life: {
+                  ...current.life,
+                  featureUsefulness: value,
+                  likelyLifestyle: value,
+                  survivalPressure: value,
+                },
+                research: { ...current.research, lifestyle: value },
+              }))}
+            />
+          </article>
+          <article>
+            <div>
+              <Image src={chosen.madeImage ?? chosen.vignetteImage ?? chosen.posterImage} alt={chosen.madeCaption ?? chosen.vignetteCaption ?? chosen.imageCaption} fill sizes="260px" className="object-cover" />
+            </div>
+            <p className="quest-kicker">Evidence</p>
+            <h3>{chosen.researchPrompts.evidence.heading}</h3>
+            <p>{chosen.researchPrompts.evidence.prompt}</p>
+            <TextArea
+              label="Your evidence notes"
+              limit={textLimits.evidence}
+              value={work.evidence.strongest}
+              onChange={(value) => updateWork((current) => ({
+                ...current,
+                evidence: {
+                  ...current.evidence,
+                  archaeology: value,
+                  fossils: value,
+                  limitations: value,
+                  strongest: value,
+                },
+                research: {
+                  ...current.research,
+                  evidence: value,
+                  importance: value,
+                  uncertainty: value,
+                },
+              }))}
+            />
+          </article>
         </div>
       )}
-      {chosen && <QuestResourceRow group={chosen} />}
-      <StimulusStrip assets={chosen ? getStimuliForSpecies(chosen.slug) : coreEvidenceStimuli} compact />
-      <FieldStack columns>
-        <TextArea label="Fossil evidence" limit={textLimits.evidence} value={work.evidence.fossils} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, fossils: value } }))} />
-        <TextArea label="Tool evidence" limit={textLimits.evidence} value={work.evidence.tools} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, tools: value } }))} />
-        <TextArea label="DNA evidence" limit={textLimits.evidence} value={work.evidence.dna} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, dna: value } }))} />
-        <TextArea label="Other archaeology" limit={textLimits.evidence} value={work.evidence.archaeology} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, archaeology: value } }))} />
-        <TextArea label="Strongest evidence" limit={textLimits.evidence} value={work.evidence.strongest} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, strongest: value } }))} />
-        <TextArea label="Limitations of the evidence" limit={textLimits.evidence} value={work.evidence.limitations} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, limitations: value } }))} />
-      </FieldStack>
-    </QuestSection>
-  );
-}
-
-function LifeStep({ work, updateWork }: StepProps) {
-  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
-
-  return (
-    <QuestSection eyebrow="Life and adaptations" title="Body, environment and survival" intro="Connect physical features to environment, lifestyle and survival pressures.">
-      {chosen && <QuestResourceRow group={chosen} />}
-      <FieldStack columns>
-        <TextArea label="One important physical feature" limit={textLimits.research} value={work.life.keyFeature} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, keyFeature: value } }))} />
-        <TextArea label="Why may it have been useful?" limit={textLimits.research} value={work.life.featureUsefulness} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, featureUsefulness: value } }))} />
-        <TextArea label="Likely environment" limit={textLimits.research} value={work.life.likelyEnvironment} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, likelyEnvironment: value } }))} />
-        <TextArea label="Likely lifestyle" limit={textLimits.research} value={work.life.likelyLifestyle} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, likelyLifestyle: value } }))} />
-        <TextArea label="Possible survival pressures" limit={textLimits.research} value={work.life.survivalPressure} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, survivalPressure: value } }))} />
-      </FieldStack>
+      {!chosen && (
+        <div className="quest-choice-brief">
+          <strong>Choose your focus branch first</strong>
+          <p>Use the previous step to select one ancient human relative as your focus. The investigation prompts will then appear here.</p>
+        </div>
+      )}
     </QuestSection>
   );
 }
 
 function BigIdeasStep({ work, updateWork }: StepProps) {
-  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
-  const relevantIdeas = chosen ? getEvolutionaryIdeasForSpecies(chosen.slug) : evolutionaryIdeas;
-
   return (
     <QuestSection
-      eyebrow="Big evolutionary ideas"
-      title="Learning, fire and adaptation"
-      intro="Some behaviours matter because they change what a group can learn, eat, remember or pass on. Use careful wording: these ideas are powerful, but the evidence is uneven."
+      eyebrow="Big Ideas"
+      title="Fire and language"
+      intro={bigIdeasPageContent.pageIntro}
     >
       <div className="quest-big-idea-grid">
         {evolutionaryIdeas.map((idea) => (
-          <article className={relevantIdeas.some((item) => item.id === idea.id) ? "quest-big-idea-card quest-big-idea-card-active" : "quest-big-idea-card"} key={idea.id}>
+          <article className="quest-big-idea-card quest-big-idea-card-active" key={idea.id}>
             <div>
               <Image src={idea.asset.src} alt={idea.asset.alt} fill sizes="220px" className="object-cover" />
             </div>
-            <p className="quest-kicker">{relevantIdeas.some((item) => item.id === idea.id) ? "Useful for your focus" : "Use if evidence fits"}</p>
+            <p className="quest-kicker">Shared threshold idea</p>
             <h3>{idea.title}</h3>
-            <p>{idea.summary}</p>
-            <p><strong>Evidence angle:</strong> {idea.evidenceAngle}</p>
-            <p><strong>Caveat:</strong> {idea.caveat}</p>
+            <p>{idea.body}</p>
+            <p><strong>Evidence angle:</strong> {idea.evidence}</p>
+            <p><strong>Thinking prompt:</strong> {idea.prompt}</p>
           </article>
         ))}
       </div>
       <FieldStack columns>
         <TextArea
-          label="Language, learning or tradition"
-          limit={textLimits.comparison}
-          value={work.bigIdeas.languageLearning}
-          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, languageLearning: value } }))}
-        />
-        <TextArea
-          label="Fire, cooking or energy"
+          label="Fire thinking"
           limit={textLimits.comparison}
           value={work.bigIdeas.fireCooking}
           onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, fireCooking: value } }))}
         />
         <TextArea
-          label="Best concept to use in your final answer"
+          label="Language thinking"
+          limit={textLimits.comparison}
+          value={work.bigIdeas.languageLearning}
+          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, languageLearning: value } }))}
+        />
+        <TextArea
+          label="Fire and language side by side"
           limit={textLimits.comparison}
           value={work.bigIdeas.conceptConnection}
           onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, conceptConnection: value } }))}
         />
       </FieldStack>
-    </QuestSection>
-  );
-}
-
-function SapiensBridgeStep() {
-  if (!sapiens) {
-    return null;
-  }
-
-  return (
-    <QuestSection
-      eyebrow="Reference species"
-      title="Meet Homo sapiens"
-      intro="Homo sapiens is the fixed reference point for the comparison task."
-    >
-      <div className="quest-sapiens-feature">
-        <div className="quest-sapiens-image">
-          <Image src={sapiens.activityWideImage ?? sapiens.figureImage ?? sapiens.posterImage} alt={sapiens.activityWideCaption ?? sapiens.figureCaption ?? sapiens.imageCaption} fill sizes="70vw" className="object-cover" />
-        </div>
-        <div className="quest-sapiens-copy">
-          <p className="quest-kicker">Last surviving human species, not the final goal</p>
-          <h3>{sapiens.displayName}</h3>
-          <p>{sapiens.hook}</p>
-          <div className="quest-field-note-grid">
-            <FactTile label="When" value={sapiens.dateRange} />
-            <FactTile label="Where" value={sapiens.location} />
-            <FactTile label="Body" value={sapiens.bodyPlan} />
-            <FactTile label="Uncertainty" value={sapiens.uncertainty} />
-          </div>
-          <div className="quest-choice-brief quest-sapiens-reminder">
-            <strong>Use this carefully</strong>
-            <p>
-              In the next section, compare your focus group with Homo sapiens and your extra branch. Look for shared
-              traits and differences without ranking them from worse to better.
-            </p>
-          </div>
-        </div>
+      <div className="quest-choice-brief">
+        <strong>Evidence contrast</strong>
+        <p>{bigIdeasPageContent.closing}</p>
       </div>
-      <QuestResourceRow group={sapiens} />
     </QuestSection>
   );
 }
@@ -630,7 +618,11 @@ function ComparisonStep({ work, updateWork }: StepProps) {
   const needsThirdBranch = comparisonGroups.length < 3;
 
   return (
-    <QuestSection eyebrow="Comparison" title="Three branches, no ranking" intro="Compare your focus group with Homo sapiens and one other group.">
+    <QuestSection
+      eyebrow="Comparison"
+      title="Compare three branches"
+      intro="Use Homo sapiens as the fixed reference point, then compare it with your focus group and one extra branch. Look for shared traits and differences, using evidence for each group."
+    >
       {chosen && <QuestResourceRow group={chosen} />}
       <div className="quest-compare-briefings">
         {comparisonGroups.length > 0 ? comparisonGroups.map((group) => (
@@ -638,7 +630,7 @@ function ComparisonStep({ work, updateWork }: StepProps) {
         )) : (
           <div className="quest-choice-brief">
             <strong>Choose your groups first</strong>
-            <p>Go back to section 3, open a few field notes, then select one focus group and one comparison group.</p>
+            <p>Go back to section 03, open a few field notes, then select one focus group and one comparison group.</p>
           </div>
         )}
       </div>
@@ -646,7 +638,7 @@ function ComparisonStep({ work, updateWork }: StepProps) {
         <div className="quest-choice-brief">
           <strong>Choose a third branch</strong>
           <p>
-            Homo sapiens is already included as the reference species. Go back to section 3 and choose two ancient
+            Homo sapiens is already included as the reference species. Go back to section 03 and choose two ancient
             human relatives: one focus group and one extra branch for comparison.
           </p>
         </div>
@@ -679,7 +671,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
         </div>
         <article>
           <p className="quest-kicker">Model check</p>
-          <h3>Line, ladder or branching tree?</h3>
+          <h3>Line or branching tree?</h3>
           <p>
             Use dates, overlap, places and uncertainty to decide whether the evidence fits a simple sequence or a
             branching family tree. Open this visual as a prompt if you want a larger view.
@@ -692,7 +684,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
       <FieldStack columns>
         <TextArea label="Which groups existed at similar times?" limit={textLimits.comparison} value={work.timeline.sapiensOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, sapiensOverlap: value } }))} />
         <TextArea label="What overlap or uncertainty can you find?" limit={textLimits.comparison} value={work.timeline.groupOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, groupOverlap: value } }))} />
-        <TextArea label="What would a ladder model explain well or badly?" limit={textLimits.comparison} value={work.timeline.ladderChallenge} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, ladderChallenge: value } }))} />
+        <TextArea label="What would a single-line model explain well or badly?" limit={textLimits.comparison} value={work.timeline.ladderChallenge} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, ladderChallenge: value } }))} />
         <TextArea label="What would a branching tree explain well or badly?" limit={textLimits.comparison} value={work.timeline.branchingTree} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, branchingTree: value } }))} />
         <TextArea label="How do different places affect the story?" limit={textLimits.comparison} value={work.timeline.geography} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, geography: value } }))} />
       </FieldStack>
@@ -830,7 +822,7 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
         <div>
           <p className="quest-kicker">Research launchpad</p>
           <h3>Choose a focus group first</h3>
-          <p>Go back to section 3 and choose a human relative. This section will then show the right images, information sheet and research starting points.</p>
+          <p>Go back to section 03 and choose a human relative. This section will then show the right images, information sheet and research starting points.</p>
           <ResearchSitesPanel compact />
         </div>
       </div>
@@ -968,13 +960,25 @@ function TextInput({ label, onChange, placeholder, type = "text", value }: { lab
   );
 }
 
-function TextArea({ label, limit, onChange, rows = 5, value }: { label: string; limit: number; onChange: (value: string) => void; rows?: number; value: string }) {
+function TextArea({ label, limit, onChange, rows = 2, value }: { label: string; limit: number; onChange: (value: string) => void; rows?: number; value: string }) {
   const remaining = limit - value.length;
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+
+    if (!textarea) {
+      return;
+    }
+
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }, [value]);
 
   return (
     <label className="quest-field">
       <span>{label}</span>
-      <textarea maxLength={limit} onChange={(event) => onChange(event.target.value)} rows={rows} value={value} />
+      <textarea ref={textareaRef} maxLength={limit} onChange={(event) => onChange(event.target.value)} rows={rows} value={value} />
       <small className={remaining < 40 ? "quest-limit-warn" : ""}>{remaining} characters remaining</small>
     </label>
   );

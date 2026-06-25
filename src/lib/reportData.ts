@@ -23,10 +23,10 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       chosenGroupSlug: chosen.slug,
       comparisonGroupSlug: comparison.slug,
     },
-    articleTitle: withFallback(work.finalReport.title, "Why Human Evolution Is Not a Ladder"),
+    articleTitle: withFallback(work.finalReport.title, "How Evidence Shows a Branching Human Story"),
     oneSentenceJudgement: withFallback(
       work.finalReport.oneSentenceJudgement,
-      "Add your one-sentence judgement in section 12 of the web quest.",
+      "Add your one-sentence judgement in section 08 of the web quest.",
     ),
     importanceAnswer: withFallback(
       work.research.importance,
@@ -47,13 +47,11 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       survivalPressure: withFallback(work.life.survivalPressure, "Add one survival pressure or environmental challenge from your research."),
     },
     bigIdeas: {
-      languageLearning: withFallback(work.bigIdeas.languageLearning, "Add how communication, teaching or social learning may connect to your evidence."),
-      fireCooking: withFallback(work.bigIdeas.fireCooking, "Add whether fire, cooking or hearths are relevant to your focus group, using careful caveats."),
       conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Choose one big idea that strengthens your final explanation."),
     },
     comparison: {
       similarities: withFallback(work.comparison.similarities, "Add similarities between your focus group, Homo sapiens and your comparison group."),
-      differences: withFallback(work.comparison.differences, "Add differences between the three groups without ranking them as better or worse."),
+      differences: withFallback(work.comparison.differences, "Add evidence-based differences between the three groups."),
       mostSimilar: withFallback(work.comparison.mostSimilar, "Add which two groups seem most similar and explain your evidence."),
       mostDifferent: withFallback(work.comparison.mostDifferent, "Add which group seems most different and explain your evidence."),
     },
@@ -62,19 +60,19 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
         joinAnswers(work.timeline.sapiensOverlap, work.timeline.groupOverlap),
         "Add overlap evidence showing that several human groups existed at the same time.",
       ),
-      ladderChallenge: withFallback(work.timeline.ladderChallenge, "Explain why overlap makes a straight ladder model misleading."),
+      ladderChallenge: withFallback(work.timeline.ladderChallenge, "Explain whether overlap fits a single-line model."),
       branchingTree: withFallback(work.timeline.branchingTree, "Explain why a branching tree is a better model for human evolution."),
       geographyAnswer: withFallback(work.timeline.geography, "Add how different places and separated populations challenge a single straight-line story."),
     },
     finalAnswer: withFallback(
       work.finalReport.finalAnswer,
-      "Write your final evaluation in section 12 of the web quest. Use evidence from your focus group, Homo sapiens and your comparison group.",
+      "Write your final evaluation in section 08 of the web quest. Use evidence from your focus group, Homo sapiens and your comparison group.",
     ),
     reflection: {
       checklist: getCheckedLabels(work),
-      mostInteresting: withFallback(work.reflection.mostInteresting, "Add the most interesting thing you learned in section 13."),
-      stillDebated: withFallback(work.reflection.stillDebated, "Add one question scientists still debate in section 13."),
-      improvementTarget: withFallback(work.reflection.improvementTarget, "Add one improvement target in section 13."),
+      mostInteresting: withFallback(work.reflection.mostInteresting, "Add the most interesting thing you learned in section 09."),
+      stillDebated: withFallback(work.reflection.stillDebated, "Add one question scientists still debate in section 09."),
+      improvementTarget: withFallback(work.reflection.improvementTarget, "Add one improvement target in section 09."),
     },
   };
 }
@@ -86,12 +84,12 @@ export function getReportReadiness(work: StudentWork): ReportReadiness {
     [work.student.date, "date"],
     [work.student.chosenGroupSlug, "focus species"],
     [work.student.comparisonGroupSlug, "comparison species"],
-    [work.research.importance, "why the focus species matters"],
-    [work.evidence.strongest, "strongest evidence"],
-    [work.life.keyFeature, "life/adaptation feature"],
+    [work.research.body, "look notes"],
+    [work.research.lifestyle, "behaviour notes"],
+    [work.evidence.strongest, "evidence notes"],
     [work.bigIdeas.conceptConnection, "big evolutionary idea"],
     [work.comparison.similarities, "comparison similarities"],
-    [work.timeline.ladderChallenge, "timeline ladder challenge"],
+    [work.timeline.ladderChallenge, "model-check answer"],
     [work.finalReport.finalAnswer, "final written answer"],
     [work.finalReport.oneSentenceJudgement, "one-sentence judgement"],
     [work.reflection.mostInteresting, "reflection"],
@@ -122,7 +120,7 @@ function getCheckedLabels(work: StudentWork) {
     .filter((item) => work.reflection.checklist[item.id])
     .map((item) => item.label);
 
-  return checked.length > 0 ? checked : ["Complete the self-assessment checklist in section 13."];
+  return checked.length > 0 ? checked : ["Complete the self-assessment checklist in section 09."];
 }
 
 function joinAnswers(...answers: string[]) {

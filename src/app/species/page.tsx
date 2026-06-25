@@ -20,7 +20,7 @@ export default function SpeciesPage() {
             Explore the branching human family tree
           </h1>
           <p className="mt-5 max-w-3xl text-xl leading-8 text-paper/78">
-            These groups are presented as related branches with overlapping histories. They are not a ranking and not a straight line toward modern humans.
+            Browse each group as an evidence case, with its own fossils, tools, dates, places and unanswered questions.
           </p>
           <div className="species-browser-banner">
             <Image
@@ -38,7 +38,7 @@ export default function SpeciesPage() {
         <div className="mb-9 flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
             <h2 className="font-heading text-4xl font-black uppercase text-paper">Core groups</h2>
-            <p className="mt-2 max-w-xl text-paper/68">Eight profiles for the main web quest sequence, staged as evidence from different branches rather than steps on a ladder.</p>
+            <p className="mt-2 max-w-xl text-paper/68">Eight profiles for the main web quest sequence, staged as evidence cases for careful comparison.</p>
           </div>
         </div>
         <SpeciesGrid hominins={core} />

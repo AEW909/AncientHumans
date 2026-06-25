@@ -8,7 +8,7 @@ export const mockReport: MockReportData = {
     chosenGroupSlug: "neanderthals",
     comparisonGroupSlug: "homo-floresiensis",
   },
-  articleTitle: "Why Human Evolution Is Not a Ladder",
+  articleTitle: "How Evidence Shows a Branching Human Story",
   oneSentenceJudgement:
     "Human evolution is best understood as a branching tree because several human groups overlapped, adapted in different ways and left different kinds of evidence.",
   importanceAnswer:
@@ -23,7 +23,7 @@ export const mockReport: MockReportData = {
     archaeology:
       "Cave sites, hearths, animal bones and possible symbolic objects help scientists build a richer picture of Neanderthal life.",
     strongest:
-      "DNA is especially powerful because it directly shows overlap and interbreeding, which strongly challenges a simple ladder model.",
+      "DNA is especially powerful because it directly shows overlap and interbreeding between close human relatives.",
     limitations:
       "The evidence is uneven because some sites preserve fossils and DNA better than others. Scientists still debate why Neanderthals disappeared.",
   },
@@ -37,10 +37,6 @@ export const mockReport: MockReportData = {
       "Changing climates, competition, small population sizes and contact with Homo sapiens may all have affected survival.",
   },
   bigIdeas: {
-    languageLearning:
-      "Neanderthal tool-making, hunting and possible care for others suggest that social learning and communication mattered.",
-    fireCooking:
-      "Hearths at some sites show fire was part of Neanderthal life, helping with warmth, protection, cooking or shared group activity.",
     conceptConnection:
       "Shared learning and hearth-based group life help explain why survival depended on culture as well as body shape.",
   },
@@ -58,14 +54,14 @@ export const mockReport: MockReportData = {
     overlapAnswer:
       "Neanderthals, Denisovans, Homo floresiensis and Homo naledi overlapped with Homo sapiens or lived close to the time our species existed.",
     ladderChallenge:
-      "If several human groups existed at the same time, they cannot be arranged as simple steps leading to us.",
+      "If several human groups existed at the same time, a single-line model leaves important overlap unexplained.",
     branchingTree:
       "A branching tree is better because different groups adapted to different places, some interbred, and some are known mainly from DNA or unusual fossil evidence.",
     geographyAnswer:
-      "Geography also challenges the ladder model. Different human relatives lived across Africa, Europe and Asia, sometimes in separated regions at similar times, so the story is about many populations in different places rather than one line in one place.",
+      "Geography also matters. Different human relatives lived across Africa, Europe and Asia, sometimes in separated regions at similar times, so the story is about many populations in different places.",
   },
   finalAnswer:
-    "Human evolution is best understood as a branching tree, not a straight ladder. A ladder suggests that one species simply changed into the next, ending with Homo sapiens. The evidence does not support that idea. Australopithecus afarensis shows that walking upright evolved before large brains, so early human evolution was not just a march toward modern intelligence. Neanderthals show an even clearer challenge to the ladder model because they overlapped with Homo sapiens and interbred with them. They were skilled hunters and toolmakers, not a failed version of modern humans. Homo floresiensis also challenges simple assumptions because it had a very small body and brain but still used stone tools on an island. These examples show that different human relatives followed different evolutionary pathways. Some branches overlapped, some ended, and one branch survives today. Based on current evidence, Homo sapiens are the only surviving human species, not the goal that evolution was always trying to reach.",
+    "The strongest evidence points to a branching human story with several relatives following different pathways. Australopithecus afarensis shows that walking upright evolved before large brains, so early human evolution did not begin with modern intelligence. Neanderthals overlapped with Homo sapiens and interbred with them. They were skilled hunters and toolmakers, not failed versions of modern humans. Homo floresiensis also challenges simple assumptions because it had a very small body and brain but still used stone tools on an island. These examples show that different human relatives adapted in different ways. Some branches overlapped, some ended, and one branch survives today. Based on current evidence, Homo sapiens are the only surviving human species, not the goal that evolution was always trying to reach.",
   reflection: {
     checklist: [
       "Described at least three ancient human relatives.",

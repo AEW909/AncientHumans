@@ -148,8 +148,8 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
               </div>
               <p className="font-heading text-xs font-black uppercase tracking-[0.18em] text-gold">{idea.shortTitle}</p>
               <h2>{idea.title}</h2>
-              <p>{idea.summary}</p>
-              <small>{idea.caveat}</small>
+              <p>{idea.body}</p>
+              <small>{idea.evidence}</small>
             </article>
           ))}
         </div>
@@ -230,7 +230,7 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           <ul className="mt-5 space-y-3 font-semibold leading-7 text-navy/78">
             <li>Which evidence is direct, and what does it help scientists work out?</li>
             <li>What would change if new fossils, DNA or archaeological evidence were found?</li>
-            <li>How does this group challenge the idea of a simple ladder?</li>
+            <li>Which parts of this case are strongest, and which parts stay uncertain?</li>
           </ul>
         </div>
       </section>

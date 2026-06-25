@@ -232,7 +232,7 @@ function ComparisonPage({ report, chosen, sapiens, comparison }: { report: MockR
   return (
     <ReportPage pageNumber={5} title="Comparison Spread" className="report-paper-page">
       <ReportKicker>Comparison spread</ReportKicker>
-      <ReportTitle>Three branches, no ranking</ReportTitle>
+      <ReportTitle>Compare three branches</ReportTitle>
       <div className="report-comparison-grid">
         {[chosen, sapiens, comparison].map((group) => (
           <div className="report-profile-card" key={group.id}>
@@ -297,7 +297,7 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
       </div>
       <div className="report-timeline-analysis">
         <ReportPanel title="Overlap evidence" tone="gold"><p>{report.timeline.overlapAnswer}</p></ReportPanel>
-        <ReportPanel title="Why this challenges a ladder" tone="rust"><p>{report.timeline.ladderChallenge}</p><p>{report.timeline.branchingTree}</p></ReportPanel>
+        <ReportPanel title="Model evidence" tone="rust"><p>{report.timeline.ladderChallenge}</p><p>{report.timeline.branchingTree}</p></ReportPanel>
         <ReportPanel title="Geography matters too" tone="teal"><p>{report.timeline.geographyAnswer}</p></ReportPanel>
       </div>
       <ReportStimulusRow assets={[stimulusAssets.branchingTimeline, stimulusAssets.footprintTrackway, stimulusAssets.ancientDna]} compact />
@@ -396,7 +396,7 @@ function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockR
       </div>
       <ReportStimulusRow assets={coreEvidenceStimuli} compact />
       <p className="report-closing-statement">
-        Human evolution is not a straight road. It is a branching story built from fossils, tools, DNA and debate.
+        Fossils, tools, DNA and debate all shape how the human story is understood.
       </p>
     </ReportPage>
   );
