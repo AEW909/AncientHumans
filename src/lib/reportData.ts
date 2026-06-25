@@ -26,7 +26,7 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
     articleTitle: withFallback(work.finalReport.title, "How Evidence Shows a Branching Human Story"),
     oneSentenceJudgement: withFallback(
       work.finalReport.oneSentenceJudgement,
-      "Add your one-sentence judgement in section 08 of the web quest.",
+      "Final judgement not yet written.",
     ),
     importanceAnswer: withFallback(
       work.research.importance,
@@ -52,9 +52,9 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       survivalPressure: withFallback(work.life.survivalPressure, "Add one survival pressure or environmental challenge from your research."),
     },
     bigIdeas: {
-      fireThinking: withFallback(work.bigIdeas.fireCooking, "Use the Fire prompt in section 05 to explain what physical traces can and cannot show."),
-      languageThinking: withFallback(work.bigIdeas.languageLearning, "Use the Language prompt in section 05 to explain why indirect clues require careful inference."),
-      conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Choose one big idea that strengthens your final explanation."),
+      fireThinking: withFallback(work.bigIdeas.fireCooking, "Fire notes not yet written."),
+      languageThinking: withFallback(work.bigIdeas.languageLearning, "Language notes not yet written."),
+      conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Big idea connection not yet written."),
     },
     comparison: {
       similarities: withFallback(work.comparison.similarities, "Add similarities between your focus group, Homo sapiens and your comparison group."),
@@ -73,7 +73,7 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
     },
     finalAnswer: withFallback(
       work.finalReport.finalAnswer,
-      "Write your final evaluation in section 08 of the web quest. Use evidence from your focus group, Homo sapiens and your comparison group.",
+      "Final evaluation not yet written.",
     ),
     reflection: {
       checklist: getCheckedLabels(work),

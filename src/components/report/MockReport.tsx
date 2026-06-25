@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { hominins } from "@/data/hominins";
-import { coreEvidenceStimuli, getStimuliForSpecies, stimulusAssets } from "@/data/stimulusAssets";
+import { getStimuliForSpecies, stimulusAssets, type StimulusAsset } from "@/data/stimulusAssets";
 import type { ReportReadiness } from "@/lib/reportData";
 import type { Hominin } from "@/types/hominin";
 import type { MockReportData } from "@/types/report";
@@ -61,7 +61,7 @@ export function MockReport({ report, readiness, source = "saved", toolbarActions
         <ComparisonPage report={report} chosen={chosen} sapiens={sapiens} comparison={comparison} />
         <TimelinePage report={report} chosen={chosen} />
         <FinalArticlePage report={report} />
-        <ReflectionPage report={report} chosen={chosen} sapiens={sapiens} comparison={comparison} />
+        <ReflectionPage report={report} />
       </div>
     </div>
   );
@@ -100,12 +100,25 @@ function ReportToolbar({
 function CoverPage({ report, chosen }: { report: MockReportData; chosen: Hominin }) {
   return (
     <ReportPage pageNumber={1} title="Cover" className="report-cover-page">
-      <ReportImage
-        src="/assets/covers/ancient-human-relatives-cover.png"
-        alt="Ancient Human Relatives cover artwork"
-        className="report-cover-image"
-      />
-      <div className="report-cover-fade" />
+      <div className="report-cover-header">
+        <ReportImage
+          src="/assets/covers/human-family-header-clean.png"
+          alt="Ancient human relatives header artwork"
+          className="object-cover"
+        />
+      </div>
+      <div className="report-cover-title-block">
+        <ReportKicker>Life sciences field report</ReportKicker>
+        <h1>Ancient Human Relatives</h1>
+        <p>{report.articleTitle}</p>
+      </div>
+      <div className="report-cover-footer">
+        <ReportImage
+          src="/assets/covers/different-paths-footer-clean.png"
+          alt="Different paths, one human story footer artwork"
+          className="object-cover"
+        />
+      </div>
       <dl className="report-cover-details">
         <div>
           <dt>Student</dt>
@@ -338,37 +351,7 @@ function FinalArticlePage({ report }: { report: MockReportData }) {
   );
 }
 
-function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockReportData; chosen: Hominin; sapiens: Hominin; comparison: Hominin }) {
-  const usedImageKeys = new Set([
-    chosen.figureImage,
-    chosen.activityImage,
-    chosen.madeImage,
-    sapiens.madeImage,
-    comparison.madeImage,
-  ].filter(Boolean));
-
-  const unusedImages = hominins.flatMap((group) => [
-    group.activityImage
-      ? {
-          caption: group.activityCaption ?? `${group.displayName} activity scene`,
-          group,
-          src: group.activityImage,
-          type: "did",
-        }
-      : null,
-    group.madeImage
-      ? {
-          caption: group.madeCaption ?? `${group.displayName} made or evidence image`,
-          group,
-          src: group.madeImage,
-          type: "made",
-        }
-      : null,
-  ])
-    .filter((item): item is { caption: string; group: Hominin; src: string; type: string } => Boolean(item))
-    .filter((item) => !usedImageKeys.has(item.src))
-    .slice(0, 12);
-
+function ReflectionPage({ report }: { report: MockReportData }) {
   return (
     <ReportPage pageNumber={8} title="Reflection" className="report-back-page">
       <ReportImage
@@ -384,24 +367,16 @@ function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockR
             <span key={item}>{item}</span>
           ))}
         </div>
-        <div className="report-evidence-mosaic">
-          {unusedImages.map((image) => (
-            <div key={`${image.group.id}-${image.type}`}>
-              <ReportImage
-                src={image.src}
-                alt={image.caption}
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
+        <p className="report-reflection-statement">
+          The evidence changed the picture by replacing a simple sequence with overlapping branches, mixed evidence
+          types and genuine scientific uncertainty.
+        </p>
       </div>
       <div className="report-reflection-cards">
         <ReportPanel title="Most interesting" tone="gold"><p>{report.reflection.mostInteresting}</p></ReportPanel>
         <ReportPanel title="Still debated" tone="rust"><p>{report.reflection.stillDebated}</p></ReportPanel>
         <ReportPanel title="Improvement target" tone="teal"><p>{report.reflection.improvementTarget}</p></ReportPanel>
       </div>
-      <ReportStimulusRow assets={coreEvidenceStimuli} compact />
       <p className="report-closing-statement">
         Fossils, tools, DNA and debate all shape how the human story is understood.
       </p>
@@ -418,7 +393,7 @@ function ReportMiniFact({ label, value }: { label: string; value: string }) {
   );
 }
 
-function ReportStimulusRow({ assets, compact = false }: { assets: typeof coreEvidenceStimuli; compact?: boolean }) {
+function ReportStimulusRow({ assets, compact = false }: { assets: StimulusAsset[]; compact?: boolean }) {
   return (
     <div className={compact ? "report-stimulus-row report-stimulus-row-compact" : "report-stimulus-row"} aria-label="Evidence stimulus objects">
       {assets.map((asset) => (

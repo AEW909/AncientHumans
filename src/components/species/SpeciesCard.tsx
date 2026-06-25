@@ -9,8 +9,6 @@ type SpeciesCardProps = {
 export function SpeciesCard({ hominin }: SpeciesCardProps) {
   const heroImage = hominin.figureImage ?? hominin.activityImage ?? hominin.cultureImage ?? hominin.posterImage;
   const heroCaption = hominin.figureCaption ?? hominin.activityCaption ?? hominin.cultureCaption ?? hominin.imageCaption;
-  const evidenceImage = hominin.cultureImage ?? hominin.madeImage ?? hominin.vignetteImage ?? hominin.activityImage;
-  const evidenceCaption = hominin.cultureCaption ?? hominin.madeCaption ?? hominin.vignetteCaption ?? hominin.activityCaption;
 
   return (
     <Link
@@ -26,17 +24,6 @@ export function SpeciesCard({ hominin }: SpeciesCardProps) {
           className="object-cover object-top opacity-95 saturate-[0.9] transition duration-700 group-hover:scale-105 group-hover:opacity-100"
         />
       </div>
-      {evidenceImage ? (
-        <div className="species-browse-evidence" aria-hidden="true">
-          <Image
-            src={evidenceImage}
-            alt={evidenceCaption ?? ""}
-            fill
-            sizes="11rem"
-            className="object-cover"
-          />
-        </div>
-      ) : null}
       <div className="species-browse-wash absolute inset-0" />
       <div className="relative flex flex-1 flex-col justify-between p-5 text-paper">
         <div className="flex items-start justify-between gap-3">
