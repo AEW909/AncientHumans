@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { hominins } from "@/data/hominins";
+import { coreEvidenceStimuli, getStimuliForSpecies, stimulusAssets } from "@/data/stimulusAssets";
 import type { ReportReadiness } from "@/lib/reportData";
 import type { Hominin } from "@/types/hominin";
 import type { MockReportData } from "@/types/report";
@@ -182,6 +183,7 @@ function EvidencePage({ report, chosen }: { report: MockReportData; chosen: Homi
           className="object-cover"
         />
       </div>
+      <ReportStimulusRow assets={getStimuliForSpecies(chosen.slug)} />
       <div className="report-evidence-grid">
         <ReportPanel title="Fossils" tone="gold"><p>{report.evidence.fossils}</p></ReportPanel>
         <ReportPanel title="Tools" tone="teal"><p>{report.evidence.tools}</p></ReportPanel>
@@ -310,6 +312,7 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
         <ReportPanel title="Why this challenges a ladder" tone="rust"><p>{report.timeline.ladderChallenge}</p><p>{report.timeline.branchingTree}</p></ReportPanel>
         <ReportPanel title="Geography matters too" tone="teal"><p>{report.timeline.geographyAnswer}</p></ReportPanel>
       </div>
+      <ReportStimulusRow assets={[stimulusAssets.branchingTimeline, stimulusAssets.footprintTrackway, stimulusAssets.ancientDna]} compact />
       <p className="report-caution-note">
         Broad regions only: this page shows where evidence places different human relatives.
       </p>
@@ -324,6 +327,10 @@ function FinalArticlePage({ report }: { report: MockReportData }) {
         <aside>
           <strong>Final judgement</strong>
           <span>{report.oneSentenceJudgement}</span>
+          <div className="report-big-ideas-note">
+            <b>Big idea to use</b>
+            <span>{report.bigIdeas.conceptConnection}</span>
+          </div>
         </aside>
         <article>
           <ReportKicker>Final evaluation</ReportKicker>
@@ -396,6 +403,7 @@ function ReflectionPage({ report, chosen, sapiens, comparison }: { report: MockR
         <ReportPanel title="Still debated" tone="rust"><p>{report.reflection.stillDebated}</p></ReportPanel>
         <ReportPanel title="Improvement target" tone="teal"><p>{report.reflection.improvementTarget}</p></ReportPanel>
       </div>
+      <ReportStimulusRow assets={coreEvidenceStimuli} compact />
       <p className="report-closing-statement">
         Human evolution is not a straight road. It is a branching story built from fossils, tools, DNA and debate.
       </p>
@@ -408,6 +416,18 @@ function ReportMiniFact({ label, value }: { label: string; value: string }) {
     <div>
       <span>{label}</span>
       <strong>{value}</strong>
+    </div>
+  );
+}
+
+function ReportStimulusRow({ assets, compact = false }: { assets: typeof coreEvidenceStimuli; compact?: boolean }) {
+  return (
+    <div className={compact ? "report-stimulus-row report-stimulus-row-compact" : "report-stimulus-row"} aria-label="Evidence stimulus objects">
+      {assets.map((asset) => (
+        <div key={asset.src}>
+          <Image src={asset.src} alt={asset.alt} fill sizes={compact ? "22mm" : "30mm"} className="object-cover" />
+        </div>
+      ))}
     </div>
   );
 }

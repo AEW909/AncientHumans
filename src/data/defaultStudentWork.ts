@@ -51,6 +51,10 @@ export const selfAssessmentItems = [
     label: "Included uncertainty or scientific debate.",
   },
   {
+    id: "big-idea",
+    label: "Used a big idea such as social learning, fire, cooking or culture where it fitted the evidence.",
+  },
+  {
     id: "vocabulary",
     label: "Used scientific vocabulary correctly.",
   },
@@ -96,6 +100,11 @@ export function createDefaultStudentWork(now = new Date().toISOString()): Studen
       likelyEnvironment: "",
       likelyLifestyle: "",
       survivalPressure: "",
+    },
+    bigIdeas: {
+      languageLearning: "",
+      fireCooking: "",
+      conceptConnection: "",
     },
     comparison: {
       similarities: "",

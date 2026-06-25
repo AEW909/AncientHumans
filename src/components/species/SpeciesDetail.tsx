@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getEvolutionaryIdeasForSpecies } from "@/data/evolutionaryIdeas";
+import { getStimuliForSpecies } from "@/data/stimulusAssets";
 import type { Hominin } from "@/types/hominin";
 
 type SpeciesDetailProps = {
@@ -15,6 +17,8 @@ const facts = [
 export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
   const heroImage = hominin.figureImage ?? hominin.posterImage;
   const heroCaption = hominin.figureCaption ?? hominin.imageCaption;
+  const stimulusAssets = getStimuliForSpecies(hominin.slug);
+  const conceptIdeas = getEvolutionaryIdeasForSpecies(hominin.slug);
   const learningNotes = hominin.learningNotes ?? {
     evidenceShows: [hominin.evidence],
     reportUses: [hominin.bigIdea, hominin.uncertainty],
@@ -123,6 +127,33 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           </div>
         </section>
       )}
+
+      <section className="relative mx-auto max-w-7xl px-5 pb-10 lg:px-8">
+        <div className="species-stimulus-strip" aria-label={`${hominin.displayName} evidence stimulus images`}>
+          {stimulusAssets.map((asset) => (
+            <figure key={asset.src}>
+              <Image src={asset.src} alt={asset.alt} fill sizes="180px" className="object-cover" />
+              <figcaption>{asset.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-7xl px-5 pb-12 lg:px-8">
+        <div className="species-concept-lenses">
+          {conceptIdeas.map((idea) => (
+            <article key={idea.id}>
+              <div>
+                <Image src={idea.asset.src} alt={idea.asset.alt} fill sizes="120px" className="object-cover" />
+              </div>
+              <p className="font-heading text-xs font-black uppercase tracking-[0.18em] text-gold">{idea.shortTitle}</p>
+              <h2>{idea.title}</h2>
+              <p>{idea.summary}</p>
+              <small>{idea.caveat}</small>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="relative isolate overflow-hidden py-16">
         <Image

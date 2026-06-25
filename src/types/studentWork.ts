@@ -42,6 +42,12 @@ export type LifeAdaptationsWork = {
   survivalPressure: string;
 };
 
+export type BigIdeasWork = {
+  languageLearning: string;
+  fireCooking: string;
+  conceptConnection: string;
+};
+
 export type ComparisonWork = {
   similarities: string;
   differences: string;
@@ -85,6 +91,7 @@ export type StudentWork = {
   research: GuidedResearchWork;
   evidence: EvidenceDossierWork;
   life: LifeAdaptationsWork;
+  bigIdeas: BigIdeasWork;
   comparison: ComparisonWork;
   timeline: TimelineWork;
   finalReport: FinalReportWork;

@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { evolutionaryIdeas, getEvolutionaryIdeasForSpecies } from "@/data/evolutionaryIdeas";
 import { hominins } from "@/data/hominins";
 import { selfAssessmentItems } from "@/data/defaultStudentWork";
+import { coreEvidenceStimuli, getStimuliForSpecies, stimulusAssets, type StimulusAsset } from "@/data/stimulusAssets";
 import {
   calculateStudentWorkProgress,
   loadStudentWork,
@@ -38,6 +40,7 @@ const sections = [
   { key: "research", label: "Research" },
   { key: "evidence", label: "Evidence" },
   { key: "life", label: "Life" },
+  { key: "bigIdeas", label: "Ideas" },
   { key: "sapiens", label: "Sapiens" },
   { key: "comparison", label: "Compare" },
   { key: "timeline", label: "Timeline" },
@@ -170,8 +173,8 @@ export function QuestWorkspace() {
     <main className="quest-shell">
       <section className="quest-hero">
         <Image
-          src={chosen?.activityWideImage ?? "/assets/covers/ancient-human-relatives-cover.png"}
-          alt={chosen?.activityWideCaption ?? "Ancient Human Relatives cover artwork"}
+          src={chosen?.activityWideImage ?? "/assets/covers/human-family-header-clean.png"}
+          alt={chosen?.activityWideCaption ?? "Ancient human relatives header artwork"}
           fill
           priority
           sizes="100vw"
@@ -230,11 +233,12 @@ export function QuestWorkspace() {
           {activeStep === 4 && <GuidedResearchStep updateWork={updateWork} work={work} />}
           {activeStep === 5 && <EvidenceStep updateWork={updateWork} work={work} />}
           {activeStep === 6 && <LifeStep updateWork={updateWork} work={work} />}
-          {activeStep === 7 && <SapiensBridgeStep />}
-          {activeStep === 8 && <ComparisonStep updateWork={updateWork} work={work} />}
-          {activeStep === 9 && <TimelineStep updateWork={updateWork} work={work} />}
-          {activeStep === 10 && <FinalReportStep updateWork={updateWork} work={work} />}
-          {activeStep === 11 && <ReflectionStep updateWork={updateWork} work={work} />}
+          {activeStep === 7 && <BigIdeasStep updateWork={updateWork} work={work} />}
+          {activeStep === 8 && <SapiensBridgeStep />}
+          {activeStep === 9 && <ComparisonStep updateWork={updateWork} work={work} />}
+          {activeStep === 10 && <TimelineStep updateWork={updateWork} work={work} />}
+          {activeStep === 11 && <FinalReportStep updateWork={updateWork} work={work} />}
+          {activeStep === 12 && <ReflectionStep updateWork={updateWork} work={work} />}
 
           <div className="quest-navigation">
             <button disabled={activeStep === 0} onClick={() => moveStep(-1)} type="button">
@@ -360,6 +364,16 @@ function ProjectIntroStep() {
           <p>Your saved answers feed an 8-page magazine-style field report that can be saved as a PDF.</p>
         </article>
       </div>
+      <div className="quest-wide-art" aria-label="Different paths, one human story">
+        <Image
+          src="/assets/covers/different-paths-footer-clean.png"
+          alt="Different paths, one human story landscape banner"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+      <StimulusStrip assets={[stimulusAssets.footprintTrackway, stimulusAssets.stoneTools, stimulusAssets.ancientDna, stimulusAssets.branchingTimeline]} />
     </QuestSection>
   );
 }
@@ -492,6 +506,7 @@ function EvidenceStep({ work, updateWork }: StepProps) {
         </div>
       )}
       {chosen && <QuestResourceRow group={chosen} />}
+      <StimulusStrip assets={chosen ? getStimuliForSpecies(chosen.slug) : coreEvidenceStimuli} compact />
       <FieldStack columns>
         <TextArea label="Fossil evidence" limit={textLimits.evidence} value={work.evidence.fossils} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, fossils: value } }))} />
         <TextArea label="Tool evidence" limit={textLimits.evidence} value={work.evidence.tools} onChange={(value) => updateWork((current) => ({ ...current, evidence: { ...current.evidence, tools: value } }))} />
@@ -516,6 +531,54 @@ function LifeStep({ work, updateWork }: StepProps) {
         <TextArea label="Likely environment" limit={textLimits.research} value={work.life.likelyEnvironment} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, likelyEnvironment: value } }))} />
         <TextArea label="Likely lifestyle" limit={textLimits.research} value={work.life.likelyLifestyle} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, likelyLifestyle: value } }))} />
         <TextArea label="Possible survival pressures" limit={textLimits.research} value={work.life.survivalPressure} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, survivalPressure: value } }))} />
+      </FieldStack>
+    </QuestSection>
+  );
+}
+
+function BigIdeasStep({ work, updateWork }: StepProps) {
+  const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
+  const relevantIdeas = chosen ? getEvolutionaryIdeasForSpecies(chosen.slug) : evolutionaryIdeas;
+
+  return (
+    <QuestSection
+      eyebrow="Big evolutionary ideas"
+      title="Learning, fire and adaptation"
+      intro="Some behaviours matter because they change what a group can learn, eat, remember or pass on. Use careful wording: these ideas are powerful, but the evidence is uneven."
+    >
+      <div className="quest-big-idea-grid">
+        {evolutionaryIdeas.map((idea) => (
+          <article className={relevantIdeas.some((item) => item.id === idea.id) ? "quest-big-idea-card quest-big-idea-card-active" : "quest-big-idea-card"} key={idea.id}>
+            <div>
+              <Image src={idea.asset.src} alt={idea.asset.alt} fill sizes="220px" className="object-cover" />
+            </div>
+            <p className="quest-kicker">{relevantIdeas.some((item) => item.id === idea.id) ? "Useful for your focus" : "Use if evidence fits"}</p>
+            <h3>{idea.title}</h3>
+            <p>{idea.summary}</p>
+            <p><strong>Evidence angle:</strong> {idea.evidenceAngle}</p>
+            <p><strong>Caveat:</strong> {idea.caveat}</p>
+          </article>
+        ))}
+      </div>
+      <FieldStack columns>
+        <TextArea
+          label="Language, learning or tradition"
+          limit={textLimits.comparison}
+          value={work.bigIdeas.languageLearning}
+          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, languageLearning: value } }))}
+        />
+        <TextArea
+          label="Fire, cooking or energy"
+          limit={textLimits.comparison}
+          value={work.bigIdeas.fireCooking}
+          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, fireCooking: value } }))}
+        />
+        <TextArea
+          label="Best concept to use in your final answer"
+          limit={textLimits.comparison}
+          value={work.bigIdeas.conceptConnection}
+          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, conceptConnection: value } }))}
+        />
       </FieldStack>
     </QuestSection>
   );
@@ -625,6 +688,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
         </article>
       </div>
       {chosen && <QuestResourceRow group={chosen} />}
+      <StimulusStrip assets={[stimulusAssets.branchingTimeline, stimulusAssets.footprintTrackway, stimulusAssets.ancientDna]} compact />
       <FieldStack columns>
         <TextArea label="Which groups existed at similar times?" limit={textLimits.comparison} value={work.timeline.sapiensOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, sapiensOverlap: value } }))} />
         <TextArea label="What overlap or uncertainty can you find?" limit={textLimits.comparison} value={work.timeline.groupOverlap} onChange={(value) => updateWork((current) => ({ ...current, timeline: { ...current.timeline, groupOverlap: value } }))} />
@@ -638,7 +702,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
 
 function FinalReportStep({ work, updateWork }: StepProps) {
   return (
-    <QuestSection eyebrow="Final article" title="Evaluate the branching tree model" intro="Use evidence from at least three ancient human relatives.">
+    <QuestSection eyebrow="Final article" title="Evaluate the branching tree model" intro="Use evidence from at least three ancient human relatives. Add language, learning, fire or cooking only where the evidence makes it relevant.">
       <FieldStack>
         <TextInput label="Article title" value={work.finalReport.title} onChange={(value) => updateWork((current) => ({ ...current, finalReport: { ...current.finalReport, title: value } }))} />
         <TextArea label="Final written answer" limit={textLimits.final} rows={12} value={work.finalReport.finalAnswer} onChange={(value) => updateWork((current) => ({ ...current, finalReport: { ...current.finalReport, finalAnswer: value } }))} />
@@ -850,6 +914,19 @@ function MiniBriefing({ group }: { group: Hominin }) {
         </div>
       </dl>
     </article>
+  );
+}
+
+function StimulusStrip({ assets, compact = false }: { assets: StimulusAsset[]; compact?: boolean }) {
+  return (
+    <div className={compact ? "quest-stimulus-strip quest-stimulus-strip-compact" : "quest-stimulus-strip"} aria-label="Evidence stimulus images">
+      {assets.map((asset) => (
+        <figure key={asset.src}>
+          <Image src={asset.src} alt={asset.alt} fill sizes={compact ? "120px" : "180px"} className="object-cover" />
+          <figcaption>{asset.label}</figcaption>
+        </figure>
+      ))}
+    </div>
   );
 }
 

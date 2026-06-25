@@ -26,7 +26,7 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
     articleTitle: withFallback(work.finalReport.title, "Why Human Evolution Is Not a Ladder"),
     oneSentenceJudgement: withFallback(
       work.finalReport.oneSentenceJudgement,
-      "Add your one-sentence judgement in section 10 of the web quest.",
+      "Add your one-sentence judgement in section 12 of the web quest.",
     ),
     importanceAnswer: withFallback(
       work.research.importance,
@@ -46,6 +46,11 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       likelyEnvironment: withFallback(work.life.likelyEnvironment, withFallback(work.research.livedWhere, chosen.location)),
       survivalPressure: withFallback(work.life.survivalPressure, "Add one survival pressure or environmental challenge from your research."),
     },
+    bigIdeas: {
+      languageLearning: withFallback(work.bigIdeas.languageLearning, "Add how communication, teaching or social learning may connect to your evidence."),
+      fireCooking: withFallback(work.bigIdeas.fireCooking, "Add whether fire, cooking or hearths are relevant to your focus group, using careful caveats."),
+      conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Choose one big idea that strengthens your final explanation."),
+    },
     comparison: {
       similarities: withFallback(work.comparison.similarities, "Add similarities between your focus group, Homo sapiens and your comparison group."),
       differences: withFallback(work.comparison.differences, "Add differences between the three groups without ranking them as better or worse."),
@@ -63,13 +68,13 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
     },
     finalAnswer: withFallback(
       work.finalReport.finalAnswer,
-      "Write your final evaluation in section 10 of the web quest. Use evidence from your focus group, Homo sapiens and your comparison group.",
+      "Write your final evaluation in section 12 of the web quest. Use evidence from your focus group, Homo sapiens and your comparison group.",
     ),
     reflection: {
       checklist: getCheckedLabels(work),
-      mostInteresting: withFallback(work.reflection.mostInteresting, "Add the most interesting thing you learned in section 11."),
-      stillDebated: withFallback(work.reflection.stillDebated, "Add one question scientists still debate in section 11."),
-      improvementTarget: withFallback(work.reflection.improvementTarget, "Add one improvement target in section 11."),
+      mostInteresting: withFallback(work.reflection.mostInteresting, "Add the most interesting thing you learned in section 13."),
+      stillDebated: withFallback(work.reflection.stillDebated, "Add one question scientists still debate in section 13."),
+      improvementTarget: withFallback(work.reflection.improvementTarget, "Add one improvement target in section 13."),
     },
   };
 }
@@ -84,6 +89,7 @@ export function getReportReadiness(work: StudentWork): ReportReadiness {
     [work.research.importance, "why the focus species matters"],
     [work.evidence.strongest, "strongest evidence"],
     [work.life.keyFeature, "life/adaptation feature"],
+    [work.bigIdeas.conceptConnection, "big evolutionary idea"],
     [work.comparison.similarities, "comparison similarities"],
     [work.timeline.ladderChallenge, "timeline ladder challenge"],
     [work.finalReport.finalAnswer, "final written answer"],
@@ -116,7 +122,7 @@ function getCheckedLabels(work: StudentWork) {
     .filter((item) => work.reflection.checklist[item.id])
     .map((item) => item.label);
 
-  return checked.length > 0 ? checked : ["Complete the self-assessment checklist in section 11."];
+  return checked.length > 0 ? checked : ["Complete the self-assessment checklist in section 13."];
 }
 
 function joinAnswers(...answers: string[]) {

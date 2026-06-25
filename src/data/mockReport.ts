@@ -36,6 +36,14 @@ export const mockReport: MockReportData = {
     survivalPressure:
       "Changing climates, competition, small population sizes and contact with Homo sapiens may all have affected survival.",
   },
+  bigIdeas: {
+    languageLearning:
+      "Neanderthal tool-making, hunting and possible care for others suggest that social learning and communication mattered.",
+    fireCooking:
+      "Hearths at some sites show fire was part of Neanderthal life, helping with warmth, protection, cooking or shared group activity.",
+    conceptConnection:
+      "Shared learning and hearth-based group life help explain why survival depended on culture as well as body shape.",
+  },
   comparison: {
     similarities:
       "Neanderthals and Homo sapiens both made tools, used fire and likely had complex social lives. Homo floresiensis also used tools, showing that small body size did not prevent technology.",

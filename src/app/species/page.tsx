@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { hominins } from "@/data/hominins";
 import { SpeciesGrid } from "@/components/species/SpeciesGrid";
 
@@ -21,6 +22,15 @@ export default function SpeciesPage() {
           <p className="mt-5 max-w-3xl text-xl leading-8 text-paper/78">
             These groups are presented as related branches with overlapping histories. They are not a ranking and not a straight line toward modern humans.
           </p>
+          <div className="species-browser-banner">
+            <Image
+              src="/assets/covers/human-family-header-clean.png"
+              alt="Ancient human relatives portrait banner"
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 

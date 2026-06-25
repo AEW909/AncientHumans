@@ -23,6 +23,11 @@ export type MockReportData = {
     likelyEnvironment: string;
     survivalPressure: string;
   };
+  bigIdeas: {
+    languageLearning: string;
+    fireCooking: string;
+    conceptConnection: string;
+  };
   comparison: {
     similarities: string;
     differences: string;

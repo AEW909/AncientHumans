@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
+import { homeStimuli } from "@/data/stimulusAssets";
 
 export default function HomePage() {
   return (
     <div className="deep-time-wash text-paper">
       <section className="relative isolate overflow-hidden bg-midnight text-paper">
         <Image
-          src="/assets/covers/ancient-human-relatives-cover.png"
-          alt="Ancient Human Relatives cover artwork"
+          src="/assets/covers/human-family-header-clean.png"
+          alt="Line-up of ancient human relatives against Earth and DNA artwork"
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-78 saturate-[0.92]"
+          className="object-cover object-center opacity-86 saturate-[0.95]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/72 to-midnight/18" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-midnight to-transparent" />
@@ -51,6 +52,23 @@ export default function HomePage() {
             <Fact title="4+" body="Evidence types: fossils, tools, DNA and archaeology." />
             <Fact title="1" body="Core question about the branching human family tree." />
           </div>
+        </div>
+        <div className="home-stimulus-strip" aria-label="Evidence objects">
+          {homeStimuli.map((asset) => (
+            <div key={asset.src}>
+              <Image src={asset.src} alt={asset.alt} fill sizes="180px" className="object-cover" />
+              <span>{asset.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className="home-wide-art" aria-label="Different paths, one human story artwork">
+          <Image
+            src="/assets/covers/different-paths-footer-icons.png"
+            alt="Different paths, one human story banner with fossils, tools, fire, genetics and journey icons"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
       </section>
     </div>

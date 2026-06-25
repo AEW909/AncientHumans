@@ -140,6 +140,11 @@ export function normalizeStudentWork(value: unknown): StudentWork {
       likelyLifestyle: readNestedString(value.life, "likelyLifestyle"),
       survivalPressure: readNestedString(value.life, "survivalPressure"),
     },
+    bigIdeas: {
+      languageLearning: readNestedString(value.bigIdeas, "languageLearning"),
+      fireCooking: readNestedString(value.bigIdeas, "fireCooking"),
+      conceptConnection: readNestedString(value.bigIdeas, "conceptConnection"),
+    },
     comparison: {
       similarities: readNestedString(value.comparison, "similarities"),
       differences: readNestedString(value.comparison, "differences"),
@@ -185,6 +190,7 @@ export function calculateStudentWorkProgress(work: StudentWork): StudentWorkProg
     ...Object.values(normalized.research),
     ...Object.values(normalized.evidence),
     ...Object.values(normalized.life),
+    ...Object.values(normalized.bigIdeas),
     ...Object.values(normalized.comparison),
     ...Object.values(normalized.timeline),
     normalized.finalReport.finalAnswer,
@@ -211,6 +217,7 @@ function getCompletedSections(work: StudentWork): string[] {
     ["research", areCompleted(Object.values(work.research))],
     ["evidence", areCompleted(Object.values(work.evidence))],
     ["life", areCompleted(Object.values(work.life))],
+    ["bigIdeas", areCompleted(Object.values(work.bigIdeas))],
     ["comparison", areCompleted(Object.values(work.comparison))],
     ["timeline", areCompleted(Object.values(work.timeline))],
     ["finalReport", areCompleted([work.finalReport.finalAnswer, work.finalReport.oneSentenceJudgement])],
