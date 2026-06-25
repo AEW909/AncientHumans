@@ -1,5 +1,10 @@
 export type HomininKind = "core" | "extension";
 
+export type HomininSourceLink = {
+  label: string;
+  href: string;
+};
+
 export type Hominin = {
   id: string;
   slug: string;
@@ -30,5 +35,13 @@ export type Hominin = {
   activityCaption?: string;
   activityWideImage?: string;
   activityWideCaption?: string;
+  cultureImage?: string;
+  cultureCaption?: string;
+  learningNotes?: {
+    evidenceShows: string[];
+    reportUses: string[];
+    comparisonClues: string[];
+  };
+  sourceLinks?: HomininSourceLink[];
   imageCaption: string;
 };

@@ -1,5 +1,98 @@
 import type { Hominin } from "@/types/hominin";
 
+const speciesSourceLinks = {
+  "australopithecus-afarensis": [
+    {
+      label: "Australian Museum: Australopithecus afarensis",
+      href: "https://australian.museum/learn/science/human-evolution/australopithecus-afarensis/",
+    },
+    {
+      label: "Smithsonian: Australopithecus afarensis",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-afarensis",
+    },
+  ],
+  "homo-habilis": [
+    {
+      label: "Australian Museum: Homo habilis",
+      href: "https://australian.museum/learn/science/human-evolution/homo-habilis/",
+    },
+    {
+      label: "Smithsonian: Homo habilis",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-habilis",
+    },
+  ],
+  "homo-erectus": [
+    {
+      label: "Australian Museum: Homo erectus",
+      href: "https://australian.museum/learn/science/human-evolution/homo-erectus/",
+    },
+    {
+      label: "Smithsonian: Homo erectus",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-erectus",
+    },
+  ],
+  "homo-heidelbergensis": [
+    {
+      label: "Australian Museum: Homo heidelbergensis",
+      href: "https://australian.museum/learn/science/human-evolution/homo-heidelbergensis/",
+    },
+    {
+      label: "Smithsonian: Homo heidelbergensis",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-heidelbergensis",
+    },
+  ],
+  neanderthals: [
+    {
+      label: "Australian Museum: Homo neanderthalensis",
+      href: "https://australian.museum/learn/science/human-evolution/homo-neanderthalensis/",
+    },
+    {
+      label: "Natural History Museum: Neanderthals",
+      href: "https://www.nhm.ac.uk/discover/who-were-the-neanderthals.html",
+    },
+  ],
+  denisovans: [
+    {
+      label: "Natural History Museum: Denisovans",
+      href: "https://www.nhm.ac.uk/discover/denisovans.html",
+    },
+    {
+      label: "Smithsonian: Human evolution timeline",
+      href: "https://humanorigins.si.edu/evidence/human-evolution-interactive-timeline",
+    },
+  ],
+  "homo-floresiensis": [
+    {
+      label: "Australian Museum: Homo floresiensis",
+      href: "https://australian.museum/learn/science/human-evolution/homo-floresiensis/",
+    },
+    {
+      label: "Smithsonian: Homo floresiensis",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-floresiensis",
+    },
+  ],
+  "homo-sapiens": [
+    {
+      label: "Australian Museum: Homo sapiens",
+      href: "https://australian.museum/learn/science/human-evolution/homo-sapiens-modern-humans/",
+    },
+    {
+      label: "Smithsonian: Homo sapiens",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-sapiens",
+    },
+  ],
+  "homo-naledi": [
+    {
+      label: "Australian Museum: Homo naledi",
+      href: "https://australian.museum/learn/science/human-evolution/homo-naledi/",
+    },
+    {
+      label: "Smithsonian: Homo naledi",
+      href: "https://humanorigins.si.edu/evidence/human-fossils/species/homo-naledi",
+    },
+  ],
+} satisfies Record<string, NonNullable<Hominin["sourceLinks"]>>;
+
 export const hominins: Hominin[] = [
   {
     id: "australopithecus-afarensis",
@@ -22,15 +115,35 @@ export const hominins: Hominin[] = [
     reportCaption: "A. afarensis is one of the clearest examples that early human evolution did not begin with a large brain.",
     posterImage: "/assets/posters/01-australopithecus-afarensis.png",
     figureImage: "/assets/report/figures/australopithecus-afarensis.png",
-    figureCaption: "Illustrative reconstruction of A. afarensis. Appearance is interpretive and should be treated cautiously.",
+    figureCaption: "Illustrative reconstruction of A. afarensis, showing a small-bodied early human relative adapted for upright walking.",
     vignetteImage: "/assets/report/vignettes/australopithecus-afarensis.png",
-    vignetteCaption: "Footprints such as Laetoli show bipedal walking without needing to claim toolmaking.",
+    vignetteCaption: "Footprints such as Laetoli provide strong evidence that A. afarensis walked upright.",
     madeImage: "/assets/report/vignettes/australopithecus-afarensis.png",
-    madeCaption: "Evidence object: footprints show upright walking; no toolmaking claim is needed.",
+    madeCaption: "Evidence object: footprint tracks show upright walking and preserve behaviour in a rare direct trace.",
     activityImage: "/assets/report/activities/australopithecus-afarensis.png",
-    activityCaption: "Behaviour scene: upright walking in mixed woodland and grassland, with possible tree use shown cautiously.",
+    activityCaption: "Behaviour scene: upright walking in a mixed woodland and grassland environment.",
     activityWideImage: "/assets/report/activity-wide/australopithecus-afarensis.png",
-    activityWideCaption: "Behaviour scene: upright walking in mixed woodland and grassland, with possible tree use shown cautiously.",
+    activityWideCaption: "Behaviour scene: upright walking in a mixed woodland and grassland environment.",
+    cultureImage: "/assets/report/culture/australopithecus-afarensis.png",
+    cultureCaption: "Stimulus idea: group movement and footprint evidence can start a discussion about how early human relatives moved through shared landscapes.",
+    learningNotes: {
+      evidenceShows: [
+        "Laetoli-style footprint evidence shows upright walking in a direct trace of behaviour.",
+        "Lucy and other fossils show a small-brained body with hips, legs and feet adapted for bipedal movement.",
+        "Curved fingers and upper-body features suggest climbing may still have mattered alongside walking.",
+      ],
+      reportUses: [
+        "Use this group to argue that upright walking evolved before large brains.",
+        "Use the woodland and grassland setting to discuss changing environments without turning evolution into a ladder.",
+        "Use the uncertainty about climbing to show that adaptations can be mixed rather than all-or-nothing.",
+      ],
+      comparisonClues: [
+        "Compared with Homo sapiens, A. afarensis had a much smaller brain and more ape-like upper body.",
+        "Compared with later Homo groups, its strongest evidence is locomotion rather than tools, fire or DNA.",
+        "It is useful as an early branch because it shows one important human trait appearing very early.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["australopithecus-afarensis"],
     imageCaption: "Poster for Australopithecus afarensis.",
   },
   {
@@ -54,15 +167,35 @@ export const hominins: Hominin[] = [
     reportCaption: "H. habilis is useful because it shows how difficult it can be to classify fossil humans.",
     posterImage: "/assets/posters/02-homo-habilis.png",
     figureImage: "/assets/report/figures/homo-habilis.png",
-    figureCaption: "Illustrative reconstruction of H. habilis based on broad fossil evidence and scientific interpretation.",
+    figureCaption: "Illustrative reconstruction of H. habilis based on fossil evidence from early Homo.",
     vignetteImage: "/assets/report/vignettes/homo-habilis.png",
-    vignetteCaption: "Simple stone cores and flakes suggest early tool traditions, although attribution is debated.",
+    vignetteCaption: "Simple stone cores and flakes show early tool traditions around the time of H. habilis.",
     madeImage: "/assets/report/vignettes/homo-habilis.png",
-    madeCaption: "Made/evidence object: simple cores and flakes suggest early stone tool traditions, though attribution is debated.",
+    madeCaption: "Made/evidence object: simple cores and flakes show how early stone tools were made and used.",
     activityImage: "/assets/report/activities/homo-habilis.png",
     activityCaption: "Behaviour scene: possible tool use and foraging near a savanna edge.",
     activityWideImage: "/assets/report/activity-wide/homo-habilis.png",
     activityWideCaption: "Behaviour scene: possible tool use and foraging near a savanna edge.",
+    cultureImage: "/assets/report/culture/homo-habilis.png",
+    cultureCaption: "Stimulus idea: simple stone flakes and shared workspaces can prompt questions about early tool learning.",
+    learningNotes: {
+      evidenceShows: [
+        "Skulls, jaws, teeth and limb bones show an early Homo form with a larger brain than australopithecines.",
+        "Simple stone cores and flakes fit the wider picture of early tool traditions around this time.",
+        "Fragmentary fossils make classification difficult, which is why H. habilis is often treated as a debated species.",
+      ],
+      reportUses: [
+        "Use this group to show that the origin of Homo was gradual rather than a clean jump.",
+        "Use the tool evidence to discuss behaviour, but link it to the wider archaeological context rather than one single individual.",
+        "Use the classification debate as an example of how scientists revise family trees when evidence is incomplete.",
+      ],
+      comparisonClues: [
+        "Compared with A. afarensis, H. habilis had a larger brain and stronger links to stone-tool contexts.",
+        "Compared with H. erectus, it was smaller-bodied and less clearly adapted for long-distance travel.",
+        "It works well as a bridge case between earlier australopithecines and later Homo branches.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-habilis"],
     imageCaption: "Poster for Homo habilis.",
   },
   {
@@ -95,6 +228,26 @@ export const hominins: Hominin[] = [
     activityCaption: "Behaviour scene: long-distance movement and possible fire use in a widespread human branch.",
     activityWideImage: "/assets/report/activity-wide/homo-erectus.png",
     activityWideCaption: "Behaviour scene: long-distance movement and possible fire use in a widespread human branch.",
+    cultureImage: "/assets/report/culture/homo-erectus.png",
+    cultureCaption: "Stimulus idea: shared fire and handaxe traditions can prompt questions about social learning and long-lasting technology.",
+    learningNotes: {
+      evidenceShows: [
+        "Fossils show a taller body with longer legs and shorter arms, suited to travelling over open ground.",
+        "Widespread sites across Africa and Asia show that H. erectus dispersed far beyond one region.",
+        "Acheulean handaxes and possible fire evidence show a long-lasting technology-rich branch.",
+      ],
+      reportUses: [
+        "Use this group to challenge the idea that only Homo sapiens were successful.",
+        "Use its long date range to show that some human relatives survived for very long periods.",
+        "Use its wide geography to discuss separated populations and different regional stories.",
+      ],
+      comparisonClues: [
+        "Compared with H. habilis, H. erectus had a more modern travelling body plan.",
+        "Compared with Homo sapiens, it existed much earlier and lasted far longer than our species has so far.",
+        "Compared with island or cave-known groups, its evidence is broad and geographically widespread.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-erectus"],
     imageCaption: "Poster for Homo erectus.",
   },
   {
@@ -113,20 +266,40 @@ export const hominins: Hominin[] = [
     lifestyle: "Likely used stone tools and hunted large animals. Some Middle Pleistocene humans made wooden spears.",
     evidence: "Important fossils include the Mauer mandible, Sima de los Huesos material, Kabwe/Broken Hill and Bodo.",
     bigIdea: "This group may be close to the common ancestry of several later human lineages.",
-    uncertainty: "This is a messy category. Some fossils may belong to other Middle Pleistocene groups.",
+    uncertainty: "Scientists group several Middle Pleistocene fossils here, and some may later be sorted into different lineages.",
     pullQuote: "Some branches of the human family tree are difficult to separate.",
     reportCaption: "H. heidelbergensis is important because it sits near one of the most debated parts of the human family tree.",
     posterImage: "/assets/posters/04-homo-heidelbergensis.png",
     figureImage: "/assets/report/figures/homo-heidelbergensis.png",
-    figureCaption: "Illustrative reconstruction of H. heidelbergensis. This Middle Pleistocene category remains debated.",
+    figureCaption: "Illustrative reconstruction of H. heidelbergensis, a large-brained Middle Pleistocene human.",
     vignetteImage: "/assets/report/vignettes/homo-heidelbergensis.png",
-    vignetteCaption: "Wooden spear evidence from Middle Pleistocene humans suggests planned hunting, but labels remain debated.",
+    vignetteCaption: "Wooden spear evidence from Middle Pleistocene humans suggests planned hunting and skilled woodworking.",
     madeImage: "/assets/report/vignettes/homo-heidelbergensis.png",
-    madeCaption: "Made object: wooden spear evidence suggests planned hunting by Middle Pleistocene humans, but species labels remain debated.",
+    madeCaption: "Made object: wooden spear evidence points to planned hunting and careful tool preparation.",
     activityImage: "/assets/report/activities/homo-heidelbergensis.png",
-    activityCaption: "Behaviour scene: coordinated hunting preparation, shown as inference rather than certainty.",
+    activityCaption: "Behaviour scene: coordinated hunting preparation in a Middle Pleistocene landscape.",
     activityWideImage: "/assets/report/activity-wide/homo-heidelbergensis.png",
-    activityWideCaption: "Behaviour scene: coordinated hunting preparation, shown as inference rather than certainty.",
+    activityWideCaption: "Behaviour scene: coordinated hunting preparation in a Middle Pleistocene landscape.",
+    cultureImage: "/assets/report/culture/homo-heidelbergensis.png",
+    cultureCaption: "Stimulus idea: wooden spear evidence can introduce cooperative hunting, planning and shared preparation.",
+    learningNotes: {
+      evidenceShows: [
+        "Middle Pleistocene fossils show large-brained humans with a mixture of older and later traits.",
+        "Sites such as Mauer, Bodo, Kabwe and Sima de los Huesos are often discussed around this part of the tree.",
+        "Wooden spear evidence from Middle Pleistocene humans supports planned hunting and skilled tool preparation.",
+      ],
+      reportUses: [
+        "Use this group to discuss branching points between later humans, Neanderthals and Denisovans.",
+        "Use the mixed traits to show why fossil classification is not always neat.",
+        "Use hunting and woodworking evidence to connect anatomy, behaviour and cooperation.",
+      ],
+      comparisonClues: [
+        "Compared with H. erectus, this group is later and generally larger-brained.",
+        "Compared with Neanderthals and Homo sapiens, it may sit close to their ancestry rather than being a simple step below them.",
+        "Compared with Denisovans, its evidence is more fossil-based than DNA-led.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-heidelbergensis"],
     imageCaption: "Poster for Homo heidelbergensis.",
   },
   {
@@ -159,6 +332,26 @@ export const hominins: Hominin[] = [
     activityCaption: "Behaviour scene: fire, hide working and group life show capable Ice Age survival.",
     activityWideImage: "/assets/report/activity-wide/neanderthals.png",
     activityWideCaption: "Behaviour scene: fire, hide working and group life show capable Ice Age survival.",
+    cultureImage: "/assets/report/culture/neanderthals.png",
+    cultureCaption: "Stimulus idea: hide-working, hearths and possible care for others show Neanderthals as skilled social humans, not caricatures.",
+    learningNotes: {
+      evidenceShows: [
+        "Fossils show stocky, powerful bodies with large brains and features suited to Ice Age environments.",
+        "Stone tools, hearths, animal remains and cave sites show skilled hunting and practical technology.",
+        "DNA evidence shows that Neanderthals interbred with Homo sapiens.",
+      ],
+      reportUses: [
+        "Use Neanderthals to show that Homo sapiens were not the only intelligent humans.",
+        "Use overlap and interbreeding to challenge a straight-line ladder model.",
+        "Use their cold-adapted bodies to link anatomy with environment.",
+      ],
+      comparisonClues: [
+        "Compared with Homo sapiens, Neanderthals were generally more robust and had different skull features.",
+        "Compared with Denisovans, they are known from far more fossils and archaeological sites.",
+        "Compared with H. floresiensis, they show a very different body size and environment, but both challenge simple ideas of progress.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks.neanderthals,
     imageCaption: "Poster for Neanderthals.",
   },
   {
@@ -181,15 +374,35 @@ export const hominins: Hominin[] = [
     reportCaption: "Denisovans are a powerful example of how genetic evidence can change the human family tree.",
     posterImage: "/assets/posters/06-denisovans.png",
     figureImage: "/assets/report/figures/denisovans.png",
-    figureCaption: "Cautious Denisovan visual: fossils are fragmentary, so DNA and uncertainty are emphasised.",
+    figureCaption: "Illustrative Denisovan visual, emphasising cave evidence, ancient DNA and fragmentary fossils.",
     vignetteImage: "/assets/report/vignettes/denisovans.png",
     vignetteCaption: "Tiny fossils and ancient DNA reveal a branch that is still difficult to picture.",
     madeImage: "/assets/report/vignettes/denisovans.png",
     madeCaption: "Evidence object: tiny fossils and ancient DNA reveal Denisovans more clearly than artefacts do.",
     activityImage: "/assets/report/activities/denisovans.png",
-    activityCaption: "Behaviour scene: a cautious landscape view because Denisovan behaviour and appearance remain poorly known.",
+    activityCaption: "Behaviour scene: a cave landscape linked to the limited but important Denisovan evidence.",
     activityWideImage: "/assets/report/activity-wide/denisovans.png",
-    activityWideCaption: "Behaviour scene: a cautious landscape view because Denisovan behaviour and appearance remain poorly known.",
+    activityWideCaption: "Behaviour scene: a cave landscape linked to the limited but important Denisovan evidence.",
+    cultureImage: "/assets/report/culture/denisovans.png",
+    cultureCaption: "Stimulus idea: cave context, tiny fossils and DNA evidence show how a human branch can be revealed from small clues.",
+    learningNotes: {
+      evidenceShows: [
+        "Ancient DNA from Denisova Cave first revealed this branch of humans.",
+        "A small number of fossils, including material linked to Denisova Cave and Baishiya Karst Cave, adds physical evidence.",
+        "Genetic traces in some living populations show that Denisovans interbred with other humans.",
+      ],
+      reportUses: [
+        "Use Denisovans to show that DNA can reveal branches that fossils alone might miss.",
+        "Use the limited skeleton evidence to explain why some parts of the human tree remain hard to picture.",
+        "Use interbreeding evidence to challenge the idea of separate, tidy species lines.",
+      ],
+      comparisonClues: [
+        "Compared with Neanderthals, Denisovans are known much more through DNA than complete fossils.",
+        "Compared with Homo sapiens, they are an extinct sister branch that still left genetic traces.",
+        "Compared with H. heidelbergensis, they are later and easier to discuss through genetics than anatomy.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks.denisovans,
     imageCaption: "Poster for Denisovans.",
   },
   {
@@ -222,6 +435,26 @@ export const hominins: Hominin[] = [
     activityCaption: "Behaviour scene: small-bodied humans using tools in an island cave setting.",
     activityWideImage: "/assets/report/activity-wide/homo-floresiensis.png",
     activityWideCaption: "Behaviour scene: small-bodied humans using tools in an island cave setting.",
+    cultureImage: "/assets/report/culture/homo-floresiensis.png",
+    cultureCaption: "Stimulus idea: cooperative tool use in an island setting challenges assumptions about body size, brain size and capability.",
+    learningNotes: {
+      evidenceShows: [
+        "Partial skeletons and teeth from Flores show a very small-bodied human with a small brain.",
+        "Stone tools and animal remains show that this island branch still used technology to survive.",
+        "Its island setting helps explain why evolution can follow unusual pathways in separated populations.",
+      ],
+      reportUses: [
+        "Use this group to challenge the idea that evolution always means bigger bodies or bigger brains.",
+        "Use the island setting to discuss geography as well as time.",
+        "Use the tool evidence to separate brain size from capability in a careful way.",
+      ],
+      comparisonClues: [
+        "Compared with H. erectus, H. floresiensis was much smaller and may represent an island pathway.",
+        "Compared with Homo sapiens, it overlapped in broad time but had a very different body plan.",
+        "Compared with A. afarensis, it is much later and still linked with tool use despite small size.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-floresiensis"],
     imageCaption: "Poster for Homo floresiensis.",
   },
   {
@@ -242,18 +475,38 @@ export const hominins: Hominin[] = [
     bigIdea: "Homo sapiens are the last surviving human species, not the final goal of evolution.",
     uncertainty: "Scientists debate when modern behaviour fully emerged. It was probably not a single sudden event.",
     pullQuote: "Last surviving human species, not the final step.",
-    reportCaption: "Homo sapiens are the comparison point for the project, but they should not be presented as the inevitable endpoint of evolution.",
+    reportCaption: "Homo sapiens are the comparison point for the project and the only human species alive today.",
     posterImage: "/assets/posters/08-homo-sapiens.png",
     figureImage: "/assets/report/figures/homo-sapiens.png",
-    figureCaption: "Illustrative early Homo sapiens reconstruction. The report should not present our species as evolution's goal.",
+    figureCaption: "Illustrative early Homo sapiens reconstruction, showing our species as one branch in the human family tree.",
     vignetteImage: "/assets/report/vignettes/homo-sapiens.png",
-    vignetteCaption: "Ochre, beads, blades and art can suggest symbolic behaviour without making sapiens the goal of evolution.",
+    vignetteCaption: "Ochre, beads, blades and art provide evidence for symbolic behaviour and complex culture.",
     madeImage: "/assets/report/vignettes/homo-sapiens.png",
-    madeCaption: "Made objects: ochre, beads, blades and art can suggest symbolic behaviour without making sapiens the endpoint.",
+    madeCaption: "Made objects: ochre, beads, blades and art show symbolic material culture.",
     activityImage: "/assets/report/activities/homo-sapiens.png",
-    activityCaption: "Behaviour scene: symbolic material culture and group activity, shown as one branch among others.",
+    activityCaption: "Behaviour scene: symbolic material culture and group activity.",
     activityWideImage: "/assets/report/activity-wide/homo-sapiens.png",
-    activityWideCaption: "Behaviour scene: symbolic material culture and group activity, shown as one branch among others.",
+    activityWideCaption: "Behaviour scene: symbolic material culture and group activity.",
+    cultureImage: "/assets/report/culture/homo-sapiens.png",
+    cultureCaption: "Stimulus idea: ochre, beads and symbolic material culture show how objects can carry social meaning.",
+    learningNotes: {
+      evidenceShows: [
+        "Fossils and DNA show Homo sapiens originated in Africa before spreading globally.",
+        "A high rounded skull, chin and lighter skeleton distinguish our species from many earlier humans.",
+        "Art, beads, ochre, burials and complex tools show rich symbolic and social behaviour.",
+      ],
+      reportUses: [
+        "Use Homo sapiens as the fixed comparison point, not as the goal of evolution.",
+        "Use symbolic culture to compare evidence for behaviour across different branches.",
+        "Use overlap with other humans to show our species was not always alone.",
+      ],
+      comparisonClues: [
+        "Compared with Neanderthals, Homo sapiens had a lighter build and different skull shape but shared some time and genes.",
+        "Compared with H. erectus, Homo sapiens appeared much later and spread globally more recently.",
+        "Compared with Denisovans, Homo sapiens are known from far more fossils and archaeology, but DNA links the branches.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-sapiens"],
     imageCaption: "Poster for Homo sapiens.",
   },
   {
@@ -277,15 +530,35 @@ export const hominins: Hominin[] = [
     reportCaption: "H. naledi is best used as an extension case because it raises difficult questions about anatomy, behaviour and classification.",
     posterImage: "/assets/posters/09-homo-naledi-extension.png",
     figureImage: "/assets/report/figures/homo-naledi.png",
-    figureCaption: "Illustrative reconstruction of H. naledi. Cave behaviour and interpretation remain debated.",
+    figureCaption: "Illustrative reconstruction of H. naledi, a small-brained human relative from the Rising Star cave system.",
     vignetteImage: "/assets/report/vignettes/homo-naledi.png",
-    vignetteCaption: "Deep-cave fossil evidence raises difficult questions, but behaviour claims remain debated.",
+    vignetteCaption: "Deep-cave fossil evidence from Rising Star raises important questions about how the remains accumulated.",
     madeImage: "/assets/report/vignettes/homo-naledi.png",
-    madeCaption: "Evidence object: deep-cave fossil evidence raises questions; tools or ritual should not be assumed.",
+    madeCaption: "Evidence object: deep-cave fossils show a remarkable concentration of H. naledi remains.",
     activityImage: "/assets/report/activities/homo-naledi.png",
-    activityCaption: "Evidence scene: the cave setting highlights mystery and debate rather than confirmed behaviour.",
+    activityCaption: "Evidence scene: the cave setting highlights the unusual fossil context at Rising Star.",
     activityWideImage: "/assets/report/activity-wide/homo-naledi.png",
-    activityWideCaption: "Evidence scene: the cave setting highlights mystery and debate rather than confirmed behaviour.",
+    activityWideCaption: "Evidence scene: the cave setting highlights the unusual fossil context at Rising Star.",
+    cultureImage: "/assets/report/culture/homo-naledi.png",
+    cultureCaption: "Stimulus idea: deep-cave fossil context raises questions about movement, access and behaviour in the Rising Star system.",
+    learningNotes: {
+      evidenceShows: [
+        "The Rising Star cave system preserves many fossils from multiple H. naledi individuals.",
+        "Its anatomy combines a small brain and curved fingers with more human-like feet and some hand features.",
+        "Its relatively recent date places a small-brained human relative surprisingly late in the story.",
+      ],
+      reportUses: [
+        "Use this extension case to show that brain size does not make the human family tree simple.",
+        "Use the deep-cave context to discuss why fossil location matters.",
+        "Use the mixed anatomy to show that evolution can produce mosaic combinations of traits.",
+      ],
+      comparisonClues: [
+        "Compared with Homo sapiens, H. naledi had a much smaller brain but lived surprisingly recently.",
+        "Compared with A. afarensis, it is later and more Homo-like in some features, while still retaining older traits.",
+        "Compared with Denisovans, it is known from many fossils but not from the same depth of DNA evidence.",
+      ],
+    },
+    sourceLinks: speciesSourceLinks["homo-naledi"],
     imageCaption: "Poster for Homo naledi, marked as an extension case.",
   },
 ];

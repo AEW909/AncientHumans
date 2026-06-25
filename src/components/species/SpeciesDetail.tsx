@@ -13,26 +13,55 @@ const facts = [
 ] as const;
 
 export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
+  const heroImage = hominin.figureImage ?? hominin.posterImage;
+  const heroCaption = hominin.figureCaption ?? hominin.imageCaption;
+  const learningNotes = hominin.learningNotes ?? {
+    evidenceShows: [hominin.evidence],
+    reportUses: [hominin.bigIdea, hominin.uncertainty],
+    comparisonClues: [hominin.reportCaption],
+  };
+  const imageStudies = [
+    {
+      caption: hominin.figureCaption ?? hominin.imageCaption,
+      detail: "Use this reconstruction to look for body proportions, posture and features described in the evidence.",
+      label: "Figure",
+      src: hominin.figureImage ?? hominin.posterImage,
+    },
+    {
+      caption: hominin.cultureCaption ?? hominin.bigIdea,
+      detail: "Use this as a stimulus for thinking about social behaviour and the kinds of evidence scientists use to study it.",
+      label: "Cultural stimulus",
+      src: hominin.cultureImage ?? hominin.activityImage ?? hominin.posterImage,
+    },
+    {
+      caption: hominin.activityCaption ?? hominin.lifestyle,
+      detail: "Compare this scene with the body and lifestyle notes. Look for links between environment, anatomy and likely behaviour.",
+      label: "Behaviour",
+      src: hominin.activityImage ?? hominin.posterImage,
+    },
+    {
+      caption: hominin.madeCaption ?? hominin.evidence,
+      detail: "Use this image to identify the evidence type: artefact, trace, fossil clue or broader archaeological context.",
+      label: "Made / Evidence",
+      src: hominin.madeImage ?? hominin.vignetteImage ?? hominin.posterImage,
+    },
+  ];
+
   return (
     <article className="deep-time-wash fossil-noise min-h-screen text-paper">
-      <section className="relative mx-auto grid max-w-7xl gap-8 px-5 py-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
-        <div className="relative overflow-hidden rounded-md border border-white/10 bg-midnight shadow-[0_40px_110px_rgba(0,0,0,0.45)]">
-          <Image
-            src={hominin.posterImage}
-            alt={hominin.imageCaption}
-            width={1200}
-            height={1500}
-            priority
-            className="h-full w-full object-cover saturate-[0.92]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-midnight/40 via-transparent to-midnight/20" />
-          {hominin.kind === "extension" ? (
-            <span className="absolute left-4 top-4 bg-rust px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-paper">
-              Extension case
-            </span>
-          ) : null}
-        </div>
-        <div className="flex flex-col justify-center">
+      <section className="relative isolate min-h-[calc(100vh-73px)] overflow-hidden">
+        <Image
+          src={heroImage}
+          alt={heroCaption}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top saturate-[0.92]"
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,transparent_0,rgba(5,7,13,0.08)_28%,rgba(5,7,13,0.86)_72%),linear-gradient(90deg,rgba(5,7,13,0.94)_0%,rgba(5,7,13,0.72)_42%,rgba(5,7,13,0.14)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-midnight to-transparent" />
+        <div className="relative z-10 mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl content-center px-5 py-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(320px,0.58fr)] lg:px-8">
+          <div className="max-w-3xl">
           <div className="mb-6 flex flex-wrap gap-4 text-sm font-bold uppercase tracking-[0.16em]">
             <Link className="text-gold hover:text-paper" href="/quest">
               Return to web quest
@@ -42,128 +71,197 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
             </Link>
           </div>
           <p className="font-heading text-lg font-black uppercase tracking-[0.22em] text-gold">
-            Group {String(hominin.number).padStart(2, "0")}
+            {hominin.kind === "extension" ? "Extension case" : `Group ${String(hominin.number).padStart(2, "0")}`}
           </p>
-          <h1 className="mt-3 font-heading text-5xl font-black uppercase leading-none text-paper md:text-7xl">
+          <h1 className="mt-3 font-heading text-5xl font-black uppercase leading-none text-paper drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)] md:text-7xl">
             {hominin.scientificName ? <i>{hominin.displayName}</i> : hominin.displayName}
           </h1>
           <p className="mt-4 max-w-2xl text-xl font-semibold leading-8 text-paper/76">{hominin.subtitle}</p>
-          <p className="mt-6 max-w-2xl border-l-4 border-gold pl-5 text-2xl font-bold leading-9 text-paper">
+          <p className="mt-6 max-w-2xl border-l-4 border-gold pl-5 text-2xl font-bold leading-9 text-paper/95">
             {hominin.hook}
           </p>
 
           <dl className="mt-8 grid gap-4 md:grid-cols-3">
             {facts.map(([label, key]) => (
-              <div className="border border-white/10 bg-black/24 p-4 backdrop-blur" key={label}>
+              <div className="bg-black/28 p-4 backdrop-blur" key={label}>
                 <dt className="text-xs font-bold uppercase tracking-[0.18em] text-gold/80">{label}</dt>
                 <dd className="mt-2 text-sm font-semibold leading-6 text-paper/84">{hominin[key]}</dd>
               </div>
             ))}
           </dl>
+          <p className="mt-5 max-w-xl text-sm font-semibold leading-6 text-paper/54">{heroCaption}</p>
+          </div>
         </div>
       </section>
 
-      <section className="relative border-y border-white/10 bg-black/28">
+      <section className="relative bg-black/28">
         <div className="mx-auto grid max-w-7xl gap-5 px-5 py-10 md:grid-cols-3 lg:px-8">
-          <InfoPanel title="Big idea" body={hominin.bigIdea} tone="gold" />
-          <InfoPanel title="Evidence" body={hominin.evidence} tone="teal" />
-          <InfoPanel title="Uncertainty" body={hominin.uncertainty} tone="rust" />
+          <LearningPanel title="What the evidence shows" items={learningNotes.evidenceShows} tone="gold" />
+          <LearningPanel title="Useful in your report" items={learningNotes.reportUses} tone="teal" />
+          <LearningPanel title="Comparison clues" items={learningNotes.comparisonClues} tone="rust" />
         </div>
       </section>
 
-      <section className="relative mx-auto grid max-w-7xl gap-6 px-5 py-12 md:grid-cols-2 lg:px-8">
-        <div>
-          <h2 className="font-heading text-3xl font-black uppercase text-paper">Body and Lifestyle</h2>
-          <p className="mt-4 leading-7 text-paper/74">{hominin.bodyPlan}</p>
-          <p className="mt-4 leading-7 text-paper/74">{hominin.lifestyle}</p>
-        </div>
-        <div className="border border-gold/30 bg-midnight/70 p-6 text-paper shadow-[0_30px_90px_rgba(0,0,0,0.32)]">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Field report note</p>
-          <blockquote className="mt-4 font-heading text-3xl font-black leading-tight">
-            {hominin.pullQuote}
-          </blockquote>
-          <p className="mt-5 leading-7 text-paper/80">{hominin.reportCaption}</p>
+      <section className="relative isolate overflow-hidden py-16">
+        <Image
+          src={hominin.activityWideImage ?? hominin.activityImage ?? hominin.posterImage}
+          alt={hominin.activityWideCaption ?? hominin.activityCaption ?? hominin.imageCaption}
+          fill
+          sizes="100vw"
+          className="object-cover object-top opacity-82"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,7,13,0.94)_0%,rgba(5,7,13,0.70)_48%,rgba(5,7,13,0.18)_100%),linear-gradient(0deg,rgba(5,7,13,0.92)_0%,transparent_34%,rgba(5,7,13,0.72)_100%)]" />
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-[minmax(0,0.86fr)_minmax(260px,0.58fr)] lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="font-heading text-4xl font-black uppercase leading-none text-paper md:text-6xl">Body and lifestyle</h2>
+            <p className="mt-5 text-lg font-semibold leading-8 text-paper/82">{hominin.bodyPlan}</p>
+            <p className="mt-4 text-lg font-semibold leading-8 text-paper/76">{hominin.lifestyle}</p>
+          </div>
+          <div className="self-end bg-midnight/74 p-6 text-paper backdrop-blur">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Field report note</p>
+            <blockquote className="mt-4 font-heading text-3xl font-black leading-tight">
+              {hominin.pullQuote}
+            </blockquote>
+            <p className="mt-5 leading-7 text-paper/80">{hominin.reportCaption}</p>
+          </div>
         </div>
       </section>
 
-      <section className="relative border-y border-white/10 bg-black/30">
-        <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+      <section className="relative bg-black/30">
+        <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
           <div className="max-w-3xl">
             <p className="font-heading text-sm font-black uppercase tracking-[0.22em] text-gold">Visual evidence set</p>
             <h2 className="mt-2 font-heading text-4xl font-black uppercase leading-none text-paper">
               Images to compare and question
             </h2>
             <p className="mt-4 leading-7 text-paper/74">
-              These images give more context than the field-note pop-up. Treat reconstructions as interpretations and
-              use the captions to separate evidence from inference.
+              These images give more context than the field-note pop-up. Scroll through them slowly, treating each one
+              as a prompt for close observation and evidence-based questions.
             </p>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            <ImageStudyCard
-              caption={hominin.figureCaption ?? hominin.imageCaption}
-              label="Figure"
-              src={hominin.figureImage ?? hominin.posterImage}
-            />
-            <ImageStudyCard
-              caption={hominin.activityCaption ?? hominin.lifestyle}
-              label="Behaviour"
-              src={hominin.activityImage ?? hominin.posterImage}
-            />
-            <ImageStudyCard
-              caption={hominin.madeCaption ?? hominin.evidence}
-              label="Made / Evidence"
-              src={hominin.madeImage ?? hominin.vignetteImage ?? hominin.posterImage}
-            />
+          <div className="mt-10 grid gap-12">
+            {imageStudies.map((study, index) => (
+              <ImageStudyCard
+                caption={study.caption}
+                detail={study.detail}
+                feature={index === 0}
+                key={study.label}
+                label={study.label}
+                src={study.src}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       <section className="relative mx-auto grid max-w-7xl gap-6 px-5 py-12 md:grid-cols-[1fr_1fr] lg:px-8">
-        <div className="border-l-4 border-teal bg-paper/95 p-6 text-navy">
-          <h2 className="font-heading text-3xl font-black uppercase">Use this in your report</h2>
-          <ul className="mt-5 space-y-3 font-semibold leading-7 text-navy/78">
-            <li>Use the date range to check whether this branch overlapped with other human relatives.</li>
-            <li>Use the location to think about geography, isolation and different environments.</li>
-            <li>Use the uncertainty statement to avoid writing as if scientists know everything for certain.</li>
-          </ul>
+        <div className="bg-paper/95 p-6 text-navy">
+          <h2 className="font-heading text-3xl font-black uppercase">Fast facts to transfer</h2>
+          <dl className="mt-5 space-y-4 font-semibold leading-7 text-navy/78">
+            <div>
+              <dt className="font-heading text-xs font-black uppercase tracking-[0.16em] text-rust">When</dt>
+              <dd>{hominin.dateRange}</dd>
+            </div>
+            <div>
+              <dt className="font-heading text-xs font-black uppercase tracking-[0.16em] text-rust">Where</dt>
+              <dd>{hominin.location}</dd>
+            </div>
+            <div>
+              <dt className="font-heading text-xs font-black uppercase tracking-[0.16em] text-rust">Still debated</dt>
+              <dd>{hominin.uncertainty}</dd>
+            </div>
+          </dl>
         </div>
-        <div className="border-l-4 border-rust bg-paper/95 p-6 text-navy">
+        <div className="bg-paper/95 p-6 text-navy">
           <h2 className="font-heading text-3xl font-black uppercase">Questions to ask</h2>
           <ul className="mt-5 space-y-3 font-semibold leading-7 text-navy/78">
-            <li>Which evidence is direct, and which part is interpretation?</li>
+            <li>Which evidence is direct, and what does it help scientists work out?</li>
             <li>What would change if new fossils, DNA or archaeological evidence were found?</li>
             <li>How does this group challenge the idea of a simple ladder?</li>
           </ul>
         </div>
       </section>
+
+      {hominin.sourceLinks && (
+        <section className="relative mx-auto max-w-7xl px-5 pb-16 lg:px-8">
+          <div className="bg-midnight/72 p-6 text-paper backdrop-blur">
+            <p className="font-heading text-xs font-black uppercase tracking-[0.2em] text-gold">Trusted sources</p>
+            <h2 className="mt-2 font-heading text-3xl font-black uppercase">Check the evidence</h2>
+            <p className="mt-3 max-w-3xl font-semibold leading-7 text-paper/72">
+              Use these pupil-friendly museum pages to check dates, locations, fossils, tools and debates before you
+              write your field report.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {hominin.sourceLinks.map((link) => (
+                <a
+                  className="bg-paper px-4 py-3 font-heading text-xs font-black uppercase tracking-[0.12em] text-navy transition hover:bg-gold"
+                  href={link.href}
+                  key={link.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </article>
   );
 }
 
-function InfoPanel({ title, body, tone }: { title: string; body: string; tone: "gold" | "teal" | "rust" }) {
+function LearningPanel({ title, items, tone }: { title: string; items: string[]; tone: "gold" | "teal" | "rust" }) {
   const toneClass = {
-    gold: "border-gold",
-    teal: "border-teal",
-    rust: "border-rust",
+    gold: "text-gold",
+    teal: "text-teal",
+    rust: "text-rust",
+  }[tone];
+  const dotClass = {
+    gold: "bg-gold",
+    teal: "bg-teal",
+    rust: "bg-rust",
   }[tone];
 
   return (
-    <div className={`border-t-4 ${toneClass} bg-paper/95 p-5 text-navy shadow-[0_24px_80px_rgba(0,0,0,0.22)]`}>
-      <h2 className="font-heading text-2xl font-black uppercase text-navy">{title}</h2>
-      <p className="mt-3 leading-7 text-navy/80">{body}</p>
+    <div className="bg-paper/95 p-5 text-navy shadow-[0_24px_80px_rgba(0,0,0,0.18)]">
+      <h2 className={`font-heading text-2xl font-black uppercase ${toneClass}`}>{title}</h2>
+      <ul className="mt-4 space-y-3 font-semibold leading-7 text-navy/80">
+        {items.map((item) => (
+          <li className="flex gap-3" key={item}>
+            <span className={`mt-2 block size-2 shrink-0 ${dotClass}`} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-function ImageStudyCard({ caption, label, src }: { caption: string; label: string; src: string }) {
+function ImageStudyCard({
+  caption,
+  detail,
+  feature = false,
+  label,
+  src,
+}: {
+  caption: string;
+  detail: string;
+  feature?: boolean;
+  label: string;
+  src: string;
+}) {
   return (
-    <article className="overflow-hidden border border-white/10 bg-midnight/74 shadow-[0_30px_90px_rgba(0,0,0,0.3)]">
-      <div className="relative aspect-[4/3]">
-        <Image src={src} alt={caption} fill sizes="33vw" className="object-cover object-top" />
+    <article className="grid items-end gap-5 lg:grid-cols-[minmax(0,1.18fr)_minmax(280px,0.62fr)]">
+      <div className={feature ? "relative min-h-[520px] overflow-hidden" : "relative min-h-[390px] overflow-hidden"}>
+        <Image src={src} alt={caption} fill sizes="(min-width: 1024px) 62vw, 100vw" className="object-cover object-top" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,transparent_0,transparent_46%,rgba(5,7,13,0.56)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-midnight/92 to-transparent" />
       </div>
-      <div className="p-5">
+      <div className="pb-2 lg:pb-8">
         <p className="font-heading text-xs font-black uppercase tracking-[0.2em] text-gold">{label}</p>
-        <p className="mt-3 text-sm font-semibold leading-6 text-paper/76">{caption}</p>
+        <p className="mt-3 text-lg font-black leading-7 text-paper">{caption}</p>
+        <p className="mt-4 text-base font-semibold leading-7 text-paper/70">{detail}</p>
       </div>
     </article>
   );

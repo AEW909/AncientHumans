@@ -106,6 +106,11 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - Added a timeline/model-check stimulus panel with an open-in-new-tab prompt image.
 - Reworded timeline prompts to ask pupils to evaluate models rather than simply confirm the branching-tree conclusion.
 - Tightened the Homo sapiens bridge section sizing and image alignment to reduce fit issues on medium viewports.
+- Generated a dedicated cultural/social stimulus image set for all eight core groups plus Homo naledi.
+- Added `cultureImage` and `cultureCaption` data slots for each hominin group.
+- Updated the guided research launchpad to use the new cultural/social stimulus image instead of reusing an older activity or poster image.
+- Expanded species detail pages with a cultural stimulus image card so the full species page has richer reference material than field-note modals.
+- Rewrote over-explicit cautionary copy across species captions, quest prompts and report notes so the emphasis is on what evidence supports rather than what the app is not claiming.
 
 ## Files Created or Changed
 
@@ -164,6 +169,15 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - `public/assets/report/activity-wide/homo-floresiensis.png`
 - `public/assets/report/activity-wide/homo-sapiens.png`
 - `public/assets/report/activity-wide/homo-naledi.png`
+- `public/assets/report/culture/australopithecus-afarensis.png`
+- `public/assets/report/culture/homo-habilis.png`
+- `public/assets/report/culture/homo-erectus.png`
+- `public/assets/report/culture/homo-heidelbergensis.png`
+- `public/assets/report/culture/neanderthals.png`
+- `public/assets/report/culture/denisovans.png`
+- `public/assets/report/culture/homo-floresiensis.png`
+- `public/assets/report/culture/homo-sapiens.png`
+- `public/assets/report/culture/homo-naledi.png`
 - `src/app/globals.css`
 - `src/app/layout.tsx`
 - `src/app/page.tsx`
@@ -210,6 +224,9 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - Latest report-preview browser pass verified the `Download PDF` toolbar control appears alongside the web quest return link and the report still renders 8 pages with no horizontal overflow.
 - Latest web quest browser pass verified the new 12-section flow, starter without video, intro with video, duplicate comparison guard, research stimulus image, timeline stimulus panel, resource rows and top-aligned hominin image crops with no horizontal overflow.
 - Latest species detail browser pass verified expanded species pages include the visual evidence set, report-use prompts and question prompts with no horizontal overflow.
+- Latest generated asset pass added one cultural/social stimulus image per hominin and wired them into the research launchpad and species detail pages.
+- Latest knowledge review pass reduced repetition on species detail pages by adding species-specific learning notes: what the evidence shows, how pupils can use it in the report, and useful comparison clues.
+- Latest source review pass added species-specific trusted source links to the hominin data, web quest resource rows and species detail pages; Australian Museum, Smithsonian and Natural History Museum links were checked, and invalid Denisovan guesses were replaced with valid NHM/Smithsonian sources.
 - Print CSS verified in code: browser-only toolbar and status banner are hidden under `@media print`.
 - Latest report-preview build verified with `npm run build`.
 - Latest report layout checked with DOM-based A4 overflow audit after the three-image restructure: pages 1-8 report zero vertical page overflow.
@@ -229,7 +246,7 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - Some `madeImage` slots are deliberately framed as evidence objects rather than made artefacts, because forcing a tool/jewellery claim for every group would weaken scientific accuracy.
 - Generated decorative visuals must not be used as factual migration-route evidence unless reviewed against reliable sources.
 - Page 6 currently uses broad geographic regions only; a reliable map should be added later from reviewed palaeoanthropology sources if needed.
-- Guided research currently reuses activity/stimulus images; a dedicated research-prompt image set should be generated later.
+- Generated cultural/social stimulus images are illustrative first-pass assets and need teacher/scientific review before classroom release.
 - Browser screenshot capture was blocked by local Chromium/Edge crashpad permissions and in-app browser screenshot timeouts on the image-heavy report; report verification used `npm run build` plus DOM layout/overflow measurements instead.
 - Temporary browser profile/contact-sheet artifacts may remain locally but are ignored by git.
 

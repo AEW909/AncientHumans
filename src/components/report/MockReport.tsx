@@ -311,7 +311,7 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
         <ReportPanel title="Geography matters too" tone="teal"><p>{report.timeline.geographyAnswer}</p></ReportPanel>
       </div>
       <p className="report-caution-note">
-        Broad regions only: this page does not claim precise migration routes.
+        Broad regions only: this page shows where evidence places different human relatives.
       </p>
     </ReportPage>
   );

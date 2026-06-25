@@ -21,11 +21,11 @@ export const mockReport: MockReportData = {
     dna:
       "Ancient DNA shows that Neanderthals interbred with Homo sapiens, and many people alive today still carry a small amount of Neanderthal ancestry.",
     archaeology:
-      "Cave sites, hearths, animal bones and possible symbolic objects help scientists infer aspects of Neanderthal life, but behaviour is not always easy to prove.",
+      "Cave sites, hearths, animal bones and possible symbolic objects help scientists build a richer picture of Neanderthal life.",
     strongest:
       "DNA is especially powerful because it directly shows overlap and interbreeding, which strongly challenges a simple ladder model.",
     limitations:
-      "The evidence is uneven. Some sites preserve fossils and DNA well, while others do not. Scientists still debate why Neanderthals disappeared.",
+      "The evidence is uneven because some sites preserve fossils and DNA better than others. Scientists still debate why Neanderthals disappeared.",
   },
   life: {
     keyFeature: "A stocky body shape with strong limbs and a broad chest.",

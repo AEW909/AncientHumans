@@ -460,7 +460,7 @@ function GuidedResearchStep({ work, updateWork }: StepProps) {
   const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
 
   return (
-    <QuestSection eyebrow="Guided research" title="Build the species profile" intro="Use cautious scientific wording and focus on evidence rather than certainty.">
+    <QuestSection eyebrow="Guided research" title="Build the species profile" intro="Collect dates, places, body features, lifestyle clues and evidence for your chosen branch.">
       <ResearchLaunchPad group={chosen} />
       {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack>
@@ -480,7 +480,7 @@ function EvidenceStep({ work, updateWork }: StepProps) {
   const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
 
   return (
-    <QuestSection eyebrow="Evidence dossier" title="How do we know?" intro="Separate fossils, tools, DNA and archaeological clues from interpretation.">
+    <QuestSection eyebrow="Evidence dossier" title="How do we know?" intro="Sort the evidence into fossils, tools, DNA and archaeological clues, then explain what each type can show.">
       {chosen && (
         <div className="quest-evidence-strip">
           <Image src={chosen.madeImage ?? chosen.posterImage} alt={chosen.madeCaption ?? chosen.imageCaption} fill sizes="360px" className="object-cover" />
@@ -508,7 +508,7 @@ function LifeStep({ work, updateWork }: StepProps) {
   const chosen = hominins.find((group) => group.slug === work.student.chosenGroupSlug);
 
   return (
-    <QuestSection eyebrow="Life and adaptations" title="Body, environment and survival" intro="Explain what evidence suggests, and keep possible adaptations cautious.">
+    <QuestSection eyebrow="Life and adaptations" title="Body, environment and survival" intro="Connect physical features to environment, lifestyle and survival pressures.">
       {chosen && <QuestResourceRow group={chosen} />}
       <FieldStack columns>
         <TextArea label="One important physical feature" limit={textLimits.research} value={work.life.keyFeature} onChange={(value) => updateWork((current) => ({ ...current, life: { ...current.life, keyFeature: value } }))} />
@@ -530,7 +530,7 @@ function SapiensBridgeStep() {
     <QuestSection
       eyebrow="Reference species"
       title="Meet Homo sapiens"
-      intro="You do not choose Homo sapiens as a focus group because it is the fixed reference point for the comparison task."
+      intro="Homo sapiens is the fixed reference point for the comparison task."
     >
       <div className="quest-sapiens-feature">
         <div className="quest-sapiens-image">
@@ -777,8 +777,8 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
     <div className="quest-research-launch">
       <div className="quest-research-poster">
         <Image
-          src={group.activityImage ?? group.vignetteImage ?? group.posterImage}
-          alt={group.activityCaption ?? group.vignetteCaption ?? group.imageCaption}
+          src={group.cultureImage ?? group.activityImage ?? group.vignetteImage ?? group.posterImage}
+          alt={group.cultureCaption ?? group.activityCaption ?? group.vignetteCaption ?? group.imageCaption}
           fill
           sizes="320px"
           className="object-cover"
@@ -788,7 +788,7 @@ function ResearchLaunchPad({ group }: { group?: Hominin }) {
         <p className="quest-kicker">Research launchpad</p>
         <h3>{group.displayName}</h3>
         <p>{group.hook}</p>
-        <p className="quest-asset-note">Stimulus image placeholder: replace with a dedicated research prompt image set later.</p>
+        <p className="quest-asset-note">{group.cultureCaption ?? "Use this image as a stimulus for discussion, then connect your ideas to evidence."}</p>
         <div className="quest-handout-callout">
           Ask your teacher for the printed information sheet if you want to annotate evidence by hand.
         </div>
@@ -802,7 +802,7 @@ function QuestResourceRow({ group }: { group: Hominin }) {
     <div className="quest-resource-row">
       <a href={group.posterImage} target="_blank" rel="noreferrer">Information sheet</a>
       <a href={`/species/${group.slug}`} target="_blank" rel="noreferrer">Species page</a>
-      {researchLinks.map((link) => (
+      {(group.sourceLinks ?? researchLinks).map((link) => (
         <a href={link.href} key={link.href} target="_blank" rel="noreferrer">{link.label}</a>
       ))}
     </div>
