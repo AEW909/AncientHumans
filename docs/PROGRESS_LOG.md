@@ -242,7 +242,7 @@ Task: Revised the web quest learning flow after end-to-end wiring.
 - PDF export currently uses browser print/save-as-PDF rather than a server-side or Playwright-generated PDF file.
 - The `/report-preview` route now uses saved local web quest data where available, but the report layout still needs more real-student-answer stress testing before classroom use.
 - The cover source remains in `assets/cover/Cover v 2.png`; the app uses the copied public asset path required by Next.js.
-- `npm audit --omit=dev` reports two moderate issues through Next.js' bundled PostCSS dependency. `npm audit fix --force` recommends a breaking downgrade to Next 9.3.3, so it was not applied.
+- Dependency audit note: `npm audit` currently reports two moderate vulnerabilities from `postcss < 8.5.10`, including the copy bundled through Next.js. Do not run `npm audit fix --force` for this warning. At the time of review, npm proposed fixing it by installing `next@9.3.3`, which would be a major breaking downgrade from the current Next 16 app. Safe handling is to leave this warning in place for the classroom trial, avoid force-fixing, and update Next/PostCSS normally when a compatible patched Next release is available.
 - In this managed Codex sandbox, `next dev` needed escalated process permissions because the first sandboxed run failed with `spawn EPERM`.
 - Playwright package was available for screenshot checking, but the local Chromium executable was not installed, so screenshot verification was not completed through Playwright.
 - Generated hominin figures are illustrative first-pass assets and need scientific/teacher review before classroom release.

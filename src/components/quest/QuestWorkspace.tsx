@@ -10,7 +10,9 @@ import { selfAssessmentItems } from "@/data/defaultStudentWork";
 import { stimulusAssets, type StimulusAsset } from "@/data/stimulusAssets";
 import {
   calculateStudentWorkProgress,
+  createStudentWorkExport,
   loadStudentWork,
+  parseStudentWorkExport,
   resetStudentWork,
   saveStudentWork,
 } from "@/lib/studentWorkStorage";
@@ -68,6 +70,7 @@ export function QuestWorkspace() {
   const [saveState, setSaveState] = useState<SaveState>({ label: "Loading saved work", tone: "idle" });
   const [hasHydrated, setHasHydrated] = useState(false);
   const workbenchRef = useRef<HTMLElement | null>(null);
+  const importInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const loaded = loadStudentWork();
@@ -114,6 +117,46 @@ export function QuestWorkspace() {
     setWork(resetStudentWork());
     setActiveStep(0);
     setSaveState({ label: "Work reset", tone: "idle" });
+  }
+
+  function handleDownloadWork() {
+    if (!work) {
+      return;
+    }
+
+    const blob = new Blob([createStudentWorkExport(work)], { type: "application/json" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = createWorkFilename(work);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+    setSaveState({ label: "Downloaded work file", tone: "saved" });
+  }
+
+  async function handleImportWork(file: File | undefined) {
+    if (!file) {
+      return;
+    }
+
+    const result = parseStudentWorkExport(await file.text());
+
+    if (!result.ok) {
+      setSaveState({ label: result.error, tone: "error" });
+      return;
+    }
+
+    const saveResult = saveStudentWork(result.work);
+
+    setWork(result.work);
+    setSaveState(
+      saveResult.ok
+        ? { label: "Uploaded work file", tone: "saved" }
+        : { label: saveResult.error ?? "Imported but could not save", tone: "error" },
+    );
   }
 
   function moveStep(direction: -1 | 1) {
@@ -193,7 +236,21 @@ export function QuestWorkspace() {
           <div className="quest-save-panel">
             <span className={`quest-save-dot quest-save-${saveState.tone}`} />
             <strong>{saveState.label}</strong>
-            <button type="button" onClick={handleReset}>Reset</button>
+            <div className="quest-save-actions">
+              <button type="button" onClick={handleDownloadWork}>Download work</button>
+              <button type="button" onClick={() => importInputRef.current?.click()}>Upload work</button>
+              <button type="button" onClick={handleReset}>Reset</button>
+            </div>
+            <input
+              accept="application/json,.json"
+              className="quest-save-file"
+              onChange={(event) => {
+                void handleImportWork(event.target.files?.[0]);
+                event.target.value = "";
+              }}
+              ref={importInputRef}
+              type="file"
+            />
           </div>
           <nav aria-label="Web quest sections" className="quest-step-list">
             {sections.map((section, index) => {
@@ -998,6 +1055,17 @@ function formatSavedLabel(savedAt: string | null) {
   }
 
   return `Saved ${new Date(savedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+}
+
+function createWorkFilename(work: StudentWork) {
+  const name = sanitizeFilenamePart(work.student.name) || "student";
+  const date = new Date().toISOString().slice(0, 10);
+
+  return `${name}-ancient-human-relatives-webquest-${date}.json`;
+}
+
+function sanitizeFilenamePart(value: string) {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
 }
 
 function hasText(value: string) {

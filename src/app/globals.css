@@ -19,6 +19,7 @@ body {
   background: #05070d;
   color: #fff8ea;
   font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -191,11 +192,17 @@ a {
 
 .report-toolbar {
   align-items: end;
-  display: flex;
+  display: grid;
   gap: 2rem;
-  justify-content: space-between;
+  grid-template-columns: minmax(180px, 0.75fr) minmax(220px, 1fr) auto;
   margin: 0 auto 2rem;
   max-width: 210mm;
+  width: 100%;
+}
+
+.report-toolbar > div,
+.report-toolbar > p {
+  min-width: 0;
 }
 
 .report-toolbar-link,
@@ -222,6 +229,10 @@ a {
   justify-content: flex-end;
 }
 
+.report-toolbar h1 {
+  overflow-wrap: anywhere;
+}
+
 .report-print-button {
   background: #0e7c7b;
   color: #fff8ea;
@@ -245,12 +256,18 @@ a {
   margin: 0 auto 1.25rem;
   max-width: 210mm;
   padding: 16px 18px;
+  width: 100%;
+}
+
+.report-status-banner > div {
+  min-width: 0;
 }
 
 .report-status-banner strong,
 .report-loading {
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
   font-weight: 900;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
 }
 
@@ -260,6 +277,7 @@ a {
   font-weight: 800;
   line-height: 1.4;
   margin: 6px 0 0;
+  overflow-wrap: anywhere;
 }
 
 .report-status-banner a {
@@ -270,6 +288,155 @@ a {
   color: #fff8ea;
   font-size: 24pt;
   padding: 20vh 8vw;
+}
+
+.report-pdf-overlay {
+  align-items: center;
+  background: rgba(5, 7, 13, 0.82);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 100;
+}
+
+.report-pdf-dialog {
+  background:
+    linear-gradient(145deg, rgba(8, 20, 38, 0.98), rgba(5, 7, 13, 0.98)),
+    linear-gradient(90deg, rgba(217, 164, 65, 0.18), transparent);
+  border: 1px solid rgba(255, 248, 234, 0.18);
+  border-left: 5px solid #d9a441;
+  box-shadow: 0 32px 120px rgba(0, 0, 0, 0.58);
+  color: #fff8ea;
+  max-height: calc(100vh - 48px);
+  max-width: 760px;
+  overflow: auto;
+  padding: 28px;
+  width: min(100%, 760px);
+}
+
+.report-pdf-dialog-wide {
+  max-width: 980px;
+  width: min(100%, 980px);
+}
+
+.report-pdf-kicker {
+  color: #d9a441;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.report-pdf-dialog h2 {
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 0.96;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.report-pdf-dialog p:not(.report-pdf-kicker) {
+  color: rgba(255, 248, 234, 0.78);
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 16px 0 0;
+}
+
+.report-pdf-warning,
+.report-pdf-error {
+  background: rgba(255, 248, 234, 0.1);
+  border-left: 4px solid #d9a441;
+  color: #fff8ea;
+  font-weight: 900;
+  line-height: 1.35;
+  margin-top: 18px;
+  padding: 14px;
+}
+
+.report-pdf-error {
+  border-left-color: #a3402a;
+}
+
+.report-pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.report-pdf-actions a,
+.report-pdf-actions button {
+  background: rgba(255, 248, 234, 0.1);
+  border: 0;
+  color: #fff8ea;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 900;
+  padding: 11px 14px;
+  text-transform: uppercase;
+}
+
+.report-pdf-actions .report-pdf-primary {
+  background: #0e7c7b;
+  color: #fff8ea;
+}
+
+.report-pdf-actions a[href="/quest"] {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.report-pdf-loading {
+  text-align: center;
+}
+
+.report-pdf-loader {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 26px auto 8px;
+  max-width: 340px;
+}
+
+.report-pdf-loader span {
+  aspect-ratio: 1;
+  background: linear-gradient(145deg, #d9a441, #0e7c7b);
+  display: block;
+  opacity: 0.38;
+}
+
+.report-pdf-loader span:nth-child(2) {
+  opacity: 0.55;
+}
+
+.report-pdf-loader span:nth-child(3) {
+  opacity: 0.72;
+}
+
+.report-pdf-loader span:nth-child(4) {
+  opacity: 0.9;
+}
+
+.report-pdf-preview {
+  background: #05070d;
+  border: 1px solid rgba(255, 248, 234, 0.16);
+  height: min(62vh, 680px);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.report-pdf-preview iframe {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .report-document {
@@ -1133,6 +1300,7 @@ a {
     linear-gradient(180deg, #05070d 0%, #081426 38%, #05070d 100%);
   color: #fff8ea;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .quest-loading {
@@ -1162,6 +1330,7 @@ a {
   max-width: 760px;
   padding: 80px 5vw 96px;
   position: relative;
+  width: 100%;
   z-index: 1;
 }
 
@@ -1247,7 +1416,7 @@ a {
   border: 1px solid rgba(255, 248, 234, 0.14);
   display: grid;
   gap: 10px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   padding: 14px;
 }
 
@@ -1266,11 +1435,29 @@ a {
 }
 
 .quest-save-panel button {
-  background: transparent;
-  color: #d9a441;
+  background: rgba(255, 248, 234, 0.1);
+  color: #fff8ea;
   font-size: 0.78rem;
   font-weight: 900;
+  min-height: 36px;
+  padding: 8px 10px;
   text-transform: uppercase;
+}
+
+.quest-save-panel button:hover {
+  background: #d9a441;
+  color: #05070d;
+}
+
+.quest-save-actions {
+  display: grid;
+  gap: 8px;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr;
+}
+
+.quest-save-file {
+  display: none;
 }
 
 .quest-save-dot {
@@ -2515,9 +2702,85 @@ a {
 }
 
 @media (max-width: 620px) {
+  .report-toolbar,
+  .report-status-banner {
+    max-width: calc(100vw - 24px) !important;
+    width: calc(100vw - 24px) !important;
+  }
+
+  .report-toolbar-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .report-toolbar-link,
+  .report-print-button,
+  .report-status-banner a {
+    text-align: center;
+    width: 100%;
+  }
+
+  .quest-hero h1 {
+    font-size: clamp(3.2rem, 16vw, 4.25rem);
+    line-height: 0.98;
+    overflow-wrap: anywhere;
+  }
+
+  .quest-hero p:not(.quest-kicker) {
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: calc(100vw - 40px) !important;
+    overflow-wrap: anywhere;
+    width: calc(100vw - 40px);
+  }
+
   .quest-hero-content {
+    max-width: 100vw;
+    overflow: hidden;
     padding-left: 20px;
     padding-right: 20px;
+    width: 100vw;
+  }
+
+  .quest-progress-card {
+    max-width: calc(100vw - 40px);
+    width: calc(100vw - 40px);
+  }
+
+  .report-toolbar h1 {
+    font-size: 1.65rem;
+    line-height: 1.05;
+  }
+
+  .report-status-banner {
+    max-width: 100%;
+  }
+
+  .report-pdf-overlay {
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .report-pdf-dialog {
+    max-height: calc(100vh - 24px);
+    padding: 22px;
+  }
+
+  .report-pdf-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .report-pdf-actions a,
+  .report-pdf-actions button {
+    text-align: center;
+    width: 100%;
+  }
+
+  .report-pdf-preview {
+    display: none;
   }
 
   .quest-workbench {
@@ -2599,25 +2862,56 @@ a {
   }
 
   .report-status-banner,
-  .report-toolbar {
+  .report-toolbar,
+  .report-pdf-overlay {
     display: none !important;
   }
+}
+
+.report-pdf-capture-mode .report-document {
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+.report-pdf-capture-mode .report-page {
+  box-shadow: none !important;
+  flex: 0 0 210mm !important;
+  height: 297mm !important;
+  min-height: 297mm !important;
+  min-width: 210mm !important;
+  padding: 18mm !important;
+  width: 210mm !important;
 }
 
 @media (max-width: 900px) {
   .report-toolbar,
   .report-status-banner {
     align-items: start;
+    display: grid;
     flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .report-preview-shell {
+    max-width: 100vw;
+    overflow-x: hidden;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
 
+  .report-document {
+    align-items: flex-start;
+    max-width: 100%;
+    overflow-x: visible;
+    padding-bottom: 1rem;
+    width: 100%;
+  }
+
   .report-page {
+    flex: 0 0 100%;
     min-height: auto;
+    min-width: 0;
     padding: 1.25rem;
+    width: 100%;
   }
 }

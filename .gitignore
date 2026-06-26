@@ -10,3 +10,5 @@ dist
 report-vignettes-contact.png
 report-vignette-layout-check.png
 public/assets/report/culture/contact-sheet.png
+playwright-report/
+test-results/

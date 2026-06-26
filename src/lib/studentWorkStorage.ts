@@ -12,6 +12,7 @@ import type {
 } from "@/types/studentWork";
 
 export const STUDENT_WORK_STORAGE_KEY = "ancient-human-relatives-student-work";
+const STUDENT_WORK_EXPORT_KIND = "ancient-human-relatives-webquest";
 
 type LoadStudentWorkResult = {
   source: "default" | "saved";
@@ -23,6 +24,10 @@ type SaveStudentWorkResult = {
   savedAt: string | null;
   error?: string;
 };
+
+type ParseStudentWorkExportResult =
+  | { ok: true; work: StudentWork }
+  | { ok: false; error: string };
 
 export function loadStudentWork(storage: Storage | null = getBrowserStorage()): LoadStudentWorkResult {
   if (!storage) {
@@ -87,6 +92,41 @@ export function resetStudentWork(storage: Storage | null = getBrowserStorage()):
   }
 
   return createDefaultStudentWork();
+}
+
+export function createStudentWorkExport(work: StudentWork): string {
+  return JSON.stringify(
+    {
+      kind: STUDENT_WORK_EXPORT_KIND,
+      schemaVersion: STUDENT_WORK_SCHEMA_VERSION,
+      exportedAt: new Date().toISOString(),
+      work: normalizeStudentWork(work),
+    },
+    null,
+    2,
+  );
+}
+
+export function parseStudentWorkExport(raw: string): ParseStudentWorkExportResult {
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return { ok: false, error: "That file is not valid JSON." };
+  }
+
+  if (!isRecord(parsed)) {
+    return { ok: false, error: "That file does not contain web quest answers." };
+  }
+
+  const candidate = parsed.kind === STUDENT_WORK_EXPORT_KIND && "work" in parsed ? parsed.work : parsed;
+
+  if (!isRecord(candidate)) {
+    return { ok: false, error: "That file does not contain web quest answers." };
+  }
+
+  return { ok: true, work: normalizeStudentWork(candidate) };
 }
 
 export function hasSavedStudentWork(storage: Storage | null = getBrowserStorage()): boolean {
