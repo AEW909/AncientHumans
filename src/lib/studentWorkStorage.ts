@@ -181,6 +181,13 @@ export function normalizeStudentWork(value: unknown): StudentWork {
       survivalPressure: readNestedString(value.life, "survivalPressure"),
     },
     bigIdeas: {
+      selectedIdea: readBigIdeaChoice(isRecord(value.bigIdeas) ? value.bigIdeas.selectedIdea : undefined),
+      bigIdeaResponse: readFirstNestedString(value.bigIdeas, [
+        "bigIdeaResponse",
+        "conceptConnection",
+        "fireCooking",
+        "languageLearning",
+      ]),
       languageLearning: readNestedString(value.bigIdeas, "languageLearning"),
       fireCooking: readNestedString(value.bigIdeas, "fireCooking"),
       conceptConnection: readNestedString(value.bigIdeas, "conceptConnection"),
@@ -230,7 +237,8 @@ export function calculateStudentWorkProgress(work: StudentWork): StudentWorkProg
     normalized.research.body,
     normalized.research.lifestyle,
     normalized.evidence.strongest,
-    ...Object.values(normalized.bigIdeas),
+    normalized.bigIdeas.selectedIdea,
+    normalized.bigIdeas.bigIdeaResponse,
     ...Object.values(normalized.comparison),
     ...Object.values(normalized.timeline),
     normalized.finalReport.finalAnswer,
@@ -255,7 +263,7 @@ function getCompletedSections(work: StudentWork): string[] {
     ["student", areCompleted(Object.values(work.student))],
     ["misconceptions", work.misconceptions.every((item) => isCompletedValue(item.choice) && isCompletedValue(item.explanation))],
     ["investigate", areCompleted([work.research.body, work.research.lifestyle, work.evidence.strongest])],
-    ["bigIdeas", areCompleted(Object.values(work.bigIdeas))],
+    ["bigIdeas", areCompleted([work.bigIdeas.selectedIdea, work.bigIdeas.bigIdeaResponse])],
     ["comparison", areCompleted(Object.values(work.comparison))],
     ["timeline", areCompleted(Object.values(work.timeline))],
     ["finalReport", areCompleted([work.finalReport.finalAnswer, work.finalReport.oneSentenceJudgement])],
@@ -308,6 +316,16 @@ function readNestedString(value: unknown, key: string): string {
   return isRecord(value) ? readString(value[key]) : "";
 }
 
+function readFirstNestedString(value: unknown, keys: string[]): string {
+  if (!isRecord(value)) {
+    return "";
+  }
+
+  const firstValue = keys.map((key) => readString(value[key])).find(isCompletedValue);
+
+  return firstValue ?? "";
+}
+
 function readString(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;
 }
@@ -318,6 +336,10 @@ function readNullableString(value: unknown): string | null {
 
 function readMisconceptionChoice(value: unknown): MisconceptionChoice {
   return value === "true" || value === "false" || value === "partly-true" ? value : "";
+}
+
+function readBigIdeaChoice(value: unknown): "" | "fire" | "language" | "culture" {
+  return value === "fire" || value === "language" || value === "culture" ? value : "";
 }
 
 function isCompletedValue(value: unknown): boolean {

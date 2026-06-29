@@ -69,6 +69,36 @@ test("students can download and reupload a webquest work file", async ({ page },
   expect(consoleErrors).toEqual([]);
 });
 
+test("students can choose one big idea and export it", async ({ page }, testInfo) => {
+  const consoleErrors = collectConsoleErrors(page);
+
+  await page.goto("/quest", { waitUntil: "networkidle" });
+  await page.getByRole("navigation", { name: "Web quest sections" }).getByRole("button", { name: /Big idea/ }).click();
+
+  await expect(page.getByRole("heading", { name: "Choose one big idea" })).toBeVisible();
+  await page.getByRole("button", { name: "Choose Culture" }).click();
+  await expect(page.getByRole("button", { name: "Selected" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open full poster" })).toHaveAttribute("href", "/assets/big-ideas/culture.png");
+
+  await page.getByLabel("How could culture have shaped human life?").fill("Burials, jewellery and cave painting can show beliefs, identity and shared stories.");
+
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Download work" }).click(),
+  ]);
+  const downloadPath = path.join(testInfo.outputDir, download.suggestedFilename());
+
+  await download.saveAs(downloadPath);
+
+  const exported = JSON.parse(await fs.readFile(downloadPath, "utf8")) as {
+    work?: { bigIdeas?: { selectedIdea?: string; bigIdeaResponse?: string } };
+  };
+
+  expect(exported.work?.bigIdeas?.selectedIdea).toBe("culture");
+  expect(exported.work?.bigIdeas?.bigIdeaResponse).toContain("Burials, jewellery and cave painting");
+  expect(consoleErrors).toEqual([]);
+});
+
 test("report preview warns before generating an incomplete draft PDF", async ({ page }) => {
   const consoleErrors = collectConsoleErrors(page);
 

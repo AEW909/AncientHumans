@@ -43,6 +43,8 @@ export type LifeAdaptationsWork = {
 };
 
 export type BigIdeasWork = {
+  selectedIdea: "" | "fire" | "language" | "culture";
+  bigIdeaResponse: string;
   languageLearning: string;
   fireCooking: string;
   conceptConnection: string;

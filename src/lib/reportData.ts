@@ -1,4 +1,5 @@
 import { selfAssessmentItems } from "@/data/defaultStudentWork";
+import { evolutionaryIdeas } from "@/data/evolutionaryIdeas";
 import { getHomininBySlug, hominins } from "@/data/hominins";
 import type { MockReportData } from "@/types/report";
 import type { StudentWork } from "@/types/studentWork";
@@ -14,6 +15,8 @@ export type ReportReadiness = {
 export function createReportDataFromStudentWork(work: StudentWork): MockReportData {
   const chosen = getHomininBySlug(work.student.chosenGroupSlug) ?? getHomininBySlug(defaultFocusSlug) ?? hominins[0];
   const comparison = getComparisonGroup(work.student.comparisonGroupSlug, chosen.slug);
+  const selectedIdea = evolutionaryIdeas.find((idea) => idea.id === work.bigIdeas.selectedIdea);
+  const selectedIdeaTitle = selectedIdea?.title ?? "Big idea";
 
   return {
     student: {
@@ -52,6 +55,8 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
       survivalPressure: withFallback(work.life.survivalPressure, "Add one survival pressure or environmental challenge from your research."),
     },
     bigIdeas: {
+      selectedTitle: selectedIdeaTitle,
+      selectedResponse: withFallback(work.bigIdeas.bigIdeaResponse, "Chosen big idea notes not yet written."),
       fireThinking: withFallback(work.bigIdeas.fireCooking, "Fire notes not yet written."),
       languageThinking: withFallback(work.bigIdeas.languageLearning, "Language notes not yet written."),
       conceptConnection: withFallback(work.bigIdeas.conceptConnection, "Big idea connection not yet written."),
@@ -94,7 +99,8 @@ export function getReportReadiness(work: StudentWork): ReportReadiness {
     [work.research.body, "look notes"],
     [work.research.lifestyle, "behaviour notes"],
     [work.evidence.strongest, "evidence notes"],
-    [work.bigIdeas.conceptConnection, "big evolutionary idea"],
+    [work.bigIdeas.selectedIdea, "chosen big idea"],
+    [work.bigIdeas.bigIdeaResponse, "big evolutionary idea"],
     [work.comparison.similarities, "comparison similarities"],
     [work.timeline.ladderChallenge, "model-check answer"],
     [work.finalReport.finalAnswer, "final written answer"],

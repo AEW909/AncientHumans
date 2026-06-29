@@ -52,7 +52,7 @@ export const selfAssessmentItems = [
   },
   {
     id: "big-idea",
-    label: "Used a big idea such as social learning, fire, cooking or culture where it fitted the evidence.",
+    label: "Used one big idea such as fire, language or culture where it fitted the evidence.",
   },
   {
     id: "vocabulary",
@@ -102,6 +102,8 @@ export function createDefaultStudentWork(now = new Date().toISOString()): Studen
       survivalPressure: "",
     },
     bigIdeas: {
+      selectedIdea: "",
+      bigIdeaResponse: "",
       languageLearning: "",
       fireCooking: "",
       conceptConnection: "",

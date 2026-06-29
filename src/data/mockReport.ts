@@ -45,6 +45,9 @@ export const mockReport: MockReportData = {
       "Changing climates, competition, small population sizes and contact with Homo sapiens may all have affected survival.",
   },
   bigIdeas: {
+    selectedTitle: "Culture",
+    selectedResponse:
+      "Shared learning, symbolic objects and hearth-based group life help explain why survival depended on culture as well as body shape.",
     fireThinking:
       "Fire evidence is physical: hearths, burnt bone and heated sediment can survive, so it can be checked against real traces at sites.",
     languageThinking:

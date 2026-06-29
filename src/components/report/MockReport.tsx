@@ -324,16 +324,8 @@ function FinalArticlePage({ report }: { report: MockReportData }) {
           <strong>Final judgement</strong>
           <span>{report.oneSentenceJudgement}</span>
           <div className="report-big-ideas-note">
-            <b>Fire</b>
-            <span>{report.bigIdeas.fireThinking}</span>
-          </div>
-          <div className="report-big-ideas-note">
-            <b>Language</b>
-            <span>{report.bigIdeas.languageThinking}</span>
-          </div>
-          <div className="report-big-ideas-note">
-            <b>Best concept</b>
-            <span>{report.bigIdeas.conceptConnection}</span>
+            <b>Chosen big idea: {report.bigIdeas.selectedTitle}</b>
+            <span>{report.bigIdeas.selectedResponse}</span>
           </div>
         </aside>
         <article>

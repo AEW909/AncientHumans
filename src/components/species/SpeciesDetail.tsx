@@ -144,9 +144,9 @@ export function SpeciesDetail({ hominin }: SpeciesDetailProps) {
           {conceptIdeas.map((idea) => (
             <article key={idea.id}>
               <div>
-                <Image src={idea.asset.src} alt={idea.asset.alt} fill sizes="120px" className="object-cover" />
+                <Image src={idea.poster.src} alt={idea.poster.alt} fill sizes="120px" className="object-cover" />
               </div>
-              <p className="font-heading text-xs font-black uppercase tracking-[0.18em] text-gold">{idea.shortTitle}</p>
+              <p className="font-heading text-xs font-black uppercase text-gold">{idea.shortTitle}</p>
               <h2>{idea.title}</h2>
               <p>{idea.body}</p>
               <small>{idea.evidence}</small>

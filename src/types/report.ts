@@ -29,6 +29,8 @@ export type MockReportData = {
     survivalPressure: string;
   };
   bigIdeas: {
+    selectedTitle: string;
+    selectedResponse: string;
     fireThinking: string;
     languageThinking: string;
     conceptConnection: string;

@@ -39,7 +39,7 @@ const sections = [
   { key: "misconceptions", label: "Baseline" },
   { key: "introChoose", label: "Intro + choose" },
   { key: "investigate", label: "Investigate" },
-  { key: "bigIdeas", label: "Fire + language" },
+  { key: "bigIdeas", label: "Big idea" },
   { key: "comparison", label: "Compare" },
   { key: "timeline", label: "Model check" },
   { key: "finalReport", label: "Report" },
@@ -260,7 +260,10 @@ export function QuestWorkspace() {
               <button
                 className={index === activeStep ? "quest-step-active" : ""}
                 key={`${section.label}-${index}`}
-                onClick={() => setActiveStep(index)}
+                onClick={() => {
+                  setActiveStep(index);
+                  scrollToWorkbench();
+                }}
                 type="button"
                 aria-current={index === activeStep ? "step" : undefined}
               >
@@ -620,48 +623,77 @@ function InvestigateStep({ work, updateWork }: StepProps) {
 }
 
 function BigIdeasStep({ work, updateWork }: StepProps) {
+  const selectedIdea = evolutionaryIdeas.find((idea) => idea.id === work.bigIdeas.selectedIdea) ?? evolutionaryIdeas[0];
+  const selectedIdeaId = work.bigIdeas.selectedIdea || selectedIdea.id;
+
   return (
     <QuestSection
       eyebrow="Big Ideas"
-      title="Fire and language"
+      title="Choose one big idea"
       intro={bigIdeasPageContent.pageIntro}
     >
       <div className="quest-big-idea-grid">
         {evolutionaryIdeas.map((idea) => (
-          <article className="quest-big-idea-card quest-big-idea-card-active" key={idea.id}>
+          <article
+            className={`quest-big-idea-card ${selectedIdeaId === idea.id ? "quest-big-idea-card-active" : ""}`}
+            key={idea.id}
+          >
             <div>
-              <Image src={idea.asset.src} alt={idea.asset.alt} fill sizes="220px" className="object-cover" />
+              <Image src={idea.poster.src} alt={idea.poster.alt} fill sizes="(max-width: 900px) 100vw, 31vw" className="object-cover" />
             </div>
-            <p className="quest-kicker">Shared threshold idea</p>
+            <p className="quest-kicker">Big idea</p>
             <h3>{idea.title}</h3>
+            <strong>{idea.strapline}</strong>
             <p>{idea.body}</p>
-            <p><strong>Evidence angle:</strong> {idea.evidence}</p>
-            <p><strong>Thinking prompt:</strong> {idea.prompt}</p>
+            <ul>
+              {idea.clues.map((clue) => <li key={clue}>{clue}</li>)}
+            </ul>
+            <button
+              type="button"
+              onClick={() => updateWork((current) => ({
+                ...current,
+                bigIdeas: {
+                  ...current.bigIdeas,
+                  selectedIdea: idea.id,
+                },
+              }))}
+            >
+              {selectedIdeaId === idea.id ? "Selected" : `Choose ${idea.shortTitle}`}
+            </button>
           </article>
         ))}
       </div>
-      <FieldStack columns>
+      <div className="quest-big-idea-focus">
+        <div className="quest-big-idea-poster">
+          <Image src={selectedIdea.poster.src} alt={selectedIdea.poster.alt} fill sizes="(max-width: 900px) 100vw, 420px" className="object-cover" />
+        </div>
+        <article>
+          <p className="quest-kicker">Your chosen idea</p>
+          <h3>{selectedIdea.title}</h3>
+          <p>{selectedIdea.evidence}</p>
+          <p><strong>Thinking prompt:</strong> {selectedIdea.prompt}</p>
+          <a href={selectedIdea.poster.src} target="_blank" rel="noreferrer">Open full poster</a>
+        </article>
+      </div>
+      <FieldStack>
         <TextArea
-          label="Fire thinking"
+          label={`How could ${selectedIdea.shortTitle.toLowerCase()} have shaped human life?`}
           limit={textLimits.comparison}
-          value={work.bigIdeas.fireCooking}
-          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, fireCooking: value } }))}
-        />
-        <TextArea
-          label="Language thinking"
-          limit={textLimits.comparison}
-          value={work.bigIdeas.languageLearning}
-          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, languageLearning: value } }))}
-        />
-        <TextArea
-          label="Fire and language side by side"
-          limit={textLimits.comparison}
-          value={work.bigIdeas.conceptConnection}
-          onChange={(value) => updateWork((current) => ({ ...current, bigIdeas: { ...current.bigIdeas, conceptConnection: value } }))}
+          rows={5}
+          value={work.bigIdeas.bigIdeaResponse}
+          onChange={(value) => updateWork((current) => ({
+            ...current,
+            bigIdeas: {
+              ...current.bigIdeas,
+              selectedIdea: selectedIdea.id,
+              bigIdeaResponse: value,
+              conceptConnection: value,
+            },
+          }))}
         />
       </FieldStack>
       <div className="quest-choice-brief">
-        <strong>Evidence contrast</strong>
+        <strong>Use the idea carefully</strong>
         <p>{bigIdeasPageContent.closing}</p>
       </div>
     </QuestSection>
@@ -751,7 +783,7 @@ function TimelineStep({ work, updateWork }: StepProps) {
 
 function FinalReportStep({ work, updateWork }: StepProps) {
   return (
-    <QuestSection eyebrow="Final article" title="Evaluate the branching tree model" intro="Use evidence from at least three ancient human relatives. Add language, learning, fire or cooking only where the evidence makes it relevant.">
+    <QuestSection eyebrow="Final article" title="Evaluate the branching tree model" intro="Use evidence from at least three ancient human relatives. Add your chosen big idea only where the evidence makes it relevant.">
       <FieldStack>
         <TextInput label="Article title" value={work.finalReport.title} onChange={(value) => updateWork((current) => ({ ...current, finalReport: { ...current.finalReport, title: value } }))} />
         <TextArea label="Final written answer" limit={textLimits.final} rows={12} value={work.finalReport.finalAnswer} onChange={(value) => updateWork((current) => ({ ...current, finalReport: { ...current.finalReport, finalAnswer: value } }))} />
