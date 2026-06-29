@@ -446,6 +446,10 @@ a {
   gap: 2rem;
 }
 
+.report-preview-mode .site-header {
+  display: none;
+}
+
 .report-page {
   background: #fff8ea;
   box-shadow: 0 32px 110px rgba(0, 0, 0, 0.45);
@@ -454,6 +458,7 @@ a {
   overflow: hidden;
   padding: 18mm;
   position: relative;
+  scroll-margin-top: 96px;
   width: min(100%, 210mm);
 }
 
@@ -505,6 +510,7 @@ a {
 .report-dark-page .report-page-footer,
 .report-cover-page .report-page-footer,
 .report-article-page .report-page-footer,
+.report-big-idea-page .report-page-footer,
 .report-back-page .report-page-footer {
   border-color: rgba(255, 248, 234, 0.25);
   color: rgba(255, 248, 234, 0.72);
@@ -1118,6 +1124,94 @@ a {
   text-transform: uppercase;
 }
 
+.report-big-idea-page {
+  background:
+    linear-gradient(160deg, rgba(5, 7, 13, 0.98) 0%, rgba(8, 20, 38, 0.96) 52%, rgba(5, 7, 13, 0.98) 100%),
+    #081426;
+  color: #fff8ea;
+  display: grid;
+  gap: 6mm;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: 15mm 18mm 20mm;
+}
+
+.report-big-idea-content {
+  align-content: start;
+  display: grid;
+  gap: 4mm;
+  min-width: 0;
+}
+
+.report-big-idea-content .report-kicker {
+  margin-bottom: 0;
+}
+
+.report-big-idea-heading {
+  align-items: end;
+  display: grid;
+  gap: 6mm;
+  grid-template-columns: minmax(0, 0.72fr) minmax(42mm, 0.42fr);
+}
+
+.report-big-idea-content h2 {
+  color: #fff8ea;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 50pt;
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.report-big-idea-strapline {
+  color: #d9a441;
+  font-family: Oswald, "Arial Narrow", Arial, sans-serif;
+  font-size: 16pt;
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0 0 1mm;
+  text-transform: uppercase;
+}
+
+.report-big-idea-panels {
+  display: grid;
+  gap: 4mm;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.report-big-idea-page .report-panel {
+  background: rgba(255, 248, 234, 0.92);
+  min-height: 35mm;
+  padding: 3.6mm;
+}
+
+.report-big-idea-page .report-panel h3 {
+  font-size: 12.2pt;
+}
+
+.report-big-idea-page .report-panel p {
+  font-size: 8.6pt;
+  line-height: 1.34;
+}
+
+.report-big-idea-visual-frame {
+  border: 1px solid rgba(217, 164, 65, 0.42);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
+  min-height: 132mm;
+  overflow: hidden;
+  position: relative;
+}
+
+.report-big-idea-visual-frame::after {
+  background:
+    linear-gradient(0deg, rgba(5, 7, 13, 0.18), transparent 44%),
+    linear-gradient(90deg, rgba(5, 7, 13, 0.28), transparent 28%, transparent 72%, rgba(5, 7, 13, 0.18));
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
 .report-article-page {
   background:
     linear-gradient(90deg, rgba(5, 7, 13, 0.96) 0%, rgba(5, 7, 13, 0.96) 24%, transparent 24%),
@@ -1231,6 +1325,8 @@ a {
 .report-back-page {
   background: linear-gradient(160deg, #081426 0%, #05070d 100%);
   color: #fff8ea;
+  display: flex;
+  flex-direction: column;
 }
 
 .report-back-page::before {
@@ -1254,14 +1350,17 @@ a {
   z-index: 0;
 }
 
+.report-back-page .report-title {
+  font-size: 30pt;
+  max-width: 124mm;
+}
+
 .report-reflection-cards {
-  bottom: 38mm;
   display: grid;
   gap: 4mm;
-  left: 18mm;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  position: absolute;
-  right: 18mm;
+  margin-top: auto;
+  position: relative;
 }
 
 .report-reflection-cards .report-panel {
@@ -1279,17 +1378,14 @@ a {
 
 .report-closing-statement {
   border-top: 2px solid rgba(217, 164, 65, 0.55);
-  bottom: 20mm;
   color: #fff8ea;
   font-family: Oswald, "Arial Narrow", Arial, sans-serif;
   font-size: 13pt;
   font-weight: 900;
-  left: 18mm;
   line-height: 1.12;
-  margin: 0;
+  margin: 5mm 0 12mm;
   padding-top: 3mm;
-  position: absolute;
-  right: 18mm;
+  position: relative;
   text-transform: uppercase;
 }
 
@@ -2967,6 +3063,10 @@ a {
   overflow: visible !important;
 }
 
+.report-pdf-capture-mode .site-header {
+  display: none !important;
+}
+
 .report-pdf-capture-mode .report-page {
   box-shadow: none !important;
   flex: 0 0 210mm !important;
@@ -3007,5 +3107,23 @@ a {
     min-width: 0;
     padding: 1.25rem;
     width: 100%;
+  }
+
+  .report-big-idea-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .report-big-idea-heading,
+  .report-big-idea-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .report-big-idea-visual-frame {
+    min-height: 260px;
+  }
+
+  .report-reflection-cards {
+    grid-template-columns: 1fr;
   }
 }

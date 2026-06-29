@@ -46,6 +46,15 @@ export const mockReport: MockReportData = {
   },
   bigIdeas: {
     selectedTitle: "Culture",
+    selectedStrapline: "The things we leave behind tell our story.",
+    selectedEvidence:
+      "Objects survive, but their meaning is not automatic. A burial, bead or painting has to be interpreted carefully alongside its site, age, pattern and possible alternatives.",
+    selectedPrompt:
+      "What can cultural artefacts tell us about ancient lives, and where might we be guessing more than the evidence allows?",
+    selectedPosterAlt: "Culture poster explaining burials, jewellery, cave painting, tools, symbols and shared traditions.",
+    selectedPosterSrc: "/assets/big-ideas/culture.png",
+    selectedStimulusAlt: "Ancient human relatives making beads, ochre marks and cave art in a warmly lit cave.",
+    selectedStimulusSrc: "/assets/big-ideas/stimulus-culture.png",
     selectedResponse:
       "Shared learning, symbolic objects and hearth-based group life help explain why survival depended on culture as well as body shape.",
     fireThinking:

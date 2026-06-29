@@ -60,6 +60,7 @@ export function MockReport({ report, readiness, source = "saved", toolbarActions
         <AdaptationsPage report={report} chosen={chosen} />
         <ComparisonPage report={report} chosen={chosen} sapiens={sapiens} comparison={comparison} />
         <TimelinePage report={report} chosen={chosen} />
+        <BigIdeaReportPage report={report} />
         <FinalArticlePage report={report} />
         <ReflectionPage report={report} />
       </div>
@@ -318,15 +319,11 @@ function TimelinePage({ report, chosen }: { report: MockReportData; chosen: Homi
 
 function FinalArticlePage({ report }: { report: MockReportData }) {
   return (
-    <ReportPage pageNumber={7} title="Final Article" className="report-article-page">
+    <ReportPage pageNumber={8} title="Final Article" className="report-article-page">
       <div className="report-article-layout">
         <aside>
           <strong>Final judgement</strong>
           <span>{report.oneSentenceJudgement}</span>
-          <div className="report-big-ideas-note">
-            <b>Chosen big idea: {report.bigIdeas.selectedTitle}</b>
-            <span>{report.bigIdeas.selectedResponse}</span>
-          </div>
         </aside>
         <article>
           <ReportKicker>Final evaluation</ReportKicker>
@@ -339,9 +336,35 @@ function FinalArticlePage({ report }: { report: MockReportData }) {
   );
 }
 
+function BigIdeaReportPage({ report }: { report: MockReportData }) {
+  return (
+    <ReportPage pageNumber={7} title="Big Idea" className="report-big-idea-page">
+      <div className="report-big-idea-content">
+        <ReportKicker>Big idea / chosen concept</ReportKicker>
+        <div className="report-big-idea-heading">
+          <h2>{report.bigIdeas.selectedTitle}</h2>
+          <p className="report-big-idea-strapline">{report.bigIdeas.selectedStrapline}</p>
+        </div>
+        <div className="report-big-idea-panels">
+          <ReportPanel title="Evidence angle" tone="gold"><p>{report.bigIdeas.selectedEvidence}</p></ReportPanel>
+          <ReportPanel title="Thinking prompt" tone="teal"><p>{report.bigIdeas.selectedPrompt}</p></ReportPanel>
+          <ReportPanel title="Your response" tone="rust"><p>{report.bigIdeas.selectedResponse}</p></ReportPanel>
+        </div>
+      </div>
+      <div className="report-big-idea-visual-frame">
+        <ReportImage
+          src={report.bigIdeas.selectedStimulusSrc}
+          alt={report.bigIdeas.selectedStimulusAlt}
+          className="object-cover"
+        />
+      </div>
+    </ReportPage>
+  );
+}
+
 function ReflectionPage({ report }: { report: MockReportData }) {
   return (
-    <ReportPage pageNumber={8} title="Reflection" className="report-back-page">
+    <ReportPage pageNumber={9} title="Reflection" className="report-back-page">
       <ReportImage
         src="/assets/report/back-cover-branches.png"
         alt="Branching human evolution back cover artwork"

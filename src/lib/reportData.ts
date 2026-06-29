@@ -17,6 +17,9 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
   const comparison = getComparisonGroup(work.student.comparisonGroupSlug, chosen.slug);
   const selectedIdea = evolutionaryIdeas.find((idea) => idea.id === work.bigIdeas.selectedIdea);
   const selectedIdeaTitle = selectedIdea?.title ?? "Big idea";
+  const selectedIdeaStrapline = selectedIdea?.strapline ?? "Choose fire, language or culture.";
+  const selectedIdeaEvidence = selectedIdea?.evidence ?? "Use one big idea carefully and connect it to the evidence in your report.";
+  const selectedIdeaPrompt = selectedIdea?.prompt ?? "Which big idea best helps explain how ancient human relatives lived, learned or changed?";
 
   return {
     student: {
@@ -56,6 +59,13 @@ export function createReportDataFromStudentWork(work: StudentWork): MockReportDa
     },
     bigIdeas: {
       selectedTitle: selectedIdeaTitle,
+      selectedStrapline: selectedIdeaStrapline,
+      selectedEvidence: selectedIdeaEvidence,
+      selectedPrompt: selectedIdeaPrompt,
+      selectedPosterAlt: selectedIdea?.poster.alt ?? "Three-panel big idea poster showing fire, language and culture.",
+      selectedPosterSrc: selectedIdea?.poster.src ?? "/assets/big-ideas/fire-language-culture.png",
+      selectedStimulusAlt: selectedIdea?.stimulus.alt ?? "Ancient human relatives in a cinematic prehistoric landscape.",
+      selectedStimulusSrc: selectedIdea?.stimulus.src ?? "/assets/big-ideas/stimulus-fire.png",
       selectedResponse: withFallback(work.bigIdeas.bigIdeaResponse, "Chosen big idea notes not yet written."),
       fireThinking: withFallback(work.bigIdeas.fireCooking, "Fire notes not yet written."),
       languageThinking: withFallback(work.bigIdeas.languageLearning, "Language notes not yet written."),

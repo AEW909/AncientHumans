@@ -35,6 +35,14 @@ export function ReportPreviewClient() {
   }, []);
 
   useEffect(() => {
+    document.body.classList.add("report-preview-mode");
+
+    return () => {
+      document.body.classList.remove("report-preview-mode");
+    };
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (generatedPdf) {
         window.URL.revokeObjectURL(generatedPdf.url);

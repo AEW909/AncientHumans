@@ -30,6 +30,13 @@ export type MockReportData = {
   };
   bigIdeas: {
     selectedTitle: string;
+    selectedStrapline: string;
+    selectedEvidence: string;
+    selectedPrompt: string;
+    selectedPosterAlt: string;
+    selectedPosterSrc: string;
+    selectedStimulusAlt: string;
+    selectedStimulusSrc: string;
     selectedResponse: string;
     fireThinking: string;
     languageThinking: string;

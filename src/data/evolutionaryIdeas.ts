@@ -10,6 +10,10 @@
     src: string;
     alt: string;
   };
+  stimulus: {
+    src: string;
+    alt: string;
+  };
   thumbnail: {
     src: string;
     alt: string;
@@ -40,6 +44,10 @@ export const evolutionaryIdeas: EvolutionaryIdea[] = [
       src: "/assets/big-ideas/fire.png",
       alt: "Fire poster explaining warmth, cooked food, protection, energy and evidence for controlled fire.",
     },
+    stimulus: {
+      src: "/assets/big-ideas/stimulus-fire.png",
+      alt: "Ancient human relatives gathered around a controlled fire in a warm sunset landscape.",
+    },
     thumbnail: {
       src: "/assets/big-ideas/fire-language-culture.png",
       alt: "Three-panel big idea poster showing fire, language and culture.",
@@ -61,6 +69,10 @@ export const evolutionaryIdeas: EvolutionaryIdea[] = [
       src: "/assets/big-ideas/language.png",
       alt: "Language poster explaining communication, cooperation, teaching, bonding and evidence for language.",
     },
+    stimulus: {
+      src: "/assets/big-ideas/stimulus-language.png",
+      alt: "Ancient human relatives teaching, gesturing and sharing tool-making knowledge at sunset.",
+    },
     thumbnail: {
       src: "/assets/big-ideas/fire-language-culture.png",
       alt: "Three-panel big idea poster showing fire, language and culture.",
@@ -81,6 +93,10 @@ export const evolutionaryIdeas: EvolutionaryIdea[] = [
     poster: {
       src: "/assets/big-ideas/culture.png",
       alt: "Culture poster explaining burials, jewellery, cave painting, tools, symbols and shared traditions.",
+    },
+    stimulus: {
+      src: "/assets/big-ideas/stimulus-culture.png",
+      alt: "Ancient human relatives making beads, ochre marks and cave art in a warmly lit cave.",
     },
     thumbnail: {
       src: "/assets/big-ideas/fire-language-culture.png",
